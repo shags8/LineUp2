@@ -15,6 +15,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
@@ -22,19 +23,41 @@ class WelcomePage : AppCompatActivity() {
 
     private lateinit var permissionLauncher:ActivityResultLauncher<Array<String>>
     private var isLocationPermissionGranted=false
+    val permissionRequest= mutableListOf<String>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_page)
 
+
+
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-            permissions->
+                permissions->
             isLocationPermissionGranted= permissions[permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
-
-       }
-
+            if (!isLocationPermissionGranted) {
+                showPermissionDeniedDialog()
+            }
+        }
         requestPermission()
+    }
+
+    private fun showPermissionDeniedDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Permission Required")
+        builder.setMessage("LineUp requires location permission to function properly.")
+        builder.setPositiveButton("Grant Permission") { dialog, which ->
+            permissionRequest.add(permission.ACCESS_FINE_LOCATION)
+            permissionLauncher.launch(permissionRequest.toTypedArray())
+            dialog.dismiss()
+        }
+        builder.setNegativeButton("Exit") { dialog, which ->
+            dialog.dismiss()
+            finish()
+        }
+        val dialog = builder.create()
+        dialog.show()
+
     }
 
 
@@ -46,7 +69,7 @@ class WelcomePage : AppCompatActivity() {
 
 
 
-        val permissionRequest= mutableListOf<String>()
+
 
         if(!isLocationPermissionGranted){
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
