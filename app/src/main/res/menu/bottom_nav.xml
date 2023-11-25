@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/QR_code"
+        android:icon="@drawable/baseline_qr_code_24"
+        android:title="Qr Code"
+     />
+    <item
+        android:id="@+id/Scanner"
+     android:icon="@drawable/scanner"
+         android:title="Scanner"
+        />
+    <item
+       android:id="@+id/route"
+
+       android:icon="@drawable/route"
+        android:title="Route" />
+    <item
+        android:id="@+id/Leaderboard"
+       android:icon="@drawable/leaderboard"
+        android:title="Leaderboard"
+        />
+</menu>
