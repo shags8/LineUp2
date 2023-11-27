@@ -37,7 +37,8 @@
         android:text="@string/register"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:onClick="Register"/>
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -51,7 +52,8 @@
         android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:onClick="Login"/>
 
 
 
