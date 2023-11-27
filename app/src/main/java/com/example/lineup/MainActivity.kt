@@ -10,11 +10,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val tv=findViewById<TextView>(R.id.tv)
-        tv.setOnClickListener {
-            val i= Intent(this,WelcomePage::class.java)
-            startActivity(i)
-        }
+
 
     }
 }

@@ -4,11 +4,13 @@ import android.Manifest
 import android.Manifest.permission
 import android.app.Instrumentation.ActivityResult
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -31,7 +33,6 @@ class WelcomePage : AppCompatActivity() {
         setContentView(R.layout.activity_welcome_page)
 
 
-
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
                 permissions->
             isLocationPermissionGranted= permissions[permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
@@ -41,6 +42,7 @@ class WelcomePage : AppCompatActivity() {
         }
         requestPermission()
     }
+
 
     private fun showPermissionDeniedDialog() {
         val builder = AlertDialog.Builder(this)
@@ -67,10 +69,6 @@ class WelcomePage : AppCompatActivity() {
             permission.ACCESS_FINE_LOCATION
         )==PackageManager.PERMISSION_GRANTED
 
-
-
-
-
         if(!isLocationPermissionGranted){
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
         }
@@ -78,5 +76,19 @@ class WelcomePage : AppCompatActivity() {
         if(permissionRequest.isNotEmpty()){
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
+    }
+
+    private var flag=-1
+    fun Register(view: View) {
+        val intent= Intent(this,RegisterActivity::class.java)
+        flag=1
+        intent.putExtra("Register",flag)
+        startActivity(intent)
+    }
+    fun Login(view: View) {
+        val intent=Intent(this,RegisterActivity::class.java)
+        flag=0
+        intent.putExtra("Register",flag)
+        startActivity(intent)
     }
 }
