@@ -14,4 +14,7 @@
     <string name="password">Password</string>
     <string name="log_in_to">Log in to</string>
     <string name="your_account">your account</string>
+
+    <string name="scanner_screen_heading">Scan QR Code</string>
+    <string name="scanner_screen_info">Scan QR code of your band members.</string>
 </resources>
