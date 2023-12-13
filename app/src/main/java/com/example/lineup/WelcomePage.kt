@@ -36,12 +36,14 @@ class WelcomePage : AppCompatActivity() {
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
                 permissions->
             isLocationPermissionGranted= permissions[permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
-            if (!isLocationPermissionGranted) {
+            if (!isLocationPermissionGranted ) {
                 showPermissionDeniedDialog()
             }
+
         }
         requestPermission()
     }
+
 
 
     private fun showPermissionDeniedDialog() {
@@ -78,17 +80,12 @@ class WelcomePage : AppCompatActivity() {
         }
     }
 
-    private var flag=-1
     fun Register(view: View) {
-        val intent= Intent(this,RegisterActivity::class.java)
-        flag=1
-        intent.putExtra("Register",flag)
+        val intent= Intent(this,SignUpActivity::class.java)
         startActivity(intent)
     }
     fun Login(view: View) {
-        val intent=Intent(this,RegisterActivity::class.java)
-        flag=0
-        intent.putExtra("Register",flag)
+        val intent=Intent(this,LoginActivity::class.java)
         startActivity(intent)
     }
 }
