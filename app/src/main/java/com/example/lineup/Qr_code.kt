@@ -5,55 +5,84 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.KeyEvent
+import android.widget.ImageView
+import android.widget.TextView
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.ResultPoint
+import com.google.zxing.client.android.BeepManager
+import com.journeyapps.barcodescanner.BarcodeCallback
+import com.journeyapps.barcodescanner.BarcodeResult
+import com.journeyapps.barcodescanner.DecoratedBarcodeView
+import com.journeyapps.barcodescanner.DefaultDecoderFactory
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Qr_code.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class Qr_code : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var barcodeView: DecoratedBarcodeView
+    private lateinit var beepManager: BeepManager
+    private var lastText: String? = null
+
+    private lateinit var scannedTextView: TextView
+
+    private val callback = object : BarcodeCallback {
+        override fun barcodeResult(result: BarcodeResult) {
+            if (result.text == null || result.text == lastText) {
+                // Prevent duplicate scans
+                return
+            }
+
+            lastText = result.text
+            barcodeView.setStatusText(result.text)
+
+            beepManager.playBeepSoundAndVibrate()
+
+
+
         }
+
+        override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_qr_code, container, false)
+        val view = inflater.inflate(R.layout.fragment_qr_code, container, false)
+
+        barcodeView = view.findViewById(R.id.barcode_scanner)
+        val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
+        barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
+        barcodeView.initializeFromIntent(requireActivity().intent)
+        barcodeView.decodeContinuous(callback)
+
+        beepManager = BeepManager(requireActivity())
+
+        return view
+    }
+    override fun onResume() {
+        super.onResume()
+        barcodeView.resume()
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Qr_code.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Qr_code().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onPause() {
+        super.onPause()
+        barcodeView.pause()
     }
+
+    fun pause() {
+        barcodeView.pause()
+    }
+
+    fun resume() {
+        barcodeView.resume()
+    }
+
+    fun triggerScan() {
+        barcodeView.decodeSingle(callback)
+    }
+
 }
