@@ -24,10 +24,15 @@
         tools:targetApi="31">
         <activity
             android:name=".SignUpActivity"
-            android:exported="false" />
+            android:exported="true">
+
+
+        </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".bottom_activity"
             android:exported="true" />
