@@ -1,7 +1,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    tools:context =".SignUpActivity"
+    >
 
     <include
         android:id="@+id/lin_lay"
@@ -74,7 +78,7 @@
                     android:fontFamily="@font/montserrat_medium" />
 
                 <EditText
-                    android:id="@+id/zeal_id"
+                    android:id="@+id/zeal"
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
@@ -110,7 +114,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@id/lin_lay"
         android:background="@drawable/ellipse">
 
 
@@ -126,16 +129,15 @@
             android:layout_marginTop="80dp"
             android:fontFamily="@font/montserrat_medium" />
 
-        <ImageButton
-            android:id="@+id/next_btn"
+        <Button
+            android:id="@+id/regtbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/next_arrow"
+            android:text="@string/arrow"
             android:background="@drawable/button_bg"
             android:textColor="@color/white"
-            android:layout_marginTop="80dp"
-            android:layout_marginEnd="32dp"/>
+            android:layout_marginTop="65dp" />
     </androidx.appcompat.widget.Toolbar>
 
 
