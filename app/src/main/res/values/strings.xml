@@ -19,4 +19,6 @@
     <string name="scanner_screen_info">Scan QR code of your band members.</string>
     <string name="arrow"><![CDATA[>>>]]></string>
     <string name="text">Text</string>
+    <string name="my_qr_code">My QR Code</string>
+    <string name="generate_qr">Generate QR</string>
 </resources>

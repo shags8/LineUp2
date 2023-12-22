@@ -81,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/lin_lay"
         android:background="@drawable/ellipse">
 
 
@@ -96,15 +97,16 @@
             android:layout_marginTop="80dp"
             android:fontFamily="@font/montserrat_medium" />
 
-        <Button
+        <ImageButton
             android:id="@+id/next_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:text="@string/arrow"
+            android:src="@drawable/next_arrow"
             android:background="@drawable/button_bg"
             android:textColor="@color/white"
-            android:layout_marginTop="65dp" />
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="32dp"/>
 
     </androidx.appcompat.widget.Toolbar>
 

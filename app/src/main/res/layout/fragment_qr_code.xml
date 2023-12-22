@@ -16,6 +16,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="80dp"/>
 
+
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcode_scanner"
         android:layout_width="match_parent"
@@ -26,8 +27,8 @@
         android:layout_marginBottom="60dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-    >
-     </com.journeyapps.barcodescanner.DecoratedBarcodeView>
+        >
+    </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
     <TextView
         android:id="@+id/text2"
