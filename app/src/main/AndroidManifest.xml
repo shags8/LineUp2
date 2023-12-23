@@ -31,7 +31,9 @@
             android:exported="false" />
         <activity
             android:name=".bottom_activity"
-            android:exported="true" />
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".WelcomePage"
             android:exported="true">

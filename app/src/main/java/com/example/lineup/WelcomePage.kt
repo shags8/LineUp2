@@ -20,12 +20,15 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class WelcomePage : AppCompatActivity() {
 
     private lateinit var permissionLauncher:ActivityResultLauncher<Array<String>>
     private var isLocationPermissionGranted=false
     val permissionRequest= mutableListOf<String>()
+
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +45,15 @@ class WelcomePage : AppCompatActivity() {
 
         }
         requestPermission()
+
+
+        auth=FirebaseAuth.getInstance()
+        val user=auth.currentUser
+        if(user!=null){
+            startActivity(Intent(this,bottom_activity::class.java))
+            finish()
+        }
+
     }
 
 

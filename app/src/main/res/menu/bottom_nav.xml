@@ -3,21 +3,21 @@
 
     <item
         android:id="@+id/QR_code"
-        android:icon="@drawable/baseline_qr_code_24"
+        android:icon="@drawable/qr_selector"
         android:title="Qr Code"
      />
     <item
         android:id="@+id/Scanner"
-     android:icon="@drawable/scanner"
+     android:icon="@drawable/scanner_selector"
          android:title="Scanner"
         />
     <item
        android:id="@+id/route"
-       android:icon="@drawable/route"
+       android:icon="@drawable/route_selector"
         android:title="Route" />
     <item
         android:id="@+id/Leaderboard"
-       android:icon="@drawable/leaderboard"
+       android:icon="@drawable/leaderboard_selector"
         android:title="Leaderboard"
         />
 </menu>

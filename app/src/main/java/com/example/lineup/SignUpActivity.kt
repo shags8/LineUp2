@@ -99,7 +99,7 @@ class SignUpActivity : AppCompatActivity() {
                             }
                         })
                                 }else{
-                        Toast.makeText(this,"Error",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"Error! Please choose a strong password",Toast.LENGTH_SHORT).show()
                     }
                 }
 

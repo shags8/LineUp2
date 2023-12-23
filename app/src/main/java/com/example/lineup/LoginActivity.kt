@@ -25,7 +25,6 @@ public class LoginActivity : AppCompatActivity() {
     private var database = FirebaseDatabase.getInstance()
     val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
     private val userInfo=database.getReference("users/$userid")
-    private var databaseReference = FirebaseDatabase.getInstance().getReference("users")
     private lateinit var zeal_id:String
     private lateinit var auth_password:String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +40,27 @@ val loginbtn = binding.loginBtn
                 zeal_id=snapshot.child("zealid").value.toString()
                 auth_password=snapshot.child("Password").value.toString()
 
+                loginbtn.setOnClickListener {
+                    val zeal = binding.zeal.text.toString()
+                    val password = binding.password.text.toString()
+
+                    if(zeal.isEmpty() || password.isEmpty())
+                    {
+                        //Log.e("zealID","$zeal")
+                        Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+
+                        if(zeal == zeal_id && password == auth_password){
+                            Toast.makeText(this,"User verified",Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this,bottom_activity::class.java))
+                            finish()
+                        }else{
+                            Toast.makeText(this,"Oops! User not registered ",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
              //   Log.e("id123", zeal_id)
 
             }else{
@@ -50,45 +70,7 @@ val loginbtn = binding.loginBtn
         }
 
 
-        loginbtn.setOnClickListener {
-            val zeal = binding.zeal.text.toString()
-            val password = binding.password.text.toString()
 
-            if(zeal.isEmpty() || password.isEmpty())
-            {
-                Log.e("zealID","$zeal")
-                Toast.makeText(this, "please enter your zealId and password", Toast.LENGTH_SHORT).show()
-            }
-           else{
-
-               if(zeal == zeal_id && password == auth_password){
-                   Toast.makeText(this,"User verified",Toast.LENGTH_SHORT).show()
-                   startActivity(Intent(this,bottom_activity::class.java))
-                   finish()
-               }else{
-                   Toast.makeText(this,"User not found",Toast.LENGTH_SHORT).show()
-               }
-            }
-        }
 
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        AlertDialog.Builder(this)
-            .setTitle("Exit")
-            .setMessage("Are you sure?")
-            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            })
-            .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
-                super.onBackPressed()
-            })
-            .show()
-    }
-
-
 }
