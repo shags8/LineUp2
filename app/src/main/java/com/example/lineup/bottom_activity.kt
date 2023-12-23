@@ -1,9 +1,11 @@
 package com.example.lineup
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.service.autofill.OnClickAction
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.lineup.databinding.ActivityBottomBinding
 import java.util.Scanner
@@ -30,6 +32,22 @@ class bottom_activity : AppCompatActivity() {
 
         }
         true
+    }
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit")
+            .setMessage("Are you sure?")
+            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            })
+            .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
+                super.onBackPressed()
+            })
+            .show()
     }
     private fun replaceFragments(fragment : Fragment) {
         val fragmentManager = supportFragmentManager

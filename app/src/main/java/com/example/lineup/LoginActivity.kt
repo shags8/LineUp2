@@ -33,10 +33,7 @@ public class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root);
 
-
-      //  val zeal  = binding.zeal.editableText.toString()
-      //  val password = binding.password.editableText.toString()
-        val loginbtn = binding.loginBtn
+val loginbtn = binding.loginBtn
      //   Log.e("zealID","$zeal")
         userInfo.get().addOnCompleteListener { task ->
             if(task.isSuccessful){
@@ -71,39 +68,6 @@ public class LoginActivity : AppCompatActivity() {
                }else{
                    Toast.makeText(this,"User not found",Toast.LENGTH_SHORT).show()
                }
-//
-//                databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-//                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                        // check if zealid is exist in firebase databse
-//                        if(dataSnapshot.hasChild(zealnumber))
-//                        {
-//                            // zeal id exist in firebase
-//                            // now get the user from firebase database and match it with user entered password
-//                            val getpassword = dataSnapshot.child(zealnumber).child("Password").getValue(String::class.java)
-//
-//                            if (getpassword != null) {
-//                                if(getpassword.equals(password_number)) {
-//                                    Toast.makeText(this@LoginActivity, "Successfully Logged in..", Toast.LENGTH_SHORT).show()
-//                                    startActivity(Intent(this@LoginActivity , bottom_activity::class.java))
-//                                    finish();
-//
-//                                } else {
-//
-//                                    Toast.makeText(this@LoginActivity, "Credentials are Wrong.", Toast.LENGTH_SHORT).show()
-//                                }
-//                            }
-//                        }
-//                        else
-//                        {
-//                            Toast.makeText(this@LoginActivity, "Credentials are Wrong", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//
-//                    override fun onCancelled(databaseError: DatabaseError) {
-//                        Toast.makeText(this@LoginActivity, "Credentials are Wrong", Toast.LENGTH_SHORT).show()
-//
-//                    }
-//                })
             }
         }
 
