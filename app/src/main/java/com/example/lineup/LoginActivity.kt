@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.lineup.databinding.ActivityLoginBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -28,6 +29,9 @@ public class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root);
 
+        val zealid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
+
 
         val zeal  = binding.zeal
         val password = binding.password
@@ -35,10 +39,10 @@ public class LoginActivity : AppCompatActivity() {
 
 
         loginbtn.setOnClickListener {
-            val zealnumber = zeal.text.toString()
+            val zealNumber = zeal.text.toString()
             val password_number = password.text.toString()
 
-            if(zealnumber.isEmpty() || password_number.isEmpty())
+            if(zealNumber.isEmpty() || password_number.isEmpty())
             {
                 Toast.makeText(this, "please enter your zealId and password", Toast.LENGTH_SHORT).show()
             }
@@ -47,16 +51,16 @@ public class LoginActivity : AppCompatActivity() {
                 databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onDataChange(dataSnapshot: DataSnapshot) {
                         // check if zealid is exist in firebase databse
-                        if(dataSnapshot.hasChild(zealnumber))
+                        if(dataSnapshot.hasChild(zealNumber))
                         {
                             // zeal id exist in firebase
                             // now get the user from firebase database and match it with user entered password
-                            val getpassword = dataSnapshot.child(zealnumber).child("Password").getValue(String::class.java)
+                            val getpassword = dataSnapshot.child(zealid).child("Password").getValue(String::class.java)
+                            val zealId = dataSnapshot.child(zealid).child("zealid").getValue(String::class.java)
 
-                            if (getpassword != null) {
-                                if(getpassword.equals(password_number)) {
+                            if (getpassword != null && zealId != null) {
+                                if(getpassword.equals(password_number) && zealId.equals()) {
                                     Toast.makeText(this@LoginActivity, "Successfully Logged in..", Toast.LENGTH_SHORT).show()
-
                                     startActivity(Intent(this@LoginActivity , bottom_activity::class.java))
                                     finish();
 

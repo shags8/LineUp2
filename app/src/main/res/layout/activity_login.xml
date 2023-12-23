@@ -2,6 +2,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
+
     >
 
     <include
@@ -67,6 +68,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="28dp"
                 android:layout_marginLeft="32dp"
+
                 android:layout_marginRight="32dp"
                 android:background="@drawable/info_bg"
                 android:hint="@string/password"
