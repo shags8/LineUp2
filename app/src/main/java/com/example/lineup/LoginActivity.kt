@@ -2,6 +2,7 @@
 package com.example.lineup
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.lineup.databinding.ActivityBottomBinding
+import androidx.appcompat.app.AlertDialog
 import com.example.lineup.databinding.ActivityLoginBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -79,6 +80,23 @@ public class LoginActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit")
+            .setMessage("Are you sure?")
+            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            })
+            .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
+                super.onBackPressed()
+            })
+            .show()
     }
 
 

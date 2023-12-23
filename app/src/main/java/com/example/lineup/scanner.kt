@@ -10,12 +10,18 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
 import com.google.zxing.common.BitMatrix
 import com.journeyapps.barcodescanner.BarcodeEncoder
 
 class scanner : Fragment() {
+    private var database = FirebaseDatabase.getInstance()
+    val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    private val userInfo=database.getReference("users/$userid")
+    private lateinit var zeal_id:String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -30,13 +36,23 @@ class scanner : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val qr=view.findViewById<ImageView>(R.id.qr_code)
-        val zeal_id=arguments?.getString("id").toString()
-        Log.e("id123","$zeal_id")
+        userInfo.get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val snapshot=task.result
+                zeal_id=snapshot.child("zealid").value.toString()
+                Log.e("id123", zeal_id)
+
+            }else{
+                Log.e("TAG","Error getting data")
+            }
+
+        }
+     //   Log.e("id123","$zeal_id")
         // btn.setOnClickListener {
         val multiFormatWriter = MultiFormatWriter()
         try {
             val multiFormatWriter = MultiFormatWriter()
-            val bitMatrix: BitMatrix = multiFormatWriter.encode(zeal_id, BarcodeFormat.QR_CODE, 300, 300)
+            val bitMatrix: BitMatrix = multiFormatWriter.encode(userid, BarcodeFormat.QR_CODE, 300, 300)
             val barcodeEncoder = BarcodeEncoder()
             val bitMap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
 
