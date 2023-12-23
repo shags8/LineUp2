@@ -28,7 +28,6 @@ class bottom_activity : AppCompatActivity() {
 
 
         }
-        true
     }
 
     private fun replaceFragments(fragment : Fragment) {
