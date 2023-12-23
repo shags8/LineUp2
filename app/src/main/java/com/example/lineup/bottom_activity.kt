@@ -22,12 +22,12 @@ class bottom_activity : AppCompatActivity() {
                 R.id.Leaderboard -> replaceFragments(Leaderboard())
                 R.id.QR_code -> replaceFragments(Qr_code())
                 R.id.route -> replaceFragments(route())
+                R.id.Scanner -> replaceFragments(scanner())
             }
             return@setOnItemSelectedListener true
 
 
         }
-        true
     }
 
     private fun replaceFragments(fragment : Fragment) {

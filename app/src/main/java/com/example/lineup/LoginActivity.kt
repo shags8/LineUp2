@@ -1,7 +1,5 @@
 // login up
 package com.example.lineup
-
-
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.startActivity
 import com.example.lineup.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -23,85 +22,55 @@ public class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityLoginBinding
 
-    private var databaseReference = FirebaseDatabase.getInstance().getReference("users")
+    private var database = FirebaseDatabase.getInstance()
+    val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    private val userInfo=database.getReference("users/$userid")
+    private lateinit var zeal_id:String
+    private lateinit var auth_password:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root);
 
-        val zealid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+val loginbtn = binding.loginBtn
+     //   Log.e("zealID","$zeal")
+        userInfo.get().addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                val snapshot=task.result
+                zeal_id=snapshot.child("zealid").value.toString()
+                auth_password=snapshot.child("Password").value.toString()
 
+                loginbtn.setOnClickListener {
+                    val zeal = binding.zeal.text.toString()
+                    val password = binding.password.text.toString()
 
+                    if(zeal.isEmpty() || password.isEmpty())
+                    {
+                        //Log.e("zealID","$zeal")
+                        Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT).show()
+                    }
+                    else{
 
-        val zeal  = binding.zeal
-        val password = binding.password
-        val loginbtn = binding.loginbtn
-
-
-        loginbtn.setOnClickListener {
-            val zealNumber = zeal.text.toString()
-            val password_number = password.text.toString()
-
-            if(zealNumber.isEmpty() || password_number.isEmpty())
-            {
-                Toast.makeText(this, "please enter your zealId and password", Toast.LENGTH_SHORT).show()
-            }
-            else{
-
-                databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        // check if zealid is exist in firebase databse
-                        if(dataSnapshot.hasChild(zealNumber))
-                        {
-                            // zeal id exist in firebase
-                            // now get the user from firebase database and match it with user entered password
-                            val getpassword = dataSnapshot.child(zealid).child("Password").getValue(String::class.java)
-                            val zealId = dataSnapshot.child(zealid).child("zealid").getValue(String::class.java)
-
-                            if (getpassword != null && zealId != null) {
-                                if(getpassword.equals(password_number) && zealId.equals(zealNumber)) {
-                                    Toast.makeText(this@LoginActivity, "Successfully Logged in..", Toast.LENGTH_SHORT).show()
-                                    startActivity(Intent(this@LoginActivity , bottom_activity::class.java))
-                                    finish();
-
-                                } else {
-
-                                    Toast.makeText(this@LoginActivity, "Credentials are Wrong.", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Toast.makeText(this@LoginActivity, "Credentials are Wrong", Toast.LENGTH_SHORT).show()
+                        if(zeal == zeal_id && password == auth_password){
+                            Toast.makeText(this,"User verified",Toast.LENGTH_SHORT).show()
+                            startActivity(Intent(this,bottom_activity::class.java))
+                            finish()
+                        }else{
+                            Toast.makeText(this,"Oops! User not registered ",Toast.LENGTH_SHORT).show()
                         }
                     }
+                }
 
-                    override fun onCancelled(databaseError: DatabaseError) {
-                        Toast.makeText(this@LoginActivity, "Credentials are Wrong", Toast.LENGTH_SHORT).show()
+             //   Log.e("id123", zeal_id)
 
-                    }
-                })
+            }else{
+              //  Log.e("TAG","Error getting data")
             }
+
         }
 
+
+
+
     }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        AlertDialog.Builder(this)
-            .setTitle("Exit")
-            .setMessage("Are you sure?")
-            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            })
-            .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
-                super.onBackPressed()
-            })
-            .show()
-    }
-
-
 }
