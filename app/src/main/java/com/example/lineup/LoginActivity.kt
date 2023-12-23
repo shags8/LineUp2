@@ -68,9 +68,6 @@ val loginbtn = binding.loginBtn
             }
 
         }
-
-
-
-
     }
+
 }
