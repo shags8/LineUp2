@@ -59,7 +59,7 @@ public class LoginActivity : AppCompatActivity() {
                             val zealId = dataSnapshot.child(zealid).child("zealid").getValue(String::class.java)
 
                             if (getpassword != null && zealId != null) {
-                                if(getpassword.equals(password_number) && zealId.equals()) {
+                                if(getpassword.equals(password_number) && zealId.equals(zealNumber)) {
                                     Toast.makeText(this@LoginActivity, "Successfully Logged in..", Toast.LENGTH_SHORT).show()
                                     startActivity(Intent(this@LoginActivity , bottom_activity::class.java))
                                     finish();
