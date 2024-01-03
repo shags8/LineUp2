@@ -21,4 +21,7 @@
     <string name="text">Text</string>
     <string name="my_qr_code">My QR Code</string>
     <string name="generate_qr">Generate QR</string>
+    <string name="line_up_radar">Line Up Radar</string>
+    <string name="you_can_find_three_more_players_which_are">You can find three more players</string>
+    <string name="closest_to_you">which are closest to you.</string>
 </resources>

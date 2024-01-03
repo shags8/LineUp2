@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context =".SignUpActivity"
-    >
+    tools:context =".SignUpActivity">
 
     <include
         android:id="@+id/lin_lay"
@@ -13,8 +12,6 @@
         android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
-
 
             <LinearLayout
                 android:id="@+id/L1"
@@ -47,8 +44,6 @@
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="35sp" />
-
-
 
                 <EditText
                     android:id="@+id/name"
@@ -109,7 +104,6 @@
             </LinearLayout>
 
 
-
     <androidx.appcompat.widget.Toolbar
         android:layout_below="@+id/L1"
         android:layout_marginTop="30dp"
@@ -118,7 +112,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/ellipse">
-
 
         <TextView
             android:id="@+id/reg_text"
@@ -144,6 +137,5 @@
             android:layout_marginEnd="32dp"
             android:layout_marginTop="85dp" />
     </androidx.appcompat.widget.Toolbar>
-
 
 </RelativeLayout>
