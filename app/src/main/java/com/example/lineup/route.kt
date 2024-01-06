@@ -1,6 +1,5 @@
 package com.example.lineup
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -26,9 +25,4 @@ class route : Fragment() {
         rippleBackground?.startRippleAnimation()
         return view
     }
-
-
-//        if (EventBus.getDefault().isRegistered(this)) {
-//            EventBus.getDefault().unregister(this)
-//        }
-    }
+}

@@ -1,110 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".route">
 
-    <com.skyfishjy.library.RippleBackground
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ripple_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ripple_bg"
         app:rb_color="#CDCDCD"
+        app:rb_duration="3000"
         app:rb_radius="32dp"
         app:rb_rippleAmount="4"
-        app:rb_duration="3000"
-        app:rb_scale="6">
-    </com.skyfishjy.library.RippleBackground>
+        app:rb_scale="6"></com.skyfishjy.library.RippleBackground>
 
     <TextView
         android:id="@+id/radar_heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/line_up_radar"
-        android:fontFamily="@font/montserrat_bold"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        android:textSize="40sp"
         android:layout_marginTop="60dp"
-        android:gravity="center"/>
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center"
+        android:text="@string/line_up_radar"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/you_can_fin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/you_can_find_three_more_players_which_are"
-        android:textSize="16sp"
-        android:letterSpacing="0.01"
-        android:textColor="@color/black"
-        android:fontFamily="@font/montserrat_medium"
-        android:textAlignment="center"
         android:layout_below="@+id/radar_heading"
-        android:layout_marginTop="45dp"/>
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/montserrat_medium"
+        android:letterSpacing="0.01"
+        android:text="@string/you_can_find_three_more_players_which_are"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/closest_to_you"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/closest_to_you"
-        android:textSize="16sp"
-        android:letterSpacing="0.01"
-        android:textColor="@color/black"
+        android:layout_below="@id/you_can_fin"
         android:fontFamily="@font/montserrat_medium"
+        android:letterSpacing="0.01"
+        android:text="@string/closest_to_you"
         android:textAlignment="center"
-        android:layout_below="@id/you_can_fin"/>
+        android:textColor="@color/black"
+        android:textSize="16sp" />
 
     <LinearLayout
         android:id="@+id/user_ll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
-    <ImageView
-        android:id="@+id/user"
-        android:layout_width="56dp"
-        android:layout_height="70dp"
-        android:src="@drawable/red_avatar"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/you"
-        android:textAlignment="center"
-        android:layout_gravity="center"
-        android:fontFamily="@font/montserrat_medium"
-        android:textColor="@color/black"
-        android:textSize="18sp"/>
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/user"
+            android:layout_width="56dp"
+            android:layout_height="70dp"
+            android:src="@drawable/red_avatar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/you"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ll1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/user_ll"
-        android:layout_marginStart="100dp">
+        android:layout_marginStart="100dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/part_1"
             android:layout_width="28dp"
             android:layout_height="46dp"
             android:layout_gravity="center"
-            android:src="@drawable/pink_avatar"/>
+            android:src="@drawable/pink_avatar" />
 
         <TextView
             android:id="@+id/dist1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dist1"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_gravity="center"
             android:fontFamily="@font/montserrat_medium"
+            android:text="dist1"
             android:textAlignment="center"
-            android:layout_gravity="center"/>
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -112,29 +111,29 @@
         android:id="@+id/ll2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_below="@id/user_ll"
         android:layout_alignLeft="@id/user_ll"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/part_2"
             android:layout_width="28dp"
             android:layout_height="46dp"
-            android:src="@drawable/pink_avatar"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/pink_avatar" />
 
         <TextView
             android:id="@+id/dist2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dist2"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_gravity="center"
             android:fontFamily="@font/montserrat_medium"
+            android:text="dist2"
             android:textAlignment="center"
-            android:layout_gravity="center"/>
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -142,29 +141,29 @@
         android:id="@+id/ll3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_above="@id/user_ll"
         android:layout_alignLeft="@id/user_ll"
         android:layout_marginStart="80dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/part_3"
             android:layout_width="28dp"
             android:layout_height="46dp"
-            android:src="@drawable/pink_avatar"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/pink_avatar" />
 
         <TextView
             android:id="@+id/dist3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="dist3"
-            android:textColor="@color/black"
-            android:textSize="16sp"
+            android:layout_gravity="center"
             android:fontFamily="@font/montserrat_medium"
+            android:text="dist3"
             android:textAlignment="center"
-            android:layout_gravity="center"/>
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 
     <ProgressBar
@@ -173,50 +172,46 @@
         android:layout_height="28dp"
         android:layout_below="@id/ll2"
         android:layout_centerHorizontal="true"
-        android:visibility="invisible"
-        />
+        android:visibility="invisible" />
 
     <androidx.cardview.widget.CardView
-        android:elevation="40dp"
         android:layout_width="156dp"
         android:layout_height="46dp"
+        android:layout_below="@+id/progress_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:background="@drawable/round_bg"
         android:backgroundTint="@color/black"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/progress_bar"
-        android:layout_marginTop="20dp"
+        android:elevation="40dp"
         app:cardCornerRadius="28dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="horizontal"
-            android:weightSum="2"
-            android:layout_gravity="center">
+            android:weightSum="2">
 
             <ImageView
-                android:layout_weight="1"
                 android:layout_width="20dp"
                 android:layout_height="14dp"
-                android:src="@drawable/refresh"
                 android:layout_gravity="center_vertical"
+                android:layout_marginVertical="3dp"
                 android:layout_marginEnd="5dp"
-                android:layout_marginVertical="3dp"/>
+                android:layout_weight="1"
+                android:src="@drawable/refresh" />
 
             <TextView
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
                 android:text="@string/refresh"
-                android:textColor="@color/white"
                 android:textAlignment="center"
                 android:textAllCaps="true"
-                android:gravity="center"
-                android:fontFamily="@font/montserrat_bold"
-                android:textSize="18sp"
-                />
+                android:textColor="@color/white"
+                android:textSize="18sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-
 </RelativeLayout>

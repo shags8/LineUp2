@@ -8,76 +8,73 @@
     <include
         android:id="@+id/lin_lay"
         layout="@layout/lineup_symbol"
-        android:layout_marginTop="0dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp" />
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/lin_lay"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@id/lin_lay">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/log_in_to"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_bold"
-                android:textSize="35sp"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/black"
-                android:text="@string/log_in_to"
-                android:layout_gravity="center"
-                android:textAlignment="center" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/your_account"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/your_account"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
 
 
-            <EditText
-                android:id="@+id/zeal"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="82dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/info_bg"
-                android:hint="@string/zeal_id"
-                android:padding="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_medium"
-                />
+        <EditText
+            android:id="@+id/zeal"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="82dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/zeal_id"
+            android:padding="20dp"
+            android:textColor="@color/black" />
 
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="28dp"
-                android:layout_marginLeft="32dp"
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="28dp"
 
-                android:layout_marginRight="32dp"
-                android:background="@drawable/info_bg"
-                android:hint="@string/password"
-                android:padding="20dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat_medium"
-                />
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/password"
+            android:padding="20dp"
+            android:textColor="@color/black" />
 
-        </LinearLayout>
+    </LinearLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -90,29 +87,26 @@
             android:id="@+id/reg_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:text="@string/login"
-            android:textSize="15sp"
-            android:textAllCaps="false"
             android:layout_marginStart="32dp"
             android:layout_marginTop="80dp"
-            android:fontFamily="@font/montserrat_medium" />
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
         <ImageButton
             android:id="@+id/login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/next_arrow"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/white"
+            android:layout_marginTop="85dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="85dp"/>
+            android:background="@drawable/button_bg"
+            android:src="@drawable/next_arrow"
+            android:textColor="@color/white" />
 
     </androidx.appcompat.widget.Toolbar>
-
-
-
 
 
 </RelativeLayout>
