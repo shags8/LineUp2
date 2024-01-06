@@ -63,7 +63,7 @@ class SignUpActivity : AppCompatActivity() {
                             "Registered Successfully",
                             Toast.LENGTH_SHORT
                         ).show()
-                        val intent = Intent(this@SignUpActivity, bottom_activity::class.java)
+                        val intent = Intent(this@SignUpActivity, CharacterSelect::class.java)
                         startActivity(intent)
                     }
 

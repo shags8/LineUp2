@@ -63,7 +63,7 @@ val loginbtn = binding.loginBtn
                                     "Login Successfully",
                                     Toast.LENGTH_SHORT
                                 ).show()
-                                val intent = Intent(this@LoginActivity, bottom_activity::class.java)
+                                val intent = Intent(this@LoginActivity, CharacterSelect::class.java)
                                 startActivity(intent)
                             }
 
