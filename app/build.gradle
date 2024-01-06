@@ -69,4 +69,11 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     implementation'com.skyfishjy.ripplebackground:library:1.0.1'
+
+    implementation 'com.github.kittinunf.fuel:fuel:2.3.1'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10'
+
 }
