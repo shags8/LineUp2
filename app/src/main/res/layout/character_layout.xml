@@ -9,7 +9,6 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:cropToPadding="true"
-        android:scaleType="fitCenter"
-        android:contentDescription="image"/>
+        android:scaleType="fitCenter" />
 
 </LinearLayout>
