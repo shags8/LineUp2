@@ -10,7 +10,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import com.example.lineup.RetrofitApi.apiInterface
+import com.example.lineup.dataClass.SignUp
 import com.example.lineup.databinding.ActivitySignUpBinding
+import com.google.android.play.integrity.internal.t
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
@@ -19,6 +22,9 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.installations.FirebaseInstallations
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -37,75 +43,78 @@ class SignUpActivity : AppCompatActivity() {
         val Registbutton = binding.regtbtn
 
 
-
-
-   //     FirebaseInstallations.getInstance().id.addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                val deviceId = task.result
-//                //val deviceRef = databaseReference.getReference("$deviceId")
-//                // Use the device ID as needed, for example, store it in Firebase Authentication
-//            } else {
-//                // Handle errors
-//            }
-//        }
-
-//        val auth = FirebaseAuth.getInstance()
-//        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            currentUser.updateProfile(
-//                UserProfileChangeRequest.Builder()
-//             //   .setCustomMetadata(mapOf("deviceId" to deviceId))
-//                .build())
-//        }
-
         Registbutton.setOnClickListener {
-            Log.e("error1" , "abcder")
 
             val fullnametxt = fullname.text.toString()
             val emailtxt = Email.text.toString()
             val zealidtxt = zealid.text.toString()
             val passwordtxt = Password.text.toString()
 
+
+            val userSignUp=SignUp(emailtxt , passwordtxt , fullnametxt , zealidtxt)
+            val call=apiInterface.signup(userSignUp)
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.e("error6" , "abcder")
-                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailtxt,passwordtxt).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-                        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-                            //  @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                                if (dataSnapshot.hasChild(userid)) {
-                                    Log.e("error2" , "abcder")
-                                    Toast.makeText(this@SignUpActivity, "Zeal id is already registered..", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    Log.e("error3" , "abcder")
-                                    // Store user data without whitespaces in keys
-                                    databaseReference.child(userid).child("FullName").setValue(fullnametxt)
-                                    databaseReference.child(userid).child("Email").setValue(emailtxt)
-                                    databaseReference.child(userid).child("Password").setValue(passwordtxt)
-                                    databaseReference.child(userid).child("zealid").setValue(zealidtxt)
-                                    Toast.makeText(this@SignUpActivity, "User Registered Successfully.", Toast.LENGTH_SHORT).show()
-                                    val i= Intent(this@SignUpActivity,bottom_activity::class.java)
-                                    startActivity(i)
-                                    finish()
-                                }
-                            }
-
-                            override fun onCancelled(databaseError: DatabaseError) {
-                                Log.e("error4" , "abcder")
-                                Toast.makeText(this@SignUpActivity, "Failed to register user...", Toast.LENGTH_SHORT).show()
-                            }
-                        })
-                                }else{
-                        Toast.makeText(this,"Error! Please choose a strong password",Toast.LENGTH_SHORT).show()
+            }else {
+                call.enqueue(object : Callback<SignUp> {
+                    override fun onResponse(call: Call<SignUp>, response: Response<SignUp>) {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            "Registered Successfully",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val intent = Intent(this@SignUpActivity, bottom_activity::class.java)
+                        startActivity(intent)
                     }
-                }
 
-
-
+                    override fun onFailure(call: Call<SignUp>, t: Throwable) {
+                        Toast.makeText(
+                            this@SignUpActivity,
+                            t.message.toString(),
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                })
             }
+
+//            if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
+//                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
+//            } else {
+//                Log.e("error6" , "abcder")
+//                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailtxt,passwordtxt).addOnCompleteListener{
+//                    if(it.isSuccessful){
+//                        val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
+//                        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+//                            //  @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
+//                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+//                                if (dataSnapshot.hasChild(userid)) {
+//                                    Log.e("error2" , "abcder")
+//                                    Toast.makeText(this@SignUpActivity, "Zeal id is already registered..", Toast.LENGTH_SHORT).show()
+//                                } else {
+//                                    Log.e("error3" , "abcder")
+//                                    // Store user data without whitespaces in keys
+//                                    databaseReference.child(userid).child("FullName").setValue(fullnametxt)
+//                                    databaseReference.child(userid).child("Email").setValue(emailtxt)
+//                                    databaseReference.child(userid).child("Password").setValue(passwordtxt)
+//                                    databaseReference.child(userid).child("zealid").setValue(zealidtxt)
+//                                    Toast.makeText(this@SignUpActivity, "User Registered Successfully.", Toast.LENGTH_SHORT).show()
+//                                    val i= Intent(this@SignUpActivity,bottom_activity::class.java)
+//                                    startActivity(i)
+//                                    finish()
+//                                }
+//                            }
+//
+//                            override fun onCancelled(databaseError: DatabaseError) {
+//                                Log.e("error4" , "abcder")
+//                                Toast.makeText(this@SignUpActivity, "Failed to register user...", Toast.LENGTH_SHORT).show()
+//                            }
+//                        })
+//                                }else{
+//                        Toast.makeText(this,"Error! Please choose a strong password",Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }
         }
     }
 }

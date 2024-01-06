@@ -24,4 +24,6 @@
     <string name="line_up_radar">Line Up Radar</string>
     <string name="you_can_find_three_more_players_which_are">You can find three more players</string>
     <string name="closest_to_you">which are closest to you.</string>
+    <string name="you">You</string>
+    <string name="refresh">REFRESH</string>
 </resources>
