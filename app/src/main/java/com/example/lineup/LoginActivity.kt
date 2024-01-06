@@ -46,8 +46,8 @@ val loginbtn = binding.loginBtn
 //                auth_password=snapshot.child("Password").value.toString()
 //
                 loginbtn.setOnClickListener {
-                    val zeal = binding.zeal.text.toString()
-                    val password = binding.password.text.toString()
+                    val zeal = binding.zeal.text.trim().toString()
+                    val password = binding.password.text.trim().toString()
 
                     if(zeal.isEmpty() || password.isEmpty())
                     {
