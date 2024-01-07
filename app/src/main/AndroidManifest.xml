@@ -25,35 +25,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lineup"
         tools:targetApi="31">
+
+        <activity
+            android:name=".CharacterSelect"
+            android:exported="true" >
+        </activity>
         
 
         <activity
             android:name=".SignUpActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            />
 
         <activity
             android:name=".bottom_activity"
             android:exported="true"
-            android:screenOrientation="portrait"/>
+           />
 
         <activity
             android:name=".WelcomePage"
-            android:exported="true"
-            android:screenOrientation="portrait">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:exported="true" />
     </application>
 
 </manifest>
