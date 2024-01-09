@@ -1,6 +1,7 @@
 package com.example.lineup
 
 import android.Manifest
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -22,6 +23,10 @@ class bottom_activity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBottomBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+
         binding = ActivityBottomBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)

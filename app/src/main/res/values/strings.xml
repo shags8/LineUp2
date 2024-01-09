@@ -26,4 +26,7 @@
     <string name="closest_to_you">which are closest to you.</string>
     <string name="you">You</string>
     <string name="refresh">REFRESH</string>
+    <string name="avatar">Avatar</string>
+    <string name="choose_your">Choose your</string>
+    <string name="next">Next</string>
 </resources>
