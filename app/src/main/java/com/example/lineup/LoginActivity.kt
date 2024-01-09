@@ -58,13 +58,19 @@ val loginbtn = binding.loginBtn
                         val call = RetrofitApi.apiInterface.login(userLogin)
                         call.enqueue(object : Callback<Login> {
                             override fun onResponse(call: Call<Login>, response: Response<Login>) {
-                                Toast.makeText(
-                                    this@LoginActivity,
-                                    "Login Successfully",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                val intent = Intent(this@LoginActivity, CharacterSelect::class.java)
-                                startActivity(intent)
+                                if (response.isSuccessful) {
+                                    Log.e("id123", "${response.headers()}")
+                                    Toast.makeText(
+                                        this@LoginActivity,
+                                        "Login Successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent =
+                                        Intent(this@LoginActivity, CharacterSelect::class.java)
+                                    startActivity(intent)
+                                }else{
+                                    Log.e("id123" , "${response.code()} - ${response.message()}")
+                                }
                             }
 
                             override fun onFailure(call: Call<Login>, t: Throwable) {

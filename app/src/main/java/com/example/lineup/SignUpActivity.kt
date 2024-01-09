@@ -1,6 +1,7 @@
 // sign up
 package com.example.lineup
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.dataClass.SignUp
+import com.example.lineup.dataClass.SignUp2
 import com.example.lineup.databinding.ActivitySignUpBinding
 import com.google.android.play.integrity.internal.t
 import com.google.firebase.auth.FirebaseAuth
@@ -42,32 +44,58 @@ class SignUpActivity : AppCompatActivity() {
         val Password = binding.password
         val Registbutton = binding.regtbtn
 
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+
 
         Registbutton.setOnClickListener {
 
             val fullnametxt = fullname.text.toString()
             val emailtxt = Email.text.toString()
-            val zealidtxt = zealid.text.toString()
-            val passwordtxt = Password.text.toString()
+            val zealidtxt = zealid.text.trim().toString()
+            val passwordtxt = Password.text.trim().toString()
 
 
-            val userSignUp=SignUp(emailtxt , passwordtxt , fullnametxt , zealidtxt)
+            val userSignUp=SignUp(emailtxt , passwordtxt , fullnametxt , zealidtxt )
             val call=apiInterface.signup(userSignUp)
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             }else {
-                call.enqueue(object : Callback<SignUp> {
-                    override fun onResponse(call: Call<SignUp>, response: Response<SignUp>) {
-                        Toast.makeText(
-                            this@SignUpActivity,
-                            "Registered Successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        val intent = Intent(this@SignUpActivity, CharacterSelect::class.java)
-                        startActivity(intent)
+                call.enqueue(object : Callback<SignUp2> {
+                    override fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
+                        if(response.isSuccessful) {
+                            val responseBody=response.body()
+                            if (responseBody != null) {
+                                editor.putString("Token", responseBody.token)
+                            }
+                            editor.apply()
+                         //   if(response.body().code)
+
+                            Log.e("id123", "$response")
+
+                            if(responseBody!=null){
+                                Log.e("id123" , "$responseBody")
+                                Log.e("id123" , "${responseBody.code}")
+                                if(responseBody.message.equals("Signup successful")){
+                                    Toast.makeText(
+                                        this@SignUpActivity,
+                                        "Registered Successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(this@SignUpActivity, CharacterSelect::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+
+                        }else{
+                            Log.e("id123" , "${response.code()} - ${response.message()}")
+
+                        }
                     }
 
-                    override fun onFailure(call: Call<SignUp>, t: Throwable) {
+                    override fun onFailure(call: Call<SignUp2>, t: Throwable) {
                         Toast.makeText(
                             this@SignUpActivity,
                             t.message.toString(),

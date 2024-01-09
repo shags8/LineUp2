@@ -128,8 +128,8 @@
 
         <ImageButton
             android:id="@+id/regtbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="46dp"
+            android:layout_height="24dp"
             android:layout_gravity="end"
             android:src="@drawable/next_arrow"
             android:background="@drawable/button_bg"

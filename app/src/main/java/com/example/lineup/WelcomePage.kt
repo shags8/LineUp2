@@ -39,7 +39,7 @@ class WelcomePage : AppCompatActivity() {
         permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
                 permissions->
             isLocationPermissionGranted= permissions[permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
-            if (!isLocationPermissionGranted ) {
+            if (!isLocationPermissionGranted) {
                 showPermissionDeniedDialog()
             }
 
@@ -47,12 +47,21 @@ class WelcomePage : AppCompatActivity() {
         requestPermission()
 
 
-        auth=FirebaseAuth.getInstance()
-        val user=auth.currentUser
-        if(user!=null){
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        if(retrievedValue!="defaultValue"){
             startActivity(Intent(this,bottom_activity::class.java))
             finish()
         }
+
+
+//        auth=FirebaseAuth.getInstance()
+//        val user=auth.currentUser
+//        if(user!=null){
+//            startActivity(Intent(this,bottom_activity::class.java))
+//            finish()
+//        }
 
     }
 
@@ -86,7 +95,6 @@ class WelcomePage : AppCompatActivity() {
         if(!isLocationPermissionGranted){
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
         }
-
         if(permissionRequest.isNotEmpty()){
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }

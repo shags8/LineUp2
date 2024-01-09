@@ -1,5 +1,6 @@
 package com.example.lineup
 
+import android.content.Context
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -21,6 +22,9 @@ class CharacterSelect : AppCompatActivity() {
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        Log.e("id1234", "$retrievedValue")
 
         var characters: IntArray = intArrayOf(
             R.drawable.red_avatar,
@@ -69,6 +73,8 @@ class CharacterSelect : AppCompatActivity() {
 
         Log.d("AvatarAdapter3", "Inflating CharacterLayoutBinding")
     }
-    private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int = (this * displayMetrics.density).toInt()
+
+    private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int =
+        (this * displayMetrics.density).toInt()
 
 }
