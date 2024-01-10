@@ -57,51 +57,49 @@ class SignUpActivity : AppCompatActivity() {
             val passwordtxt = Password.text.trim().toString()
 
 
-            val userSignUp=SignUp(emailtxt , passwordtxt , fullnametxt , zealidtxt )
-            val call=apiInterface.signup(userSignUp)
+            val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
+            val call = apiInterface.signup(userSignUp)
+
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-            }else {
+            } else {
                 call.enqueue(object : Callback<SignUp2> {
                     override fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
-                        if(response.isSuccessful) {
-                            val responseBody=response.body()
+                        if (response.isSuccessful) {
+                            val responseBody = response.body()
                             if (responseBody != null) {
                                 editor.putString("Token", responseBody.token)
                             }
                             editor.apply()
-                         //   if(response.body().code)
+                           Log.e("id23", "$response")
 
-                            Log.e("id123", "$response")
-
-                            if(responseBody!=null){
-                                Log.e("id123" , "$responseBody")
-                                Log.e("id123" , "${responseBody.code}")
-                                if(responseBody.message.equals("Signup successful")){
+                            if (responseBody != null) {
+                                Log.e("id23", "$responseBody")
+                             //   Log.e("id123", "${responseBody.code}")
+                                if (responseBody.message == "Signup successful") {
                                     Toast.makeText(
                                         this@SignUpActivity,
                                         "Registered Successfully",
                                         Toast.LENGTH_SHORT
                                     ).show()
-                                    val intent = Intent(this@SignUpActivity, CharacterSelect::class.java)
+                                    val intent =
+                                        Intent(this@SignUpActivity, CharacterSelect::class.java)
                                     startActivity(intent)
                                     finish()
                                 }
                             }
 
-                        }else{
-                            Log.e("id123" , "${response.code()} - ${response.message()}")
+                        } else {
+                            Log.e("id123" , "${response.body()}")
+                            Log.e("id123", "${response.code()} - ${response.message()}")
 
                         }
                     }
 
                     override fun onFailure(call: Call<SignUp2>, t: Throwable) {
                         Toast.makeText(
-                            this@SignUpActivity,
-                            t.message.toString(),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                            this@SignUpActivity,"Sign Up Failed! Please try again", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
             }

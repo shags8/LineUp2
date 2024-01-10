@@ -112,8 +112,10 @@ class bottom_activity : AppCompatActivity() {
                 startActivity(intent)
             })
             .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
-                super.onBackPressed()
+             //   super.onBackPressed()
             })
             .show()
+       // super.onBackPressed()
     }
-    }
+
+}
