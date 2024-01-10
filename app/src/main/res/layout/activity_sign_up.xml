@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    tools:context =".SignUpActivity">
+    tools:context =".SignUpActivity"
+    >
 
     <include
         android:id="@+id/lin_lay"
@@ -12,6 +13,8 @@
         android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+
 
             <LinearLayout
                 android:id="@+id/L1"
@@ -45,12 +48,17 @@
                     android:textColor="@color/black"
                     android:textSize="35sp" />
 
+
+
                 <EditText
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="32dp"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:inputType="text"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
                     android:background="@drawable/info_bg"
@@ -69,6 +77,9 @@
                     android:layout_marginRight="32dp"
                     android:background="@drawable/info_bg"
                     android:hint="@string/email"
+                    android:singleLine="true"
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress"
                     android:padding="20dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/montserrat_medium" />
@@ -95,6 +106,9 @@
                     android:layout_marginTop="28dp"
                     android:layout_marginLeft="32dp"
                     android:layout_marginRight="32dp"
+                    android:singleLine="true"
+
+                    android:maxLines="1"
                     android:background="@drawable/info_bg"
                     android:hint="@string/password"
                     android:padding="20dp"
@@ -102,6 +116,7 @@
                     android:fontFamily="@font/montserrat_medium" />
 
             </LinearLayout>
+
 
 
     <androidx.appcompat.widget.Toolbar
@@ -112,6 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@drawable/ellipse">
+
 
         <TextView
             android:id="@+id/reg_text"
@@ -128,14 +144,16 @@
 
         <ImageButton
             android:id="@+id/regtbtn"
-            android:layout_width="46dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@drawable/next_arrow"
-            android:background="@drawable/button_bg"
-            android:textColor="@color/white"
+            android:layout_marginTop="85dp"
             android:layout_marginEnd="32dp"
-            android:layout_marginTop="85dp" />
+            android:background="@drawable/button_bg"
+            android:src="@drawable/next_arrow"
+            android:textColor="@color/white"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
     </androidx.appcompat.widget.Toolbar>
+
 
 </RelativeLayout>
