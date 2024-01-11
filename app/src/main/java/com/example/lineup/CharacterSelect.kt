@@ -1,6 +1,7 @@
 package com.example.lineup
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -72,6 +73,12 @@ class CharacterSelect : AppCompatActivity() {
 
 
         Log.d("AvatarAdapter3", "Inflating CharacterLayoutBinding")
+
+        binding.characterBtn.setOnClickListener {
+            val intent= Intent(this,RulesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int =
