@@ -20,6 +20,7 @@
     <string name="arrow"><![CDATA[>>>]]></string>
     <string name="text">Text</string>
     <string name="my_qr_code">My QR Code</string>
+    <string name="generate_qr">Generate QR</string>
     <string name="line_up_radar">Line Up Radar</string>
     <string name="you_can_find_three_more_players_which_are">You can find three more players</string>
     <string name="closest_to_you">which are closest to you.</string>
@@ -28,7 +29,6 @@
     <string name="avatar">Avatar</string>
     <string name="choose_your">Choose your</string>
     <string name="next">Next</string>
-    <string name="generate_qr">Generate QR</string>
     <string name="read_the_rules">Read the Rules</string>
     <string name="we_need_your_help">WE NEED YOUR HELP!</string>
     <string name="we_need_your_help_">We need your help to find the rest of your team members and if you can\nfind your team as fast as you could\nthen we will have somethin\nspecial waiting for you.</string>

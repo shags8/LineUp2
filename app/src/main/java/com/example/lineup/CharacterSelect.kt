@@ -23,6 +23,12 @@ class CharacterSelect : AppCompatActivity() {
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.characterBtn.setOnClickListener {
+            val intent= Intent(this,RulesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
         Log.e("id1234", "$retrievedValue")

@@ -3,7 +3,6 @@ package com.example.lineup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import com.example.lineup.databinding.ActivityRulesBinding
 
 class RulesActivity : AppCompatActivity() {
