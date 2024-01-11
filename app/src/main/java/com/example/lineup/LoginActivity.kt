@@ -48,8 +48,8 @@ public class LoginActivity : AppCompatActivity() {
 //                auth_password=snapshot.child("Password").value.toString()
 //
         loginbtn.setOnClickListener {
-            val zeal = binding.zeal.text.toString()
-            val password = binding.password.text.toString()
+            val zeal = binding.zeal.text.trim().toString()
+            val password = binding.password.text.trim().toString()
 
             if (zeal.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT)

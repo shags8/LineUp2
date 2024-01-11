@@ -130,7 +130,7 @@
             android:text="@string/register"
             android:textSize="15sp"
             android:textAllCaps="false"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="80dp"
             android:layout_marginStart="32dp"
             android:layout_gravity="center_vertical"
             android:fontFamily="@font/montserrat_medium" />
