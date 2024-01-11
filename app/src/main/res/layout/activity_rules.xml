@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Rules_activity">
+    tools:context=".RulesActivity">
 
     <include
         android:id="@+id/label"
@@ -69,7 +69,7 @@
             android:lineSpacingExtra="4dp"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
-            android:text="We need to find a team of 4 people \n  desperately and untill now, we only \n have you!! (: \n"
+            android:text="@string/we_need_to_find_a_team_of_4_people"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp" />
@@ -80,7 +80,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
-            android:text="Show this QR code to your band members."
+            android:text="@string/show_the_qr_code"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="15sp" />
@@ -91,14 +91,13 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
-
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
             android:lineSpacingExtra="7dp"
-            android:text="We need your help to find the rest of  your team members and if you can\nfind your team as fast as you could\nthen we will have somethin\nspecial waiting  for you."
+            android:text="@string/we_need_your_help_"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
 
 
 
@@ -118,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="Finish"
+            android:text="@string/finish"
             android:textSize="15sp"
             android:textAllCaps="false"
             android:layout_marginStart="32dp"
