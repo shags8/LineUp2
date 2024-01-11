@@ -24,13 +24,11 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.installations.FirebaseInstallations
-import org.chromium.base.Callback
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-
-
 
     private lateinit var binding: ActivitySignUpBinding
     private var databaseReference = FirebaseDatabase.getInstance().getReference("users")
@@ -46,7 +44,7 @@ class SignUpActivity : AppCompatActivity() {
         val Password = binding.password
         val Registbutton = binding.regtbtn
 
-        val sharedPreferences = getSharedPreferences("LineUpTokens", MODE_PRIVATE)
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
 
@@ -61,24 +59,25 @@ class SignUpActivity : AppCompatActivity() {
 
             val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
             val call = apiInterface.signup(userSignUp)
-
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             } else {
                 call.enqueue(object : Callback<SignUp2> {
-                    fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
+                    override fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
                                 editor.putString("Token", responseBody.token)
                             }
                             editor.apply()
-                           Log.e("id23", "$response")
+                            //   if(response.body().code)
+
+                            Log.e("id123", "$response")
 
                             if (responseBody != null) {
-                                Log.e("id23", "$responseBody")
-                             //   Log.e("id123", "${responseBody.code}")
-                                if (responseBody.message == "Signup successful") {
+                                Log.e("id123", "$responseBody")
+                                Log.e("id123", "${responseBody.code}")
+                                if (responseBody.message.equals("Signup successful")) {
                                     Toast.makeText(
                                         this@SignUpActivity,
                                         "Registered Successfully",
@@ -92,20 +91,15 @@ class SignUpActivity : AppCompatActivity() {
                             }
 
                         } else {
-                            Log.e("id123" , "${response.body()}")
                             Log.e("id123", "${response.code()} - ${response.message()}")
 
                         }
                     }
 
-                    fun onFailure(call: Call<SignUp2>, t: Throwable) {
+                    override fun onFailure(call: Call<SignUp2>, t: Throwable) {
                         Toast.makeText(
-                            this@SignUpActivity,"Sign Up Failed! Please try again", Toast.LENGTH_SHORT
+                            this@SignUpActivity, t.message.toString(), Toast.LENGTH_SHORT
                         ).show()
-                    }
-
-                    override fun onResult(result: SignUp2?) {
-                        TODO("Not yet implemented")
                     }
                 })
             }
@@ -150,8 +144,3 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 }
-
-private fun <T> Call<T>.enqueue(callback: Callback<T>) {
-    TODO("Not yet implemented")
-}
-
