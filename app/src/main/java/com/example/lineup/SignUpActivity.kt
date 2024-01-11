@@ -51,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
 
         Registbutton.setOnClickListener {
 
-            val fullnametxt = fullname.text.toString()
+            val fullnametxt = fullname.text.trim().toString()
             val emailtxt = Email.text.toString()
             val zealidtxt = zealid.text.trim().toString()
             val passwordtxt = Password.text.trim().toString()
