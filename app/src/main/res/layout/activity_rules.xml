@@ -1,27 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    tools:context =".SignUpActivity"
-    >
+    tools:context=".RulesActivity">
 
     <include
-        android:id="@+id/lin_lay"
+        android:id="@+id/label"
         layout="@layout/lineup_symbol"
         android:layout_marginTop="0dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-
     <LinearLayout
-        android:id="@+id/L1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/lin_lay">
+        android:layout_below="@+id/label">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -30,99 +28,84 @@
             android:textSize="35sp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"
-            android:text="@string/register_now"
+            android:text="@string/read_the_rules"
             android:layout_gravity="center"
             android:textAlignment="center" />
+
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="Hey Users"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:fontFamily="@font/montserrat_bold"
-            android:text="@string/to_start_playing"
+            android:text="@string/we_need_your_help"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="35sp" />
+            android:textSize="20sp" />
 
-
-
-        <EditText
-            android:id="@+id/name"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="32dp"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:inputType="text"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:background="@drawable/info_bg"
-            android:hint="@string/name"
-            android:padding="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:lineSpacingExtra="4dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/we_need_to_find_a_team_of_4_people"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:fontFamily="@font/montserrat_medium" />
-
-        <EditText
-            android:id="@+id/email"
+            android:textSize="18sp" />
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="28dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:background="@drawable/info_bg"
-            android:hint="@string/email"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:inputType="textEmailAddress"
-            android:padding="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:text="@string/show_the_qr_code"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:fontFamily="@font/montserrat_medium" />
+            android:textSize="15sp" />
 
-        <EditText
-            android:id="@+id/zeal"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="28dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:background="@drawable/info_bg"
-            android:hint="@string/zeal_id"
-            android:inputType="number"
-            android:padding="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_medium"
+            android:lineSpacingExtra="7dp"
+            android:text="@string/we_need_your_help_"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:fontFamily="@font/montserrat_medium" />
+            android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="28dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
-            android:singleLine="true"
-            android:maxLines="1"
-            android:background="@drawable/info_bg"
-            android:hint="@string/password"
-            android:padding="20dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/montserrat_medium" />
+
+
 
     </LinearLayout>
 
 
-
     <androidx.appcompat.widget.Toolbar
-        android:layout_below="@+id/L1"
-        android:layout_marginTop="30dp"
-        android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -130,20 +113,19 @@
 
 
         <TextView
-            android:id="@+id/reg_text"
+            android:id="@+id/rules_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:text="@string/register"
+            android:text="@string/finish"
             android:textSize="15sp"
             android:textAllCaps="false"
-            android:layout_marginTop="80dp"
             android:layout_marginStart="32dp"
-            android:layout_gravity="center_vertical"
+            android:layout_marginTop="80dp"
             android:fontFamily="@font/montserrat_medium" />
 
         <ImageButton
-            android:id="@+id/regtbtn"
+            android:id="@+id/rules_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -153,6 +135,7 @@
             android:src="@drawable/next_arrow"
             android:textColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
     </androidx.appcompat.widget.Toolbar>
 
 

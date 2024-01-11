@@ -1,6 +1,7 @@
 package com.example.lineup
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
@@ -21,6 +22,12 @@ class CharacterSelect : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.characterBtn.setOnClickListener {
+            val intent= Intent(this,RulesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
