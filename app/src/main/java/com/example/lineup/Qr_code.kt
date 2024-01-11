@@ -32,11 +32,13 @@ class Qr_code : Fragment() {
 
     private var database = FirebaseDatabase.getInstance()
     val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    private val userInfo=database.getReference("users/$userid")
-    private lateinit var zeal_id:String
+    private val userInfo = database.getReference("users/$userid")
+    private lateinit var zeal_id: String
     private lateinit var sharedPreferences: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_qr_code, container, false)
         return view
@@ -45,22 +47,25 @@ class Qr_code : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val qr=view.findViewById<ImageView>(R.id.qr_code)
+        val qr = view.findViewById<ImageView>(R.id.qr_code)
 
-        sharedPreferences = requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue=sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        val header="Bearer $retrievedValue"
-        val call= RetrofitApi.apiInterface.getCode(header)
+        sharedPreferences =
+            requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+        val header = "Bearer $retrievedValue"
+        val call = RetrofitApi.apiInterface.getCode(header)
         call.enqueue(object : Callback<qrCode> {
             override fun onResponse(call: Call<qrCode>, response: Response<qrCode>) {
                 val multiFormatWriter = MultiFormatWriter()
-                val responseBody=response.body()
-                Log.e("id1235" ,header)
-                Log.e("id1235" ,"$responseBody")
-                Log.e("id1235" ,"$response")
+                val responseBody = response.body()
+                Log.e("id1235", header)
+                Log.e("id1235", "$responseBody")
+                Log.e("id1235", "$response")
                 try {
                     val multiFormatWriter = MultiFormatWriter()
-                    val bitMatrix: BitMatrix = multiFormatWriter.encode(responseBody!!.code, BarcodeFormat.QR_CODE, 300, 300)
+                    val bitMatrix: BitMatrix = multiFormatWriter.encode(
+                        responseBody!!.code, BarcodeFormat.QR_CODE, 300, 300
+                    )
                     val barcodeEncoder = BarcodeEncoder()
                     val bitMap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
 

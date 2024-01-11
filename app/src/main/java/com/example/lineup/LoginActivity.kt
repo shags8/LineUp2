@@ -1,5 +1,6 @@
 // login up
 package com.example.lineup
+
 import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -26,13 +27,13 @@ import retrofit2.Response
 
 public class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
     private var database = FirebaseDatabase.getInstance()
     val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    private val userInfo=database.getReference("users/$userid")
-    private lateinit var zeal_id:String
-    private lateinit var auth_password:String
+    private val userInfo = database.getReference("users/$userid")
+    private lateinit var zeal_id: String
+    private lateinit var auth_password: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -50,37 +51,42 @@ public class LoginActivity : AppCompatActivity() {
             val zeal = binding.zeal.text.toString()
             val password = binding.password.text.toString()
 
-            if(zeal.isEmpty() || password.isEmpty())
-            {
-                Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            if (zeal.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
                 val userLogin = Login(password, zeal)
                 val call = RetrofitApi.apiInterface.login(userLogin)
                 call.enqueue(object : Callback<Login2> {
                     override fun onResponse(call: Call<Login2>, response: Response<Login2>) {
                         if (response.isSuccessful) {
-                            Log.e("id123", "${response.headers()}")
+                            val bodyReponse = response.body()
+                            //    Log.e("id345", "${response.headers()}")
+                            Log.e("id234", "$response")
+                            if (bodyReponse != null) {
+                                Log.e("id234", "$bodyReponse")
+                                if (bodyReponse.message == "Login successful") {
+                                    Toast.makeText(
+                                        this@LoginActivity, "Login Successfully", Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent =
+                                        Intent(this@LoginActivity, CharacterSelect::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+                        } else {
                             Toast.makeText(
-                                this@LoginActivity,
-                                "Login Successfully",
-                                Toast.LENGTH_SHORT
+                                this@LoginActivity, "User Not Found!", Toast.LENGTH_SHORT
                             ).show()
-                            val intent =
-                                Intent(this@LoginActivity, CharacterSelect::class.java)
-                            startActivity(intent)
-                        }else{
-                            Log.e("id123" , "${response.code()} - ${response.message()}")
+                            //      Log.e("id3456" , "${response.code()} - ${response.message()}")
                         }
                     }
 
                     override fun onFailure(call: Call<Login2>, t: Throwable) {
                         Toast.makeText(
-                            this@LoginActivity,
-                            t.message.toString(),
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
+                            this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT
+                        ).show()
                     }
                 })
             }
@@ -93,7 +99,6 @@ public class LoginActivity : AppCompatActivity() {
 //                        }else{
 //                            Toast.makeText(this,"Oops! User not registered ",Toast.LENGTH_SHORT).show()
 //                        }
-
 
 
             //   Log.e("id123", zeal_id)
