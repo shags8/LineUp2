@@ -1,5 +1,7 @@
 package com.example.lineup
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +27,7 @@ class scanner : Fragment() {
     private lateinit var barcodeView: DecoratedBarcodeView
     private lateinit var viewfinderView: ViewfinderView
     private var lastText: String? = null
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val callback = object : BarcodeCallback {
         override fun barcodeResult(result: BarcodeResult) {
@@ -36,8 +39,23 @@ class scanner : Fragment() {
             lastText = result.text
             barcodeView.setStatusText(result.text)
 
-            // Handle the barcode result as needed
+//            val editor = sharedPreferences.edit()
+//            editor.putString("generatedToken", lastText)
+//            editor.apply()
+//            val token = sharedPreferences.getString("Token", "defaultValue")
+            sharedPreferences = requireActivity().getSharedPreferences("ScannerToken", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
 
+            Log.e("id23","$lastText")
+          //  val editor=sharedPreferences.edit()
+            editor.putString("ScannerToken", lastText)
+            val token=lastText
+            Log.e("id23","$token")
+
+
+//            val token=storeTokenLocally(result.text)  //Store the generated token
+//
+//            Log.e("id56","$token")
         }
 
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
@@ -51,6 +69,7 @@ class scanner : Fragment() {
         val view = inflater.inflate(com.example.lineup.R.layout.fragment_scanner, container, false)
 
         barcodeView = view.findViewById(R.id.barcode_scanner)
+
 
         val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
         barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
@@ -70,6 +89,10 @@ class scanner : Fragment() {
         barcodeView.pause()
     }
 
+    private fun storeTokenLocally(token: String) {
+        // Store the token in SharedPreferences
+
+    }
     fun pause() {
         barcodeView.pause()
     }
