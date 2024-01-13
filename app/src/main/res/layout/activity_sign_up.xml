@@ -13,104 +13,104 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-            <LinearLayout
-                android:id="@+id/L1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@id/lin_lay">
+    <LinearLayout
+        android:id="@+id/L1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lin_lay"
+        android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:textSize="35sp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/register_now"
-                    android:layout_gravity="center"
-                    android:textAlignment="center" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/register_now"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="@string/to_start_playing"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="35sp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/to_start_playing"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="35sp" />
 
-                <EditText
-                    android:id="@+id/name"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="32dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:inputType="text"
-                    android:background="@drawable/info_bg"
-                    android:hint="@string/name"
-                    android:padding="20dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_medium" />
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/name"
+            android:inputType="text"
+            android:maxLines="1"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/black" />
 
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:background="@drawable/info_bg"
-                    android:hint="@string/email"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:inputType="textEmailAddress"
-                    android:padding="20dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_medium" />
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/black" />
 
-                <EditText
-                    android:id="@+id/zeal"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:background="@drawable/info_bg"
-                    android:hint="@string/zeal_id"
-                    android:padding="20dp"
-                    android:inputType="number"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_medium" />
+        <EditText
+            android:id="@+id/zeal"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/zeal_id"
+            android:inputType="number"
+            android:padding="20dp"
+            android:textColor="@color/black" />
 
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="62dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="28dp"
-                    android:layout_marginLeft="32dp"
-                    android:layout_marginRight="32dp"
-                    android:singleLine="true"
-                    android:maxLines="1"
-                    android:background="@drawable/info_bg"
-                    android:hint="@string/password"
-                    android:padding="20dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_medium" />
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/info_bg"
+            android:fontFamily="@font/montserrat_medium"
+            android:hint="@string/password"
+            android:maxLines="1"
+            android:padding="20dp"
+            android:singleLine="true"
+            android:textColor="@color/black" />
 
-            </LinearLayout>
+    </LinearLayout>
 
 
     <androidx.appcompat.widget.Toolbar
