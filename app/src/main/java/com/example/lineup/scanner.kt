@@ -39,23 +39,14 @@ class scanner : Fragment() {
             lastText = result.text
             barcodeView.setStatusText(result.text)
 
-//            val editor = sharedPreferences.edit()
-//            editor.putString("generatedToken", lastText)
-//            editor.apply()
-//            val token = sharedPreferences.getString("Token", "defaultValue")
             sharedPreferences = requireActivity().getSharedPreferences("ScannerToken", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
             Log.e("id23","$lastText")
-          //  val editor=sharedPreferences.edit()
             editor.putString("ScannerToken", lastText)
             val token=lastText
             Log.e("id23","$token")
 
-
-//            val token=storeTokenLocally(result.text)  //Store the generated token
-//
-//            Log.e("id56","$token")
         }
 
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
@@ -87,11 +78,6 @@ class scanner : Fragment() {
     override fun onPause() {
         super.onPause()
         barcodeView.pause()
-    }
-
-    private fun storeTokenLocally(token: String) {
-        // Store the token in SharedPreferences
-
     }
     fun pause() {
         barcodeView.pause()

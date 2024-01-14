@@ -13,7 +13,6 @@ data class SignUp2(
     val url: String,
     val message: String,
     val token: String
-
 )
 
 
