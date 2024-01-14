@@ -1,6 +1,6 @@
 package com.example.lineup
 
-import android.telecom.Call
+import com.example.lineup.dataClass.LeaderboardClass
 import com.example.lineup.dataClass.Login
 import com.example.lineup.dataClass.Login2
 import com.example.lineup.dataClass.SignUp
@@ -20,4 +20,7 @@ interface ApiInterface {
 
     @GET("generate-qr")
     fun getCode(@Header("Authorization") qrCode: String): retrofit2.Call<qrCode>
+
+    @GET("leaderboard")
+    fun getPlayers(@Header("Authorization") token:String): retrofit2.Call<LeaderboardClass>
 }

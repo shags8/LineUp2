@@ -72,12 +72,12 @@ class SignUpActivity : AppCompatActivity() {
                             editor.apply()
                             //   if(response.body().code)
 
-                            Log.e("id123", "$response")
+                            //Log.e("id123", "$response")
 
                             if (responseBody != null) {
-                                Log.e("id123", "$responseBody")
+                              //  Log.e("id123", "$responseBody")
                                 Log.e("id123", "${responseBody.code}")
-                                if (responseBody.message.equals("Signup successful")) {
+                                if (responseBody.message == "Signup successful") {
                                     Toast.makeText(
                                         this@SignUpActivity,
                                         "Registered Successfully",

@@ -9,21 +9,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lineup.dataClass.qrCode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.MultiFormatWriter
-import com.google.zxing.ResultPoint
 import com.google.zxing.common.BitMatrix
-import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeEncoder
-import com.journeyapps.barcodescanner.BarcodeResult
-import com.journeyapps.barcodescanner.DecoratedBarcodeView
-import com.journeyapps.barcodescanner.DefaultDecoderFactory
-import com.journeyapps.barcodescanner.ViewfinderView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -40,8 +33,7 @@ class Qr_code : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_qr_code, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_qr_code, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,10 +41,10 @@ class Qr_code : Fragment() {
 
         val qr = view.findViewById<ImageView>(R.id.qr_code)
 
-        sharedPreferences =
-            requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         val header = "Bearer $retrievedValue"
+
         val call = RetrofitApi.apiInterface.getCode(header)
         call.enqueue(object : Callback<qrCode> {
             override fun onResponse(call: Call<qrCode>, response: Response<qrCode>) {
