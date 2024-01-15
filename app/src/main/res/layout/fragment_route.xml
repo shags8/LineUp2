@@ -19,7 +19,7 @@
 
     <TextView
         android:id="@+id/radar_heading"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
@@ -32,10 +32,11 @@
 
     <TextView
         android:id="@+id/you_can_fin"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radar_heading"
         android:layout_marginTop="45dp"
+        android:layout_centerHorizontal="true"
         android:fontFamily="@font/montserrat_medium"
         android:letterSpacing="0.01"
         android:text="@string/you_can_find_three_more_players_which_are"
@@ -45,13 +46,14 @@
 
     <TextView
         android:id="@+id/closest_to_you"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/you_can_fin"
         android:fontFamily="@font/montserrat_medium"
         android:letterSpacing="0.01"
         android:text="@string/closest_to_you"
         android:textAlignment="center"
+        android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="16sp" />
 

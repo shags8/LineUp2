@@ -81,7 +81,7 @@
 
         <EditText
             android:id="@+id/zeal"
-            android:layout_width="match_parent"
+            android:layout_width="348dp"
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginLeft="32dp"
