@@ -81,7 +81,7 @@
 
         <EditText
             android:id="@+id/zeal"
-            android:layout_width="348dp"
+            android:layout_width="match_parent"
             android:layout_height="62dp"
             android:layout_gravity="center"
             android:layout_marginLeft="32dp"
@@ -94,21 +94,29 @@
             android:padding="20dp"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/password"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginRight="32dp"
-            android:background="@drawable/info_bg"
-            android:fontFamily="@font/montserrat_medium"
-            android:hint="@string/password"
-            android:maxLines="1"
-            android:padding="20dp"
-            android:singleLine="true"
-            android:textColor="@color/black" />
+            android:layout_height="wrap_content"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="32dp"
+                android:background="@drawable/info_bg"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="@string/password"
+                android:maxLines="1"
+                android:padding="20dp"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
     </LinearLayout>
 
