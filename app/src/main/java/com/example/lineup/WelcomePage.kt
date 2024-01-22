@@ -103,9 +103,11 @@ class WelcomePage : AppCompatActivity() {
     fun Register(view: View) {
         val intent= Intent(this,SignUpActivity::class.java)
         startActivity(intent)
+        finish()
     }
     fun Login(view: View) {
         val intent=Intent(this,LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
