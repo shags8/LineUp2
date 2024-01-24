@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lineup.databinding.CharacterLayoutBinding
 
-class AvatarAdapter( private val images: IntArray) :
+class AvatarAdapter( private val images: IntArray ) :
     RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
