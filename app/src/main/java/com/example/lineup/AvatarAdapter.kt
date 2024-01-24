@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lineup.databinding.CharacterLayoutBinding
 
-class AvatarAdapter( private val images: IntArray ) :
+class AvatarAdapter(private val images: IntArray) :
     RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = CharacterLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            CharacterLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         Log.d("AvatarAdapter4", "Inflating CharacterLayoutBinding")
         Log.d("AvatarAdapter6", "{$itemCount}")
         return ViewHolder(binding)

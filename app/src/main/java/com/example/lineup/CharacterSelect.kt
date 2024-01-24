@@ -28,7 +28,7 @@ class CharacterSelect : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.characterBtn.setOnClickListener {
-            val intent= Intent(this,RulesActivity::class.java)
+            val intent = Intent(this, RulesActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -48,22 +48,22 @@ class CharacterSelect : AppCompatActivity() {
             R.drawable.green_avatar
         )
 
-  //      setUpTransformation()
+        //      setUpTransformation()
 
-        binding.VP.adapter = AvatarAdapter(characters )
+        binding.VP.adapter = AvatarAdapter(characters)
         binding.VP.clipToPadding = false
         binding.VP.clipChildren = false
-        binding.VP.getChildAt(0).overScrollMode=RecyclerView.OVER_SCROLL_NEVER
+        binding.VP.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
 
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
         val currentItemHorizontalMarginPx =
-           resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
-        val transformation=CompositePageTransformer()
+        val transformation = CompositePageTransformer()
         transformation.addTransformer(MarginPageTransformer(40))
         transformation.addTransformer { page, position ->
-            val r=1-abs(position)
+            val r = 1 - abs(position)
             page.scaleY = 0.40f + r * 0.60f
             page.scaleX = 0.40f + r * 0.60f
             page.translationX = -pageTranslationX * position
@@ -100,6 +100,7 @@ class CharacterSelect : AppCompatActivity() {
 
         Log.d("AvatarAdapter3", "Inflating CharacterLayoutBinding")
     }
+
     private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int =
         (this * displayMetrics.density).toInt()
 

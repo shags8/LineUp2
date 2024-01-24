@@ -1,11 +1,11 @@
 package com.example.lineup
 
-import com.example.lineup.dataClass.LeaderboardClass
-import com.example.lineup.dataClass.Login
-import com.example.lineup.dataClass.Login2
-import com.example.lineup.dataClass.SignUp
-import com.example.lineup.dataClass.SignUp2
-import com.example.lineup.dataClass.qrCode
+import com.example.lineup.models.LeaderboardClass
+import com.example.lineup.models.Login
+import com.example.lineup.models.Login2
+import com.example.lineup.models.SignUp
+import com.example.lineup.models.SignUp2
+import com.example.lineup.models.qrCode
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -22,5 +22,5 @@ interface ApiInterface {
     fun getCode(@Header("Authorization") qrCode: String): retrofit2.Call<qrCode>
 
     @GET("leaderboard")
-    fun getPlayers(@Header("Authorization") token:String): retrofit2.Call<LeaderboardClass>
+    fun getPlayers(@Header("Authorization") token: String): retrofit2.Call<LeaderboardClass>
 }
