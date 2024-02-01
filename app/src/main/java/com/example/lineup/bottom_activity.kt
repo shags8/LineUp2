@@ -17,11 +17,11 @@ import com.example.lineup.databinding.ActivityBottomBinding
 
 class bottom_activity : AppCompatActivity() {
 
-    private lateinit var permissionLauncher:ActivityResultLauncher<Array<String>>
-    private var isCameraPermissionGranted=false
-    val permissionRequest= mutableListOf<String>()
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private var isCameraPermissionGranted = false
+    val permissionRequest = mutableListOf<String>()
 
-    private lateinit var binding : ActivityBottomBinding
+    private lateinit var binding: ActivityBottomBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
@@ -35,21 +35,22 @@ class bottom_activity : AppCompatActivity() {
         replaceFragments(Qr_code())
 
 
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-                permissions->
-            isCameraPermissionGranted= permissions[Manifest.permission.CAMERA]?:isCameraPermissionGranted
-            if (!isCameraPermissionGranted ) {
-                showPermissionDeniedDialog()
-            }
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isCameraPermissionGranted =
+                    permissions[Manifest.permission.CAMERA] ?: isCameraPermissionGranted
+                if (!isCameraPermissionGranted) {
+                    showPermissionDeniedDialog()
+                }
 
-        }
+            }
         requestPermission()
 
 
         val bottomNavBar = binding.bottomNavigationView
         bottomNavBar.itemIconTintList = null
         binding.bottomNavigationView.setOnItemSelectedListener {
-            when(it.itemId){
+            when (it.itemId) {
                 R.id.Leaderboard -> replaceFragments(Leaderboard())
                 R.id.QR_code -> replaceFragments(Qr_code())
                 R.id.route -> replaceFragments(route())
@@ -80,27 +81,28 @@ class bottom_activity : AppCompatActivity() {
 
     }
 
-    private fun requestPermission(){
-        isCameraPermissionGranted=ContextCompat.checkSelfPermission(
+    private fun requestPermission() {
+        isCameraPermissionGranted = ContextCompat.checkSelfPermission(
             this,
             Manifest.permission.CAMERA
-        )==PackageManager.PERMISSION_GRANTED
+        ) == PackageManager.PERMISSION_GRANTED
 
-        if(!isCameraPermissionGranted){
+        if (!isCameraPermissionGranted) {
             permissionRequest.add(Manifest.permission.CAMERA)
         }
 
-        if(permissionRequest.isNotEmpty()){
+        if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
 
-    private fun replaceFragments(fragment : Fragment) {
+    private fun replaceFragments(fragment: Fragment) {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.replace(R.id.frame_layout, fragment)
         fragmentTransaction.commit()
     }
+
     override fun onBackPressed() {
         AlertDialog.Builder(this)
             .setTitle("Exit")
@@ -112,10 +114,10 @@ class bottom_activity : AppCompatActivity() {
                 startActivity(intent)
             })
             .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
-             //   super.onBackPressed()
+                //   super.onBackPressed()
             })
             .show()
-       // super.onBackPressed()
+        // super.onBackPressed()
     }
 
 }

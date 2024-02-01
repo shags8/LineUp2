@@ -3,27 +3,15 @@ package com.example.lineup
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import com.example.lineup.RetrofitApi.apiInterface
-import com.example.lineup.dataClass.SignUp
-import com.example.lineup.dataClass.SignUp2
+import com.example.lineup.models.SignUp
+import com.example.lineup.models.SignUp2
 import com.example.lineup.databinding.ActivitySignUpBinding
-import com.google.android.play.integrity.internal.t
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.installations.FirebaseInstallations
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -67,6 +55,7 @@ class SignUpActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
+                                Log.e("id123" , "$responseBody")
                                 editor.putString("Token", responseBody.token)
                             }
                             editor.apply()
@@ -75,7 +64,7 @@ class SignUpActivity : AppCompatActivity() {
                             //Log.e("id123", "$response")
 
                             if (responseBody != null) {
-                              //  Log.e("id123", "$responseBody")
+                                //  Log.e("id123", "$responseBody")
                                 Log.e("id123", "${responseBody.code}")
                                 if (responseBody.message == "Signup successful") {
                                     Toast.makeText(

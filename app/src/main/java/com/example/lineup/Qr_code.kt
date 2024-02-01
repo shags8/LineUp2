@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.example.lineup.dataClass.qrCode
+import com.example.lineup.models.qrCode
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.zxing.BarcodeFormat
@@ -41,8 +41,10 @@ class Qr_code : Fragment() {
 
         val qr = view.findViewById<ImageView>(R.id.qr_code)
 
-        sharedPreferences = requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        sharedPreferences =
+            requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+        Log.e("id1236" , "$retrievedValue")
         val header = "Bearer $retrievedValue"
 
         val call = RetrofitApi.apiInterface.getCode(header)

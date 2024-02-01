@@ -1,4 +1,4 @@
-package com.example.lineup.dataClass
+package com.example.lineup.models
 
 data class SignUp(
     val email: String,

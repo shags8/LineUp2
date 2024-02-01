@@ -1,25 +1,18 @@
 // login up
 package com.example.lineup
 
-import android.content.DialogInterface
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.startActivity
-import com.example.lineup.dataClass.Login
-import com.example.lineup.dataClass.Login2
-import com.example.lineup.dataClass.SignUp
+import com.example.lineup.models.Login
+import com.example.lineup.models.Login2
 import com.example.lineup.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -34,6 +27,8 @@ public class LoginActivity : AppCompatActivity() {
     private val userInfo = database.getReference("users/$userid")
     private lateinit var zeal_id: String
     private lateinit var auth_password: String
+    private lateinit var sharedPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -47,6 +42,10 @@ public class LoginActivity : AppCompatActivity() {
 //                zeal_id=snapshot.child("zealid").value.toString()
 //                auth_password=snapshot.child("Password").value.toString()
 //
+        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+
         loginbtn.setOnClickListener {
             val zeal = binding.zeal.text.trim().toString()
             val password = binding.password.text.trim().toString()
@@ -66,6 +65,8 @@ public class LoginActivity : AppCompatActivity() {
                             if (bodyReponse != null) {
                                 Log.e("id234", "$bodyReponse")
                                 if (bodyReponse.message == "Login successful") {
+                                    Log.e("id1" , "$retrievedValue")
+                                    editor.putString("Token", retrievedValue)
                                     Toast.makeText(
                                         this@LoginActivity, "Login Successfully", Toast.LENGTH_SHORT
                                     ).show()

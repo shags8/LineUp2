@@ -9,10 +9,9 @@ import org.greenrobot.eventbus.EventBus
 import com.skyfishjy.library.RippleBackground
 
 
-
 class route : Fragment() {
 
-   // private var service: Intent?=null
+    // private var service: Intent?=null
     private var rippleBackground: RippleBackground? = null
 
 

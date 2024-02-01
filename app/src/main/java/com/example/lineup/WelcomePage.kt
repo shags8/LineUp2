@@ -24,9 +24,9 @@ import com.google.firebase.auth.FirebaseAuth
 
 class WelcomePage : AppCompatActivity() {
 
-    private lateinit var permissionLauncher:ActivityResultLauncher<Array<String>>
-    private var isLocationPermissionGranted=false
-    val permissionRequest= mutableListOf<String>()
+    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private var isLocationPermissionGranted = false
+    val permissionRequest = mutableListOf<String>()
 
     private lateinit var auth: FirebaseAuth
 
@@ -36,22 +36,27 @@ class WelcomePage : AppCompatActivity() {
         setContentView(R.layout.activity_welcome_page)
 
 
-        permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
-                permissions->
-            isLocationPermissionGranted= permissions[permission.ACCESS_FINE_LOCATION]?:isLocationPermissionGranted
-            if (!isLocationPermissionGranted) {
-                showPermissionDeniedDialog()
-            }
+        permissionLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+                isLocationPermissionGranted =
+                    permissions[permission.ACCESS_FINE_LOCATION] ?: isLocationPermissionGranted
+                if (!isLocationPermissionGranted) {
+                    showPermissionDeniedDialog()
+                }
 
-        }
+            }
         requestPermission()
 
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
-        if(retrievedValue!="defaultValue"){
-            startActivity(Intent(this,bottom_activity::class.java))
+
+        Log.e("id1236", "$retrievedValue")
+        if (retrievedValue != "defaultValue") {
+            editor.putString("Token" , retrievedValue)
+            Log.e("id5", "$retrievedValue")
+            startActivity(Intent(this, bottom_activity::class.java))
             finish()
         }
 
@@ -64,7 +69,6 @@ class WelcomePage : AppCompatActivity() {
 //        }
 
     }
-
 
 
     private fun showPermissionDeniedDialog() {
@@ -86,27 +90,27 @@ class WelcomePage : AppCompatActivity() {
     }
 
 
-    private fun requestPermission(){
-        isLocationPermissionGranted=ContextCompat.checkSelfPermission(
-            this,
-            permission.ACCESS_FINE_LOCATION
-        )==PackageManager.PERMISSION_GRANTED
+    private fun requestPermission() {
+        isLocationPermissionGranted = ContextCompat.checkSelfPermission(
+            this, permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
-        if(!isLocationPermissionGranted){
+        if (!isLocationPermissionGranted) {
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
         }
-        if(permissionRequest.isNotEmpty()){
+        if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
     }
 
     fun Register(view: View) {
-        val intent= Intent(this,SignUpActivity::class.java)
+        val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
         finish()
     }
+
     fun Login(view: View) {
-        val intent=Intent(this,LoginActivity::class.java)
+        val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
     }
