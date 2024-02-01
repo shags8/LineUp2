@@ -51,8 +51,11 @@ class WelcomePage : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
-        Log.e("id12", "$retrievedValue")
+
+        Log.e("id1236", "$retrievedValue")
         if (retrievedValue != "defaultValue") {
+            editor.putString("Token" , retrievedValue)
+            Log.e("id5", "$retrievedValue")
             startActivity(Intent(this, bottom_activity::class.java))
             finish()
         }

@@ -44,6 +44,7 @@ class Qr_code : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+        Log.e("id1236" , "$retrievedValue")
         val header = "Bearer $retrievedValue"
 
         val call = RetrofitApi.apiInterface.getCode(header)

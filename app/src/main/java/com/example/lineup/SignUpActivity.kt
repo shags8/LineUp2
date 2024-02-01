@@ -55,6 +55,7 @@ class SignUpActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
+                                Log.e("id123" , "$responseBody")
                                 editor.putString("Token", responseBody.token)
                             }
                             editor.apply()
