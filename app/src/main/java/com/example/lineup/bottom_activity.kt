@@ -250,5 +250,17 @@ class bottom_activity : AppCompatActivity() {
         // e.g., when location updates are no longer needed
         // stopService(Intent(this, LocationUpdateService::class.java))
     }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("id16" , "stop2")
+        if (locationServiceRunning.getAndSet(false)) {
+            val serviceIntent = Intent(this, LocationUpdates::class.java)
+            stopService(serviceIntent)
+        }
+        // Stop foreground service here (optional)
+        // Use an appropriate condition to stop the service
+        // e.g., when location updates are no longer needed
+        // stopService(Intent(this, LocationUpdateService::class.java))
+    }
 
 }
