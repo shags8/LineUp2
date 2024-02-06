@@ -74,6 +74,10 @@
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location"/>
+        <service android:name="com.yourpackage.ForeGroundLocationUpdates"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>
