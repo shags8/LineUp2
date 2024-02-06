@@ -5,15 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
-import android.util.TypedValue
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.databinding.ActivityCharacterSelectBinding
+import com.example.lineup.models.Avatar
+import com.example.lineup.models.Avatar2
 import com.gdsc.lineup.login.HorizontalMarginItemDecoration
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.math.abs
 
 
@@ -22,22 +27,20 @@ class CharacterSelect : AppCompatActivity() {
     private lateinit var binding: ActivityCharacterSelectBinding
     private lateinit var characterAdapter: AvatarAdapter
     private var pageTranslationX: Float = 0f
+    private lateinit var viewPager: ViewPager2
+    private var currentVisiblePosition = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.characterBtn.setOnClickListener {
-            val intent = Intent(this, RulesActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
         Log.e("id1234", "$retrievedValue")
-
-        var characters: IntArray = intArrayOf(
+        var visibleImage: Int = 0
+        val characters: IntArray = intArrayOf(
             R.drawable.red_avatar,
             R.drawable.pink_avatar,
             R.drawable.yellow_avatar,
@@ -47,8 +50,6 @@ class CharacterSelect : AppCompatActivity() {
             R.drawable.brown_avatar,
             R.drawable.green_avatar
         )
-
-        //      setUpTransformation()
 
         binding.VP.adapter = AvatarAdapter(characters)
         binding.VP.clipToPadding = false
@@ -71,34 +72,74 @@ class CharacterSelect : AppCompatActivity() {
             page.scaleY = scaleFactor
             page.scaleX = scaleFactor
         }
-//        val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
-//            page.translationX = -pageTranslationX * position
-//            page.scaleY = 1 - (0.25f * abs(position))
-//
-//        }
+
         val offsetPx =
             resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin).toInt()
                 .dpToPx(resources.displayMetrics)
         binding.VP.setPadding(offsetPx, 0, offsetPx, 0)
         binding.VP.setPageTransformer(transformation)
         val itemDecoration = HorizontalMarginItemDecoration(
-            this,
-            R.dimen.viewpager_current_item_horizontal_margin
+            this, R.dimen.viewpager_current_item_horizontal_margin
         )
         binding.VP.addItemDecoration(itemDecoration)
-
-//        binding.VP.setPageTransformer { page, position ->
-//            val scale = if (position == 0f) 1f else 0.4f  // Adjust the scaling factor as needed
-//            page.scaleX = scale
-//            page.scaleY = scale
-//        }
-
-// Set the offscreen page limit to ensure that enough pages are retained
         binding.VP.offscreenPageLimit = 2
 
 
+//        val imageMap: Map<Int, () -> Unit> = mapOf(1 to { characters[0] },
+//            2 to { characters[1] },
+//            3 to { characters[2] },
+//            4 to { characters[3] },
+//            5 to { characters[4] },
+//            6 to { characters[5] },
+//            7 to { characters[6] },
+//            8 to { characters[7] })
 
-        Log.d("AvatarAdapter3", "Inflating CharacterLayoutBinding")
+        val header = "Bearer $retrievedValue"
+        binding.characterBtn.setOnClickListener {
+            Log.e("imageNumber", "$visibleImage")
+            val call = apiInterface.storeAvatar(header,Avatar(visibleImage))
+            call.enqueue(object : Callback<Avatar2> {
+
+                override fun onResponse(call: Call<Avatar2>, response: Response<Avatar2>) {
+                    Log.e("id1234", "${response.body()}")
+
+                    if (response.isSuccessful) {
+                        if (response.body() != null) {
+                            Log.e("id1234", "${response.body()}")
+                            if(response.body()!!.message=="Avatar stored successfully") {
+                                val intent = Intent(this@CharacterSelect, RulesActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+
+                        } else {
+                            Toast.makeText(this@CharacterSelect, "error", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<Avatar2>, t: Throwable) {
+                    Toast.makeText(this@CharacterSelect, "Error!", Toast.LENGTH_SHORT).show()
+                }
+
+            })
+
+        }
+        viewPager = binding.VP
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                // This method is called when a new page becomes selected
+                // Update the currentVisiblePosition
+                currentVisiblePosition = position
+                // You can now use this position to determine the mapped image number
+                visibleImage = getVisibleMappedImage()
+            }
+        })
+    }
+
+    private fun getVisibleMappedImage(): Int {
+        // Calculate the position of the currently visible item
+        return currentVisiblePosition + 1
     }
 
     private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int =

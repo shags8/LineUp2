@@ -10,5 +10,6 @@ data class Login2(
     val code: String,
     val token :String,
     val message: String,
-    val url: String
+    val url: String,
+    val token:String
 )

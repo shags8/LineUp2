@@ -1,6 +1,8 @@
 package com.example.lineup
 
-import com.example.lineup.models.LeaderboardModel
+import com.example.lineup.models.Avatar
+import com.example.lineup.models.Avatar2
+import com.example.lineup.models.LeaderboardModel2
 import com.example.lineup.models.Login
 import com.example.lineup.models.Login2
 import com.example.lineup.models.SignUp
@@ -22,5 +24,8 @@ interface ApiInterface {
     fun getCode(@Header("Authorization") qrCode: String): retrofit2.Call<qrCode>
 
     @GET("leaderboard")
-    fun getPlayers(@Header("Authorization") token: String): retrofit2.Call<LeaderboardModel>
+    fun getPlayers(@Header("Authorization") token: String): retrofit2.Call<LeaderboardModel2>
+
+    @POST("store-avatar")
+    fun storeAvatar(@Header("Authorization") token: String , @Body avatar:Avatar ): retrofit2.Call<Avatar2>
 }

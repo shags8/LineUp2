@@ -39,8 +39,7 @@ class scanner : Fragment() {
             lastText = result.text
             barcodeView.setStatusText(result.text)
 
-            sharedPreferences =
-                requireActivity().getSharedPreferences("ScannerToken", Context.MODE_PRIVATE)
+            sharedPreferences = requireActivity().getSharedPreferences("ScannerToken", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
 
             Log.e("id23", "$lastText")
@@ -56,8 +55,8 @@ class scanner : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(com.example.lineup.R.layout.fragment_scanner, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
         barcodeView = view.findViewById(R.id.barcode_scanner)
 

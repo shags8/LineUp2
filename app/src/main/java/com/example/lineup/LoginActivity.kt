@@ -1,5 +1,6 @@
 // login up
 package com.example.lineup
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWMyNTgzYWIyMTY1MmI0ZWEzMDQ4MzIiLCJpYXQiOjE3MDcyMzU2MTgsImV4cCI6MTcwNzIzOTIxOH0.MxeyMifZTJF4G5BfTDf4VhXXGyxRkEN9pj6Uj5hueLQ
 
 import android.content.Context
 import android.content.Intent
@@ -7,27 +8,24 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.FrameLayout
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.lineup.models.Login
 import com.example.lineup.models.Login2
 import com.example.lineup.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-public class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-
-    private var database = FirebaseDatabase.getInstance()
-    val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    private val userInfo = database.getReference("users/$userid")
-    private lateinit var zeal_id: String
-    private lateinit var auth_password: String
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var progressBar: ProgressBar
+    private lateinit var overlay: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,13 +33,6 @@ public class LoginActivity : AppCompatActivity() {
         setContentView(binding.root);
 
         val loginbtn = binding.loginBtn
-        //   Log.e("zealID","$zeal")
-//        userInfo.get().addOnCompleteListener { task ->
-//            if(task.isSuccessful){
-//                val snapshot=task.result
-//                zeal_id=snapshot.child("zealid").value.toString()
-//                auth_password=snapshot.child("Password").value.toString()
-//
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
@@ -49,11 +40,13 @@ public class LoginActivity : AppCompatActivity() {
         loginbtn.setOnClickListener {
             val zeal = binding.zeal.text.trim().toString()
             val password = binding.password.text.trim().toString()
+            progressBar = binding.progressBar
+            overlay = binding.overlay
 
             if (zeal.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Please enter your ZealId and Password", Toast.LENGTH_SHORT)
-                    .show()
+                    showToast("Please enter your ZealId and Password")
             } else {
+                showLoading()
                 val userLogin = Login(password, zeal)
                 val call = RetrofitApi.apiInterface.login(userLogin)
                 call.enqueue(object : Callback<Login2> {
@@ -61,52 +54,46 @@ public class LoginActivity : AppCompatActivity() {
                         if (response.isSuccessful) {
                             val bodyReponse = response.body()
                             //    Log.e("id345", "${response.headers()}")
-                            Log.e("id234", "$response")
+                            Log.e("id1234", "$response")
                             if (bodyReponse != null) {
-                                Log.e("id234", "$bodyReponse")
+                                Log.e("id1234", "$bodyReponse")
                                 if (bodyReponse.message == "Login successful") {
-                                    Log.e("id1" , "$retrievedValue")
+                                    Log.e("id1", "$retrievedValue")
                                     editor.putString("Token", retrievedValue)
-                                    Toast.makeText(
-                                        this@LoginActivity, "Login Successfully", Toast.LENGTH_SHORT
-                                    ).show()
+                                    showToast("Login Successfully")
                                     val intent =
-                                        Intent(this@LoginActivity, CharacterSelect::class.java)
+                                        Intent(this@LoginActivity, bottom_activity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }
                             }
                         } else {
-                            Toast.makeText(
-                                this@LoginActivity, "User Not Found!", Toast.LENGTH_SHORT
-                            ).show()
-                            //      Log.e("id3456" , "${response.code()} - ${response.message()}")
+                            hideLoading()
+                            showToast("User Not Found!")
                         }
                     }
 
                     override fun onFailure(call: Call<Login2>, t: Throwable) {
-                        Toast.makeText(
-                            this@LoginActivity, "Login Failed", Toast.LENGTH_SHORT
-                        ).show()
+                        hideLoading()
+                        showToast("Login Failed")
                     }
                 })
             }
-
-
-//                        if(zeal == zeal_id && password == auth_password){
-//                            Toast.makeText(this,"User verified",Toast.LENGTH_SHORT).show()
-//                            startActivity(Intent(this,bottom_activity::class.java))
-//                            finish()
-//                        }else{
-//                            Toast.makeText(this,"Oops! User not registered ",Toast.LENGTH_SHORT).show()
-//                        }
-
-
-            //   Log.e("id123", zeal_id)
-
         }
 
     }
 
+    private fun showLoading() {
+        progressBar.visibility = View.VISIBLE
+        overlay.visibility = View.VISIBLE
+    }
+
+    private fun hideLoading() {
+        progressBar.visibility = View.GONE
+        overlay.visibility = View.GONE
+    }
+    private fun showToast( message: String ) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
 }

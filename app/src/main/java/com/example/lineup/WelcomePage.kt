@@ -59,15 +59,6 @@ class WelcomePage : AppCompatActivity() {
             startActivity(Intent(this, bottom_activity::class.java))
             finish()
         }
-
-
-//        auth=FirebaseAuth.getInstance()
-//        val user=auth.currentUser
-//        if(user!=null){
-//            startActivity(Intent(this,bottom_activity::class.java))
-//            finish()
-//        }
-
     }
 
 
@@ -75,6 +66,7 @@ class WelcomePage : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Permission Required")
         builder.setMessage("LineUp requires location permission to function properly.")
+        builder.setCancelable(false)
         builder.setPositiveButton("Grant Permission") { dialog, which ->
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -106,12 +98,10 @@ class WelcomePage : AppCompatActivity() {
     fun Register(view: View) {
         val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
     fun Login(view: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
-        finish()
     }
 }

@@ -5,3 +5,6 @@ data class LeaderboardModel(
     var membersFound: Int,
     var avatar: Int,
 )
+data class LeaderboardModel2(
+    var users:List<LeaderboardModel>
+)

@@ -11,7 +11,7 @@ import com.google.firebase.database.core.Context
 
 class LeaderboardAdapter(
     val context: android.content.Context,
-    private val list: ArrayList<LeaderboardModel>
+    private val list: List<LeaderboardModel>
 ) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

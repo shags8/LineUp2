@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lineup.models.LeaderboardModel
+import com.example.lineup.models.LeaderboardModel2
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,7 +36,7 @@ class Leaderboard : Fragment() {
 //            val name:String
 //            val membersFound:Int
 //            val avatar:Int
-//            val playerDetails= LeaderboardClass(name, membersFound, avatar)
+//            val playerDetails= LeaderboardModel(name, membersFound, avatar)
 
 
         leaderboardRV = view.findViewById(R.id.leaderboard_rv)
@@ -45,25 +46,25 @@ class Leaderboard : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id23", retrievedValue)
+       // Log.e("id123", retrievedValue)
         val header = "Bearer $retrievedValue"
 
         val call = RetrofitApi.apiInterface.getPlayers(header)
-        call.enqueue(object : Callback<LeaderboardModel> {
+        call.enqueue(object : Callback<LeaderboardModel2> {
             override fun onResponse(
-                call: Call<LeaderboardModel>, response: Response<LeaderboardModel>
+                call: Call<LeaderboardModel2>, response: Response<LeaderboardModel2>
             ) {
                 if (response.isSuccessful) {
                     val leaderboard = response.body()
-                    Log.e("id23", "$leaderboard")
-                    Log.e("id2", "$response")
+                    Log.e("id123", "$leaderboard")
+                    //Log.e("id2", "$response")
                     //   Log.e("id2345", "${response.headers()}")
                     if (leaderboard != null) {
                         // Handle the leaderboard data
-                        val player = response.body()!!.name
-                        val avatar = response.body()!!.avatar
-                        val score = response.body()!!.membersFound
-                        leaderboardList.add(LeaderboardModel( player, score, avatar))
+//                        val player = response.body()!!.name
+//                        val avatar = response.body()!!.avatar
+//                        val score = response.body()!!.membersFound
+//                        leaderboardList.add(LeaderboardModel( player, score, avatar))
                         leaderboardAdapter = LeaderboardAdapter(requireContext(), leaderboardList)
                         leaderboardRV.adapter = leaderboardAdapter
                         leaderboardAdapter.notifyDataSetChanged()
@@ -71,7 +72,7 @@ class Leaderboard : Fragment() {
                         Log.e("id23", "${response.code()}")
                     }
                 } else {
-                    Log.e("id23", "Error: ${response.code()}")
+                    Log.e("id123", "Error: ${response.code()}")
                 }
 
 
@@ -79,7 +80,7 @@ class Leaderboard : Fragment() {
             }
 
 
-            override fun onFailure(call: Call<LeaderboardModel>, t: Throwable) {
+            override fun onFailure(call: Call<LeaderboardModel2>, t: Throwable) {
                 Toast.makeText(requireContext(), "Oops something went wrong!", Toast.LENGTH_SHORT)
                     .show()
             }

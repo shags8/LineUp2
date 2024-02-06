@@ -91,6 +91,7 @@ class bottom_activity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Permission Required")
         builder.setMessage("LineUp requires Camera access to function properly.")
+        builder.setCancelable(false)
         builder.setPositiveButton("Grant Permission") { dialog, which ->
             permissionRequest.add(Manifest.permission.CAMERA)
             permissionLauncher.launch(permissionRequest.toTypedArray())
