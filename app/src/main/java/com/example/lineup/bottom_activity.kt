@@ -20,8 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lineup.databinding.ActivityBottomBinding
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationRequest
 import com.yourpackage.LocationUpdates
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -198,7 +196,7 @@ class bottom_activity : AppCompatActivity() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 0f, locationListener)
     }
     private fun sendLocationToBackend(location: Location) {
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
@@ -229,8 +227,8 @@ class bottom_activity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         // Start foreground service here
-        val serviceIntent = Intent(this, LocationUpdates::class.java)
-        startForegroundService(serviceIntent)
+       // val serviceIntent = Intent(this, LocationUpdates::class.java)
+       // startForegroundService(serviceIntent)
         if (!locationServiceRunning.getAndSet(true)) {
             // Start foreground service only if it's not already running
             val serviceIntent = Intent(this, LocationUpdates::class.java)

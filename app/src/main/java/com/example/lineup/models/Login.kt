@@ -11,5 +11,4 @@ data class Login2(
     val token :String,
     val message: String,
     val url: String,
-    val token:String
 )

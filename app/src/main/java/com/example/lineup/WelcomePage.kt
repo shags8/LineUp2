@@ -26,11 +26,11 @@ class WelcomePage : AppCompatActivity() {
 
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isLocationPermissionGranted = false
+    private var isNotificationPermissionGranted = false
     val permissionRequest = mutableListOf<String>()
 
-    private lateinit var auth: FirebaseAuth
 
-
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_page)
@@ -40,7 +40,7 @@ class WelcomePage : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isLocationPermissionGranted =
                     permissions[permission.ACCESS_FINE_LOCATION] ?: isLocationPermissionGranted
-                if (!isLocationPermissionGranted) {
+                if (!isLocationPermissionGranted || !isNotificationPermissionGranted) {
                     showPermissionDeniedDialog()
                 }
 
@@ -54,7 +54,7 @@ class WelcomePage : AppCompatActivity() {
 
         Log.e("id1236", "$retrievedValue")
         if (retrievedValue != "defaultValue") {
-            editor.putString("Token" , retrievedValue)
+            editor.putString("Token", retrievedValue)
             Log.e("id5", "$retrievedValue")
             startActivity(Intent(this, bottom_activity::class.java))
             finish()
@@ -65,7 +65,7 @@ class WelcomePage : AppCompatActivity() {
     private fun showPermissionDeniedDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Permission Required")
-        builder.setMessage("LineUp requires location permission to function properly.")
+        builder.setMessage("LineUp requires necessary permissions to function properly.")
         builder.setCancelable(false)
         builder.setPositiveButton("Grant Permission") { dialog, which ->
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
@@ -82,6 +82,7 @@ class WelcomePage : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestPermission() {
         isLocationPermissionGranted = ContextCompat.checkSelfPermission(
             this, permission.ACCESS_FINE_LOCATION
@@ -89,6 +90,15 @@ class WelcomePage : AppCompatActivity() {
 
         if (!isLocationPermissionGranted) {
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
+        }
+
+        isNotificationPermissionGranted = ContextCompat.checkSelfPermission(
+            this,
+            permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+
+        if(!isNotificationPermissionGranted) {
+            permissionRequest.add((permission.POST_NOTIFICATIONS))
         }
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
