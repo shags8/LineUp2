@@ -8,6 +8,7 @@ data class Login(
 data class Login2(
     val protocol: String,
     val code: String,
+    val token :String,
     val message: String,
     val url: String
 )
