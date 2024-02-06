@@ -9,5 +9,6 @@ data class Login2(
     val protocol: String,
     val code: String,
     val message: String,
-    val url: String
+    val url: String,
+    val token:String
 )
