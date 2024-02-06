@@ -170,9 +170,6 @@ class ForeGroundLocationUpdates : Service() {
             requestLocationUpdates()
         }
 
-        // Create notification for foreground service
-        val notification = createNotification(this)
-        startForeground(1, notification)
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -222,28 +219,6 @@ class ForeGroundLocationUpdates : Service() {
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-    }
-
-    private fun createNotification(context: Context): Notification {
-        val channelId = "location_update_channel"
-        val notificationManager = getSystemService(NotificationManager::class.java)
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(
-                channelId,
-                "Location Updates",
-                NotificationManager.IMPORTANCE_HIGH
-            )
-            notificationManager.createNotificationChannel(channel)
-        }
-
-        val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Location Updates Running")
-            .setContentText("Sending location data to server...")
-            .setSmallIcon(R.drawable.ic_launcher_foreground)
-        // Replace with your icon
-
-        return notificationBuilder.build()
     }
 }
 
