@@ -1,5 +1,6 @@
 package com.example.lineup
 import android.Manifest
+import android.app.ActivityManager
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
@@ -20,6 +21,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.lineup.databinding.ActivityBottomBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.yourpackage.ForeGroundLocationUpdates
 import com.yourpackage.LocationUpdates
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -45,8 +49,6 @@ class bottom_activity : AppCompatActivity() {
     private lateinit var binding: ActivityBottomBinding
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
 
         binding = ActivityBottomBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -54,8 +56,11 @@ class bottom_activity : AppCompatActivity() {
 
 
 
+        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+
+        Log.e("id16","$retrievedValue")
         replaceFragments(Qr_code())
-        connectSocketIO()
 
         permissionLauncher =
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -67,7 +72,6 @@ class bottom_activity : AppCompatActivity() {
 
             }
         requestPermission()
-
 
         val bottomNavBar = binding.bottomNavigationView
         bottomNavBar.itemIconTintList = null
@@ -89,7 +93,6 @@ class bottom_activity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Permission Required")
         builder.setMessage("LineUp requires Camera access to function properly.")
-        builder.setCancelable(false)
         builder.setPositiveButton("Grant Permission") { dialog, which ->
             permissionRequest.add(Manifest.permission.CAMERA)
             permissionLauncher.launch(permissionRequest.toTypedArray())
@@ -125,10 +128,6 @@ class bottom_activity : AppCompatActivity() {
         if (permissionRequest.isNotEmpty()) {
             permissionLauncher.launch(permissionRequest.toTypedArray())
         }
-        else
-        {
-            startLocationUpdates()
-        }
 
     }
 
@@ -139,7 +138,6 @@ class bottom_activity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
-    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         AlertDialog.Builder(this)
@@ -169,97 +167,92 @@ class bottom_activity : AppCompatActivity() {
         }
     }
 
-    private lateinit var locationManager: LocationManager
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            sendLocationToBackend(location)
-        }
-        // ... other callback methods
-    }
+//    private lateinit var locationManager: LocationManager
+//    private val locationListener = object : LocationListener {
+//        override fun onLocationChanged(location: Location) {
+//            sendLocationToBackend(location)
+//        }
+//        // ... other callback methods
+//    }
 
-    private fun startLocationUpdates() {
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1500, 0f, locationListener)
-    }
-    private fun sendLocationToBackend(location: Location) {
-        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        val data = JSONObject()
-        try {
-            data.put("latitude", location.latitude)
-            data.put("longitude", location.longitude)
-            data.put("token", retrievedValue)
-            socket.emit("locationChange", data)
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
+//    private fun startLocationUpdates() {
+//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+//        if (ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_FINE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+//                this,
+//                Manifest.permission.ACCESS_COARSE_LOCATION
+//            ) != PackageManager.PERMISSION_GRANTED
+//        ) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return
+//        }
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0f, locationListener)
+//    }
+//    private fun sendLocationToBackend(location: Location) {
+//        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+//        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+//        val data = JSONObject()
+//        try {
+//            data.put("latitude", location.latitude)
+//            data.put("longitude", location.longitude)
+//            data.put("token", retrievedValue)
+//            socket.emit("locationChange", data)
+//        } catch (e: JSONException) {
+//            e.printStackTrace()
+//        }
+//    }
     override fun onPause() {
         super.onPause()
-        // Start foreground service here
-        if (!locationServiceRunning.getAndSet(true)) {
-            // Start foreground service only if it's not already running
-            val serviceIntent = Intent(this, LocationUpdates::class.java)
-            startForegroundService(serviceIntent)
-        }
+        // Start the LocationUpdates service when activity goes into background
+        startbackground()
+    stopforeground()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+       stopbackground()
+        stopforeground()
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        // Stop the LocationUpdates service when activity comes back to foreground
+        Log.e("abc1","1")
+        startforeground()
+        Log.e("abc1","2")
+        stopbackground()
+        Log.e("abc1","3")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onStop() {
-        super.onStop()
-        // Start foreground service here
-       // val serviceIntent = Intent(this, LocationUpdates::class.java)
-       // startForegroundService(serviceIntent)
-        if (!locationServiceRunning.getAndSet(true)) {
-            // Start foreground service only if it's not already running
-            val serviceIntent = Intent(this, LocationUpdates::class.java)
-            startForegroundService(serviceIntent)
-            Log.e("id16" , "stop2")
-        }
+    private fun startforeground()
+    {
+        val serviceIntent2 = Intent(this, ForeGroundLocationUpdates::class.java)
+        startService(serviceIntent2)
     }
-
-    override fun onResume() {
-        super.onResume()
-        Log.e("id16" , "stop2")
-        if (locationServiceRunning.getAndSet(false)) {
-            val serviceIntent = Intent(this, LocationUpdates::class.java)
-            stopService(serviceIntent)
-        }
-        // Stop foreground service here (optional)
-        // Use an appropriate condition to stop the service
-        // e.g., when location updates are no longer needed
-        // stopService(Intent(this, LocationUpdateService::class.java))
+    private fun stopforeground()
+    {
+        val serviceIntent2 = Intent(this, ForeGroundLocationUpdates::class.java)
+        stopService(serviceIntent2)
     }
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.e("id16" , "stop2")
-        if (locationServiceRunning.getAndSet(false)) {
-            val serviceIntent = Intent(this, LocationUpdates::class.java)
-            stopService(serviceIntent)
-        }
-        // Stop foreground service here (optional)
-        // Use an appropriate condition to stop the service
-        // e.g., when location updates are no longer needed
-        // stopService(Intent(this, LocationUpdateService::class.java))
+    private fun startbackground()
+    {
+        val serviceIntent = Intent(this, LocationUpdates::class.java)
+        startService(serviceIntent)
+    }
+    private fun stopbackground()
+    {
+        val serviceIntent = Intent(this, LocationUpdates::class.java)
+        stopService(serviceIntent)
     }
 
 }

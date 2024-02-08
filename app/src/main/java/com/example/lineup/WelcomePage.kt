@@ -40,6 +40,7 @@ class WelcomePage : AppCompatActivity() {
             registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
                 isLocationPermissionGranted =
                     permissions[permission.ACCESS_FINE_LOCATION] ?: isLocationPermissionGranted
+                isNotificationPermissionGranted = permissions[permission.POST_NOTIFICATIONS] ?: isLocationPermissionGranted
                 if (!isLocationPermissionGranted || !isNotificationPermissionGranted) {
                     showPermissionDeniedDialog()
                 }
@@ -62,6 +63,7 @@ class WelcomePage : AppCompatActivity() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun showPermissionDeniedDialog() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Permission Required")
@@ -69,6 +71,7 @@ class WelcomePage : AppCompatActivity() {
         builder.setCancelable(false)
         builder.setPositiveButton("Grant Permission") { dialog, which ->
             permissionRequest.add(permission.ACCESS_FINE_LOCATION)
+            permissionRequest.add(permission.POST_NOTIFICATIONS)
             permissionLauncher.launch(permissionRequest.toTypedArray())
             dialog.dismiss()
         }

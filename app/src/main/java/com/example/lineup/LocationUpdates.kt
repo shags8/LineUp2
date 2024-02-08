@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
@@ -22,6 +23,7 @@ import java.net.URISyntaxException
 
 class LocationUpdates : Service() {
 
+    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var socket: Socket
     private lateinit var locationManager: LocationManager
     private val locationListener = object : LocationListener {
@@ -35,7 +37,7 @@ class LocationUpdates : Service() {
 
 
         // Replace with your backend server URL
-        Log.e("id16" , "stop2")
+        Log.e("id16" , "stop2121")
         val serverUrl = "https://lineup-backend.onrender.com/"
 
         try {
@@ -92,14 +94,17 @@ class LocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0f, locationListener)
     }
 
     private fun sendLocationToBackend(location: Location) {
         val data = JSONObject()
+        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         try {
             data.put("latitude", location.latitude)
             data.put("longitude", location.longitude)
+            data.put("token", retrievedValue)
             socket.emit("locationChange", data)
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -128,3 +133,93 @@ class LocationUpdates : Service() {
         return notificationBuilder.build()
     }
 }
+
+class ForeGroundLocationUpdates : Service() {
+
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var socket: Socket
+    private lateinit var locationManager: LocationManager
+    private val locationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            sendLocationToBackend(location)
+        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
+
+        // Replace with your backend server URL
+        Log.e("id16" , "stop2121")
+        val serverUrl = "https://lineup-backend.onrender.com/"
+
+        try {
+            socket = IO.socket(serverUrl)
+            socket.connect()
+        } catch (e: URISyntaxException) {
+            e.printStackTrace()
+        }
+
+        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
+
+        // Check for location permissions
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.w("LocationUpdateService", "Location permission not granted")
+            // Handle permission request if needed
+        } else {
+            requestLocationUpdates()
+        }
+
+    }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        socket.disconnect()
+        locationManager.removeUpdates(locationListener)
+    }
+
+    override fun onBind(intent: Intent): IBinder? {
+        return null // Not a bound service
+    }
+
+    private fun requestLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0f, locationListener)
+    }
+
+    private fun sendLocationToBackend(location: Location) {
+        val data = JSONObject()
+        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+        try {
+            data.put("latitude", location.latitude)
+            data.put("longitude", location.longitude)
+            data.put("token", retrievedValue)
+            socket.emit("locationChange", data)
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+    }
+}
+
+
