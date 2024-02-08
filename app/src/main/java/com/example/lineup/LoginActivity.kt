@@ -35,7 +35,6 @@ class LoginActivity : AppCompatActivity() {
         val loginbtn = binding.loginBtn
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
-        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
 
         loginbtn.setOnClickListener {
             val zeal = binding.zeal.text.trim().toString()
@@ -58,8 +57,8 @@ class LoginActivity : AppCompatActivity() {
                             if (bodyReponse != null) {
                                 Log.e("id1234", "$bodyReponse")
                                 if (bodyReponse.message == "Login successful") {
-                                    Log.e("id1", "$retrievedValue")
-                                    editor.putString("Token", retrievedValue)
+                                    editor.putString("Token", response.body()!!.token)
+                                    editor.apply()
                                     showToast("Login Successfully")
                                     val intent =
                                         Intent(this@LoginActivity, bottom_activity::class.java)
