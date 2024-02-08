@@ -84,16 +84,6 @@ class CharacterSelect : AppCompatActivity() {
         binding.VP.addItemDecoration(itemDecoration)
         binding.VP.offscreenPageLimit = 2
 
-
-//        val imageMap: Map<Int, () -> Unit> = mapOf(1 to { characters[0] },
-//            2 to { characters[1] },
-//            3 to { characters[2] },
-//            4 to { characters[3] },
-//            5 to { characters[4] },
-//            6 to { characters[5] },
-//            7 to { characters[6] },
-//            8 to { characters[7] })
-
         val header = "Bearer $retrievedValue"
         binding.characterBtn.setOnClickListener {
             Log.e("imageNumber", "$visibleImage")

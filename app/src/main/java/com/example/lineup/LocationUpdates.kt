@@ -92,7 +92,7 @@ class LocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
     }
 
     private fun sendLocationToBackend(location: Location) {
