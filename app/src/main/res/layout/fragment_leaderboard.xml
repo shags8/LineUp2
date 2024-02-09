@@ -18,13 +18,6 @@
         android:textColor="@color/black"
         android:textSize="40sp" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeToRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/leaderboard_heading"
-        >
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboard_rv"
         android:layout_width="match_parent"
@@ -34,7 +27,6 @@
         android:layout_marginTop="30dp"
         tools:listitem="@layout/leaderboard_item" />
 
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
 

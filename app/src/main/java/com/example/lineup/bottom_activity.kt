@@ -171,6 +171,9 @@ class bottom_activity : AppCompatActivity(){
     override fun onDestroy() {
         super.onDestroy()
 
+
+        val serviceIntent = Intent(this, DirectionService::class.java)
+        stopService(serviceIntent)
        stopbackground()
         stopforeground()
     }

@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.lineup.models.LeaderboardModel
 import com.example.lineup.models.LeaderboardModel2
 import com.google.android.play.integrity.internal.f
@@ -25,7 +24,6 @@ class Leaderboard : Fragment() {
     private lateinit var leaderboardRV: RecyclerView
     private lateinit var leaderboardAdapter: LeaderboardAdapter
     private lateinit var leaderboardList: ArrayList<LeaderboardModel>
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var characters: IntArray
     var fetchSuccess:Boolean = false
 
@@ -52,7 +50,6 @@ class Leaderboard : Fragment() {
 
         leaderboardRV = view.findViewById(R.id.leaderboard_rv)
         leaderboardRV.layoutManager = LinearLayoutManager(requireContext())
-        swipeRefreshLayout = view.findViewById(R.id.swipeToRefresh)
 
 
 
@@ -61,22 +58,21 @@ class Leaderboard : Fragment() {
 
         dataFetch()
 
-        refreshLeaderboard()
+//        refreshLeaderboard()
     }
 
-    private fun refreshLeaderboard(){
-        swipeRefreshLayout.setOnRefreshListener {
-            val fetchSuccess = dataFetch()
-           // Log.e("id123" , "$fetchSuccess")
-            if (fetchSuccess) {
-                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
-
-            }
-            swipeRefreshLayout.isRefreshing= false
-        }
-    }
+//    private fun refreshLeaderboard(){
+//        swipeRefreshLayout.setOnRefreshListener {
+//            val fetchSuccess = dataFetch()
+//           // Log.e("id123" , "$fetchSuccess")
+//            if (fetchSuccess) {
+//                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
+//            }else{
+//                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
+//
+//            }
+//        }
+//    }
 
     private fun dataFetch():Boolean {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"

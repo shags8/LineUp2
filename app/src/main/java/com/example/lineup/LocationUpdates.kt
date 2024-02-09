@@ -36,7 +36,7 @@ class LocationUpdates : Service() {
 
         // Replace with your backend server URL
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.vercel.app/"
+        val serverUrl = "https://lineup-backend.vercel.app"
 
         try {
             socket = IO.socket(serverUrl)
@@ -150,7 +150,7 @@ class ForeGroundLocationUpdates : Service() {
         // Replace with your backend server URL
         Log.e("id1236", "service3")
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.onrender.com/"
+        val serverUrl = "https://lineup-backend.vercel.app"
 
         try {
             socket = IO.socket(serverUrl)
