@@ -6,16 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".route">
 
-    <com.skyfishjy.library.RippleBackground xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ripple_bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:rb_color="#CDCDCD"
-        app:rb_duration="3000"
-        app:rb_radius="32dp"
-        app:rb_rippleAmount="4"
-        app:rb_scale="6" />
+
 
     <TextView
         android:id="@+id/radar_heading"
@@ -64,11 +55,22 @@
         android:layout_below="@+id/closest_to_you"
         android:layout_above="@+id/progress_bar">
 
+
+
+        <com.skyfishjy.library.RippleBackground
+            android:id="@+id/ripple_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:rb_color="#CDCDCD"
+            app:rb_duration="3000"
+            app:rb_radius="36dp"
+            app:rb_rippleAmount="4"
+            app:rb_scale="6" />
+
         <com.example.lineup.RadarView
             android:id="@+id/radarview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-
 
     </RelativeLayout>
 

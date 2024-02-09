@@ -21,8 +21,8 @@ class LeaderboardAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.leaderboard_item, parent, false)
+        val context = parent.context
+        val view = LayoutInflater.from(context).inflate(R.layout.leaderboard_item, parent, false)
         return ViewHolder(view)
     }
 
