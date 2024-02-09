@@ -6,8 +6,6 @@
         android:name="android.hardware.camera"
         android:required="true" />
 
-
-    <uses-feature android:name="android.hardware.sensor.compass" android:required="true" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -35,14 +33,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".TestLocation"
-            android:exported="true" >
-        </activity>
-        <activity
             android:name=".RulesActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
-            />
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".CharacterSelect"
             android:exported="true"
@@ -50,8 +43,7 @@
         <activity
             android:name=".SignUpActivity"
             android:exported="true"
-            android:screenOrientation="portrait">
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false"
@@ -66,6 +58,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -75,15 +68,20 @@
             android:screenOrientation="portrait" />
 
         <service
-            android:name="com.yourpackage.LocationUpdates"
+            android:name=".LocationUpdates"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
         <service
-            android:name="com.yourpackage.ForeGroundLocationUpdates"
+            android:name=".ForeGroundLocationUpdates"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
+        <service
+            android:name=".DirectionService"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="location"/>
     </application>
 
 </manifest>

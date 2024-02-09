@@ -1,4 +1,4 @@
-package com.yourpackage // Replace with your package name
+package com.example.lineup // Replace with your package name
 
 import android.Manifest
 import android.app.*
@@ -13,8 +13,6 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import com.example.lineup.R
-import com.example.lineup.bottom_activity
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONException
@@ -150,6 +148,7 @@ class ForeGroundLocationUpdates : Service() {
 
 
         // Replace with your backend server URL
+        Log.e("id1236", "service3")
         Log.e("id16" , "stop2121")
         val serverUrl = "https://lineup-backend.onrender.com/"
 
