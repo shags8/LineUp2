@@ -1,13 +1,16 @@
 package com.example.lineup
 
-import SensorManagerHelper
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,6 +18,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.example.lineup.DirectionService.Companion.ACTION_DIRECTION_UPDATE
 import com.example.lineup.models.Route
 import com.example.lineup.models.location
 import com.example.lineup.models.qrCode
@@ -29,30 +36,22 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class route : Fragment() {
-
-
-
+class route : Fragment(){
 
     // private var service: Intent?=null
     private var rippleBackground: RippleBackground? = null
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var radarView: RadarView
-//    private val sensorManagerHelper = SensorManagerHelper(requireContext())
+    private lateinit var directionTextView: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_route, container, false)
-        val textView = view.findViewById<TextView>(R.id.radar_heading)
 
-//        sensorManagerHelper.startSensorUpdates { direction ->
-//            textView.text = direction
-//        }
-
-//        rippleBackground = view.findViewById(R.id.ripple_bg)
-//        rippleBackground?.startRippleAnimation()
+        rippleBackground = view.findViewById(R.id.ripple_bg)
+        rippleBackground?.startRippleAnimation()
         return view
     }
 
@@ -60,12 +59,12 @@ class route : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        
+        directionTextView = view.findViewById(R.id.radar_heading)
         radarView = view.findViewById(R.id.radarview)
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id1236", "$retrievedValue")
         val header = "Bearer $retrievedValue"
 
 
@@ -92,5 +91,12 @@ class route : Fragment() {
 
         })
 
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+    }
+
+    fun updateDirection(direction: String) {
+        directionTextView.text = "Facing: $direction"
     }
 }
