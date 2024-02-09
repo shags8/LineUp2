@@ -141,22 +141,21 @@ class bottom_activity : AppCompatActivity(){
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
         AlertDialog.Builder(this)
             .setTitle("Exit")
             .setMessage("Are you sure?")
-            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, which ->
+            .setPositiveButton("Yes") { dialog, which ->
                 val intent = Intent(Intent.ACTION_MAIN)
                 intent.addCategory(Intent.CATEGORY_HOME)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
-            })
-            .setNegativeButton("no", DialogInterface.OnClickListener { dialog, which ->
-                //   super.onBackPressed()
-            })
+            }
+            .setNegativeButton("No") { dialog, which ->
+                // Handle "no" button click or remove this block if not needed
+            }
             .show()
-        // super.onBackPressed()
     }
+
 
     override fun onPause() {
         super.onPause()
