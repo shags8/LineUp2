@@ -6,6 +6,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
@@ -23,6 +27,8 @@ import androidx.fragment.app.Fragment
 import com.example.lineup.databinding.ActivityBottomBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.play.integrity.internal.f
 import com.yourpackage.ForeGroundLocationUpdates
 import com.yourpackage.LocationUpdates
 import io.socket.client.IO
@@ -33,14 +39,11 @@ import java.net.URISyntaxException
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class bottom_activity : AppCompatActivity() {
+class bottom_activity : AppCompatActivity(){
 
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var socket : Socket
     private val locationServiceRunning = AtomicBoolean(false)
-
-
-
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
     private var isCameraPermissionGranted = false
     private var isLocationPermissionGranted = false
@@ -53,9 +56,6 @@ class bottom_activity : AppCompatActivity() {
         binding = ActivityBottomBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-
-
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
 
@@ -138,6 +138,8 @@ class bottom_activity : AppCompatActivity() {
         fragmentTransaction.commit()
     }
 
+
+
     override fun onBackPressed() {
         super.onBackPressed()
         AlertDialog.Builder(this)
@@ -156,66 +158,12 @@ class bottom_activity : AppCompatActivity() {
         // super.onBackPressed()
     }
 
-    private fun connectSocketIO() {
-        val serverUrl = "https://lineup-backend.onrender.com/"
-
-        try {
-            socket = IO.socket(serverUrl)
-            socket.connect()
-        } catch (e: URISyntaxException) {
-            e.printStackTrace()
-        }
-    }
-
-//    private lateinit var locationManager: LocationManager
-//    private val locationListener = object : LocationListener {
-//        override fun onLocationChanged(location: Location) {
-//            sendLocationToBackend(location)
-//        }
-//        // ... other callback methods
-//    }
-
-//    private fun startLocationUpdates() {
-//        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-//        if (ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                this,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return
-//        }
-//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 4000, 0f, locationListener)
-//    }
-//    private fun sendLocationToBackend(location: Location) {
-//        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-//        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-//        val data = JSONObject()
-//        try {
-//            data.put("latitude", location.latitude)
-//            data.put("longitude", location.longitude)
-//            data.put("token", retrievedValue)
-//            socket.emit("locationChange", data)
-//        } catch (e: JSONException) {
-//            e.printStackTrace()
-//        }
-//    }
     override fun onPause() {
         super.onPause()
         // Start the LocationUpdates service when activity goes into background
         startbackground()
-    stopforeground()
+        stopforeground()
     }
-
     override fun onDestroy() {
         super.onDestroy()
 
@@ -231,6 +179,7 @@ class bottom_activity : AppCompatActivity() {
         Log.e("abc1","2")
         stopbackground()
         Log.e("abc1","3")
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -254,5 +203,4 @@ class bottom_activity : AppCompatActivity() {
         val serviceIntent = Intent(this, LocationUpdates::class.java)
         stopService(serviceIntent)
     }
-
 }

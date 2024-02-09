@@ -51,8 +51,8 @@ class route : Fragment() {
 //            textView.text = direction
 //        }
 
-//        rippleBackground = view.findViewById(R.id.ripple_bg)
-//        rippleBackground?.startRippleAnimation()
+        rippleBackground = view.findViewById(R.id.ripple_bg)
+        rippleBackground?.startRippleAnimation()
         return view
     }
 
@@ -92,5 +92,10 @@ class route : Fragment() {
 
         })
 
+    }
+
+    fun updateDirection(azimuthInDegrees: Float) {
+        // Update UI elements in your fragment with the direction information
+        // For example, update a TextView with the azimuthInDegrees value
     }
 }

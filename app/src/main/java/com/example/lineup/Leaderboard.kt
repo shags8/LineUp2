@@ -11,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.lineup.models.LeaderboardModel
 import com.example.lineup.models.LeaderboardModel2
+import com.google.android.play.integrity.internal.f
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +25,9 @@ class Leaderboard : Fragment() {
     private lateinit var leaderboardRV: RecyclerView
     private lateinit var leaderboardAdapter: LeaderboardAdapter
     private lateinit var leaderboardList: ArrayList<LeaderboardModel>
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var characters: IntArray
+    var fetchSuccess:Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -33,22 +38,49 @@ class Leaderboard : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//            val name:String
-//            val membersFound:Int
-//            val avatar:Int
-//            val playerDetails= LeaderboardModel(name, membersFound, avatar)
 
+         characters= intArrayOf(
+            R.drawable.red_avatar,
+            R.drawable.pink_avatar,
+            R.drawable.yellow_avatar,
+            R.drawable.small_avatar,
+            R.drawable.grey_avatar,
+            R.drawable.blue_avatar,
+            R.drawable.brown_avatar,
+            R.drawable.green_avatar
+        )
 
         leaderboardRV = view.findViewById(R.id.leaderboard_rv)
         leaderboardRV.layoutManager = LinearLayoutManager(requireContext())
+        swipeRefreshLayout = view.findViewById(R.id.swipeToRefresh)
+
 
 
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-       // Log.e("id123", retrievedValue)
-        val header = "Bearer $retrievedValue"
 
+        dataFetch()
+
+        refreshLeaderboard()
+    }
+
+    private fun refreshLeaderboard(){
+        swipeRefreshLayout.setOnRefreshListener {
+            val fetchSuccess = dataFetch()
+           // Log.e("id123" , "$fetchSuccess")
+            if (fetchSuccess) {
+                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
+
+            }
+            swipeRefreshLayout.isRefreshing= false
+        }
+    }
+
+    private fun dataFetch():Boolean {
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
+        val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.getPlayers(header)
         call.enqueue(object : Callback<LeaderboardModel2> {
             override fun onResponse(
@@ -57,35 +89,37 @@ class Leaderboard : Fragment() {
                 if (response.isSuccessful) {
                     val leaderboard = response.body()
                     Log.e("id123", "$leaderboard")
-                    //Log.e("id2", "$response")
-                    //   Log.e("id2345", "${response.headers()}")
                     if (leaderboard != null) {
-                        // Handle the leaderboard data
-//                        val player = response.body()!!.name
-//                        val avatar = response.body()!!.avatar
-//                        val score = response.body()!!.membersFound
-//                        leaderboardList.add(LeaderboardModel( player, score, avatar))
+                        fetchSuccess = true
+                        leaderboardList = ArrayList()
+                        val array = leaderboard.users
+                        for (i in array.indices) {
+                            val user = array[i]
+                            leaderboardList.add(
+                                LeaderboardModel(
+                                    user.name, user.membersFound, characters[user.avatar - 1]
+                                )
+                            )
+                        }
+                    //    Log.e("id123" , "$fetchSuccess")
                         leaderboardAdapter = LeaderboardAdapter(requireContext(), leaderboardList)
                         leaderboardRV.adapter = leaderboardAdapter
                         leaderboardAdapter.notifyDataSetChanged()
+
                     } else {
                         Log.e("id23", "${response.code()}")
                     }
                 } else {
                     Log.e("id123", "Error: ${response.code()}")
                 }
-
-
-
             }
-
 
             override fun onFailure(call: Call<LeaderboardModel2>, t: Throwable) {
                 Toast.makeText(requireContext(), "Oops something went wrong!", Toast.LENGTH_SHORT)
                     .show()
             }
         })
-
+        return fetchSuccess
     }
 
 

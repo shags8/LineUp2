@@ -38,9 +38,6 @@ class scanner : Fragment() {
 
             barcodeView.setStatusText(result.text)
 
-//            sharedPreferences = requireActivity().getSharedPreferences("ScannerToken", Context.MODE_PRIVATE)
-//            val editor = sharedPreferences.edit()
-//            editor.putString("ScannerToken", lastText)
             val token = Code(result.text)
             Log.e("id1235", "$token")
             if (token != null) {
