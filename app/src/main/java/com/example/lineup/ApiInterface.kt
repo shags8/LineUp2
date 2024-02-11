@@ -17,24 +17,24 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiInterface {
-    @POST("signup")
+    @POST("user/signup")
     fun signup(@Body signUp: SignUp): retrofit2.Call<SignUp2>
 
-    @POST("login")
+    @POST("user/login")
     fun login(@Body login: Login): retrofit2.Call<Login2>
 
-    @GET("generate-qr")
+    @GET("user/generate-qr")
     fun getCode(@Header("Authorization") qrCode: String): retrofit2.Call<qrCode>
 
-    @GET("leaderboard")
+    @GET("user/leaderboard")
     fun getPlayers(@Header("Authorization") token: String): retrofit2.Call<LeaderboardModel2>
 
-    @GET("refresh-location")
+    @GET("user/refresh-location")
     fun getRoute(@Header("Authorization") token: String): retrofit2.Call<Route>
 
-    @POST("store-avatar")
+    @POST("user/store-avatar")
     fun storeAvatar(@Header("Authorization") token: String , @Body avatar:Avatar ): retrofit2.Call<Avatar2>
 
-    @POST("scan-qrcode")
+    @POST("user/scan-qrcode")
     fun scan(@Header("Authorization") token: String, @Body code: Code): retrofit2.Call<scanner>
 }
