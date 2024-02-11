@@ -82,31 +82,34 @@ class Leaderboard : Fragment() {
             override fun onResponse(
                 call: Call<LeaderboardModel2>, response: Response<LeaderboardModel2>
             ) {
-                if (response.isSuccessful) {
-                    val leaderboard = response.body()
-                    Log.e("id123", "$leaderboard")
-                    if (leaderboard != null) {
-                        fetchSuccess = true
-                        leaderboardList = ArrayList()
-                        val array = leaderboard.users
-                        for (i in array.indices) {
-                            val user = array[i]
-                            leaderboardList.add(
-                                LeaderboardModel(
-                                    user.name, user.membersFound, characters[user.avatar - 1]
+                if(isAdded)
+                {
+                    if (response.isSuccessful) {
+                        val leaderboard = response.body()
+                        Log.e("id123", "$leaderboard")
+                        if (leaderboard != null) {
+                            fetchSuccess = true
+                            leaderboardList = ArrayList()
+                            val array = leaderboard.users
+                            for (i in array.indices) {
+                                val user = array[i]
+                                leaderboardList.add(
+                                    LeaderboardModel(
+                                        user.name, user.membersFound, characters[user.avatar - 1]
+                                    )
                                 )
-                            )
-                        }
-                    //    Log.e("id123" , "$fetchSuccess")
-                        leaderboardAdapter = LeaderboardAdapter(requireContext(), leaderboardList)
-                        leaderboardRV.adapter = leaderboardAdapter
-                        leaderboardAdapter.notifyDataSetChanged()
+                            }
+                            //    Log.e("id123" , "$fetchSuccess")
+                            leaderboardAdapter = LeaderboardAdapter(requireContext(), leaderboardList)
+                            leaderboardRV.adapter = leaderboardAdapter
+                            leaderboardAdapter.notifyDataSetChanged()
 
+                        } else {
+                            Log.e("id23", "${response.code()}")
+                        }
                     } else {
-                        Log.e("id23", "${response.code()}")
+                        Log.e("id123", "Error: ${response.code()}")
                     }
-                } else {
-                    Log.e("id123", "Error: ${response.code()}")
                 }
             }
 

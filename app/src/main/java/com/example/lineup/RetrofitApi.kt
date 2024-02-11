@@ -10,7 +10,6 @@ object RetrofitApi {
             .baseUrl("https://lineup-backend.onrender.com")
             .build()
     }
-
     val apiInterface by lazy {
         retrofit.create(ApiInterface::class.java)
     }

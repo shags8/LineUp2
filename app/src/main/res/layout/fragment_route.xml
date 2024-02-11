@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/montserrat_bold"
         android:gravity="center"
         android:text="@string/line_up_radar"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radar_heading"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="25dp"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/montserrat_medium"
         android:letterSpacing="0.01"
@@ -53,9 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/closest_to_you"
-        android:layout_above="@+id/progress_bar">
-
-
+        >
 
         <com.skyfishjy.library.RippleBackground
             android:id="@+id/ripple_bg"
@@ -74,55 +72,4 @@
 
     </RelativeLayout>
 
-
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_above="@+id/refresh"
-        android:layout_marginBottom="15dp"
-        android:layout_centerHorizontal="true"
-        android:visibility="invisible" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/refresh"
-        android:layout_width="156dp"
-        android:layout_height="46dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/round_bg"
-        android:backgroundTint="@color/black"
-        android:elevation="40dp"
-        app:cardCornerRadius="28dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="14dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginVertical="3dp"
-                android:layout_marginEnd="5dp"
-                android:layout_weight="1"
-                android:src="@drawable/refresh" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/montserrat_bold"
-                android:gravity="center"
-                android:text="@string/refresh"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
 </RelativeLayout>

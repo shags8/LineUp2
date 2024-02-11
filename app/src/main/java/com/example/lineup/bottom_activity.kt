@@ -84,7 +84,7 @@ class bottom_activity : AppCompatActivity(){
                 R.id.route -> replaceFragments(route())
                 R.id.Scanner -> replaceFragments(scanner())
             }
-            return@setOnItemSelectedListener true
+            true
 
 
         }

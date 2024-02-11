@@ -77,7 +77,7 @@ class route : Fragment(){
                 Log.e("id1235", "$response")
                 responseBody?.let {
                     val users = responseBody.nearestUsers.map { user ->
-                        location(user.name, user.distance, user.direction)
+                        location(user.name, user.avatar,user.distance, user.direction)
                     }
                     // Update RadarView with the new route data
                     radarView.setUsers(users)

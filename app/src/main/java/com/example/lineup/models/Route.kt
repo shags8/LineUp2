@@ -5,6 +5,7 @@ data class Route(
 )
 data class location(
     val name : String,
+    var avatar : Int,
     val distance: Double,
     val direction: String
 )
