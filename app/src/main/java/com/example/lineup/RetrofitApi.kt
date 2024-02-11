@@ -7,7 +7,7 @@ object RetrofitApi {
     private val retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://lineup-backend.vercel.app")
+            .baseUrl("https://lineup-backend.onrender.com")
             .build()
     }
 

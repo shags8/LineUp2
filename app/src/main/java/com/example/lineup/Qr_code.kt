@@ -75,19 +75,6 @@ class Qr_code : Fragment() {
             }
 
         })
-//        userInfo.get().addOnCompleteListener { task ->
-//            if(task.isSuccessful){
-//                val snapshot=task.result
-//                zeal_id=snapshot.child("zealid").value.toString()
-//                Log.e("id123", zeal_id)
-//
-//            }else{
-//                Log.e("TAG","Error getting data")
-//            }
-
-        //}
-        //   Log.e("id123","$zeal_id")
-        // btn.setOnClickListener {
 
     }
 }

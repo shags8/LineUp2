@@ -10,6 +10,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import com.example.lineup.models.location
 import com.google.android.play.integrity.internal.t
 import java.util.Locale
@@ -90,33 +93,77 @@ class RadarView : View {
         selfDrawable?.let {
             canvas.drawBitmap(it, x, y, null)
         }
+        val sortedUsers = users.sortedBy { it.distance }
 
         // Draw users
-        val distance = maxDistanceInKm*0.7// Distance of users from the center (same for all)
-        for (user in users) {
+
+        for (user in sortedUsers) {
             val directionInDegrees =
                 directionToDegrees(user.direction) // Direction of the user in degrees
 
+            val separationFactor = 0.35 // Adjust this factor as needed
+            var distance = maxDistanceInKm * (0.7 + (sortedUsers.indexOf(user) * separationFactor))
 
             // Calculate position of the user based on distance and direction
-            val x =
+            var x =
                 centerX + distance * scalingFactor * cos(Math.toRadians(directionInDegrees)).toFloat()
-            val y =
+            var y =
                 centerY + distance * scalingFactor * sin(Math.toRadians(directionInDegrees)).toFloat()
             Log.e("id1235","$x,$y")
 
-            // Draw the user
-            canvas.drawCircle(x.toFloat(), y.toFloat(), 20f, userPaint)
 
-//            // Optionally, draw a line indicating the direction
-//            val lineLength = 40f
-//            val lineEndX =
-//                x + lineLength * cos(Math.toRadians(directionInDegrees.toDouble())).toFloat()
-//            val lineEndY =
-//                y + lineLength * sin(Math.toRadians(directionInDegrees.toDouble())).toFloat()
-//            canvas.drawLine(x.toFloat(),
-//                y.toFloat(), lineEndX.toFloat(), lineEndY.toFloat(), userPaint)
+
+
+
+            // Draw the user
+            //canvas.drawCircle(x.toFloat(), y.toFloat(), 20f, userPaint)
+            val userLayout = createUserLayout(user,maxRadarDimension)
+            userLayout.measure(width, height)
+            userLayout.layout(0, 0, width, height)
+            canvas.save()
+            canvas.translate((x - userLayout.measuredWidth / 2f).toFloat(),
+                (y - userLayout.measuredHeight / 2f).toFloat()
+            )
+            userLayout.draw(canvas)
+            canvas.restore()
+
         }
+    }
+    private fun createUserLayout(user: location, maxRadarDimension: Int): LinearLayout {
+        val context = context
+        val userLayout = LinearLayout(context)
+        userLayout.orientation = LinearLayout.VERTICAL
+
+        val radarSize = min(width, height) // Assuming radar view is square
+        val maxDrawableDimension = (radarSize * 0.010).toInt()
+
+        // Distance TextView
+        val distanceTextView = TextView(context)
+        val formattedDistance = String.format("%.3f", user.distance)
+        distanceTextView.text = "Distance: ${formattedDistance} km"
+        distanceTextView.textSize = maxDrawableDimension.toFloat()
+        userLayout.addView(distanceTextView)
+
+        // Name TextView
+        val nameTextView = TextView(context)
+        nameTextView.text = "Name: ${user.name}"
+        nameTextView.textSize = maxDrawableDimension.toFloat()// Change to user's actual name
+        userLayout.addView(nameTextView)
+
+        val layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        )
+        userLayout.layoutParams = layoutParams
+
+        // Icon ImageView (Assuming you have a URL to fetch the icon from the backend)
+        val iconImageView = ImageView(context)
+        // Load icon from the backend and set it to the ImageView
+        // You can use any image loading library like Picasso, Glide, etc.
+        // Example: Glide.with(context).load(user.iconUrl).into(iconImageView)
+       // userLayout.addView(iconImageView)
+
+        return userLayout
     }
     fun directionToDegrees(direction: String): Double {
         return when (direction.uppercase(Locale.ROOT)) {

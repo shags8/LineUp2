@@ -36,7 +36,7 @@ class LocationUpdates : Service() {
 
         // Replace with your backend server URL
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.vercel.app"
+        val serverUrl = "https://lineup-backend.onrender.com"
 
         try {
             socket = IO.socket(serverUrl)
@@ -92,7 +92,7 @@ class LocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
     }
 
     private fun sendLocationToBackend(location: Location) {
@@ -150,7 +150,7 @@ class ForeGroundLocationUpdates : Service() {
         // Replace with your backend server URL
         Log.e("id1236", "service3")
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.vercel.app"
+        val serverUrl = "https://lineup-backend.onrender.com"
 
         try {
             socket = IO.socket(serverUrl)
@@ -203,7 +203,7 @@ class ForeGroundLocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 6000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
     }
 
     private fun sendLocationToBackend(location: Location) {

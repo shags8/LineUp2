@@ -195,8 +195,8 @@ class bottom_activity : AppCompatActivity(){
     {
         val serviceIntent2 = Intent(this, ForeGroundLocationUpdates::class.java)
         startService(serviceIntent2)
-        val serviceIntent = Intent(this, DirectionService::class.java)
-        startService(serviceIntent)
+        val serviceIntent3 = Intent(this, DirectionService::class.java)
+        startService(serviceIntent3)
     }
     private fun stopforeground()
     {
