@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     tools:context =".SignUpActivity">
+<RelativeLayout
+    android:id="@+id/signUpRel"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/lin_lay"
@@ -56,6 +60,7 @@
             android:background="@drawable/info_bg"
             android:fontFamily="@font/montserrat_medium"
             android:hint="@string/name"
+            android:ellipsize="end"
             android:inputType="text"
             android:maxLines="1"
             android:padding="20dp"
@@ -158,14 +163,8 @@
             android:layout_marginEnd="32dp"
             android:layout_marginTop="85dp" />
     </androidx.appcompat.widget.Toolbar>
-    <FrameLayout
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:focusable="true" />
+</RelativeLayout>
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -174,4 +173,5 @@
         android:layout_centerInParent="true"
         android:visibility="gone"
         android:indeterminateTint="?attr/colorOnPrimary"/>
+
 </RelativeLayout>
