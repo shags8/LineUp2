@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.lineup.models.LeaderboardModel
 import com.example.lineup.models.LeaderboardModel2
 import com.google.android.play.integrity.internal.f
@@ -26,6 +27,7 @@ class Leaderboard : Fragment() {
     private lateinit var leaderboardList: ArrayList<LeaderboardModel>
     private lateinit var characters: IntArray
     var fetchSuccess:Boolean = false
+    private lateinit var swipeRefreshLayout:SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -37,7 +39,9 @@ class Leaderboard : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-         characters= intArrayOf(
+        swipeRefreshLayout = view.findViewById(R.id.swipeLayout)
+
+        characters= intArrayOf(
             R.drawable.red_avatar,
             R.drawable.pink_avatar,
             R.drawable.yellow_avatar,
@@ -52,27 +56,26 @@ class Leaderboard : Fragment() {
         leaderboardRV.layoutManager = LinearLayoutManager(requireContext())
 
 
-
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
 
         dataFetch()
 
-//        refreshLeaderboard()
+        refreshLeaderboard()
     }
 
-//    private fun refreshLeaderboard(){
-//        swipeRefreshLayout.setOnRefreshListener {
-//            val fetchSuccess = dataFetch()
-//           // Log.e("id123" , "$fetchSuccess")
-//            if (fetchSuccess) {
-//                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
-//            }else{
-//                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
-//
-//            }
-//        }
-//    }
+    private fun refreshLeaderboard(){
+        swipeRefreshLayout.setOnRefreshListener {
+            val fetchSuccess = dataFetch()
+           // Log.e("id123" , "$fetchSuccess")
+            if (fetchSuccess) {
+                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
 
     private fun dataFetch():Boolean {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
@@ -116,10 +119,9 @@ class Leaderboard : Fragment() {
             override fun onFailure(call: Call<LeaderboardModel2>, t: Throwable) {
                 Toast.makeText(requireContext(), "Oops something went wrong!", Toast.LENGTH_SHORT)
                     .show()
+                //callback(false)
             }
         })
         return fetchSuccess
     }
-
-
 }

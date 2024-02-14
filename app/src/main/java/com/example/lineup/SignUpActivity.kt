@@ -1,5 +1,4 @@
 package com.example.lineup
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWMyNTgzYWIyMTY1MmI0ZWEzMDQ4MzIiLCJpYXQiOjE3MDcyMzUzODYsImV4cCI6MTcwNzIzODk4Nn0.9MSHinYFpnWlc2LkG4ETebkXMcdMsK_vzMmd_BNTJkg
 
 import android.content.Context
 import android.content.Intent
@@ -48,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
             val zealidtxt = zealid.text.trim().toString()
             val passwordtxt = Password.text.trim().toString()
             progressBar=binding.progressBar
-            overlay=binding.overlay
+          //  overlay=binding.overlay
 
             val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
             val call = apiInterface.signup(userSignUp)
@@ -161,11 +160,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
-        overlay.visibility = View.VISIBLE
+        binding.signUpRel.visibility=View.GONE
+        //overlay.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
         progressBar.visibility = View.GONE
-        overlay.visibility = View.GONE
+        //overlay.visibility = View.GONE
+        binding.signUpRel.visibility=View.VISIBLE
+
     }
 }
