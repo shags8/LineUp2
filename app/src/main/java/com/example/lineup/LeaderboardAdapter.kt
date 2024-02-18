@@ -14,6 +14,7 @@ class LeaderboardAdapter(
     private val list: List<LeaderboardModel>
 ) : RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
 
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatar: ImageView = itemView.findViewById(R.id.player_avatar)
         val name: TextView = itemView.findViewById(R.id.leaderboard_name)
