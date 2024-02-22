@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.example.lineup.RetrofitApi.apiInterface
+import com.example.lineup.adapters.AvatarAdapter
 import com.example.lineup.databinding.ActivityCharacterSelectBinding
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2

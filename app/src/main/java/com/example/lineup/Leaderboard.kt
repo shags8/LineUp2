@@ -13,9 +13,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.example.lineup.adapters.LeaderboardAdapter
 import com.example.lineup.models.LeaderboardModel
 import com.example.lineup.models.LeaderboardModel2
-import com.google.android.play.integrity.internal.f
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
