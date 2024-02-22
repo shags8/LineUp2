@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.qrCode
 import com.google.firebase.auth.FirebaseAuth
@@ -40,6 +42,7 @@ class Qr_code : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val qr = view.findViewById<ImageView>(R.id.qr_code)
+        val progressbar=view.findViewById<ProgressBar>(R.id.progressBar)
 
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
@@ -47,6 +50,7 @@ class Qr_code : Fragment() {
         Log.e("id1236" , "$retrievedValue")
         val header = "Bearer $retrievedValue"
 
+        progressbar.visibility=View.VISIBLE
         val call = RetrofitApi.apiInterface.getCode(header)
         call.enqueue(object : Callback<qrCode> {
             override fun onResponse(call: Call<qrCode>, response: Response<qrCode>) {
@@ -60,18 +64,21 @@ class Qr_code : Fragment() {
                     val bitMatrix: BitMatrix = multiFormatWriter.encode(
                         responseBody!!.code, BarcodeFormat.QR_CODE, 300, 300
                     )
+                    progressbar.visibility=View.GONE
                     val barcodeEncoder = BarcodeEncoder()
                     val bitMap: Bitmap = barcodeEncoder.createBitmap(bitMatrix)
 
                     qr.setImageBitmap(bitMap)
 
                 } catch (e: Exception) {
-                    //Toast.makeText(this@Qr_code, "Unable to generate QR", Toast.LENGTH_SHORT).show()
+                    progressbar.visibility=View.GONE
+                    Toast.makeText(requireContext(), "Unable to generate QR", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<qrCode>, t: Throwable) {
-
+                progressbar.visibility=View.GONE
+                Toast.makeText(requireContext(), "Unable to fetch QR",Toast.LENGTH_SHORT).show()
             }
 
         })

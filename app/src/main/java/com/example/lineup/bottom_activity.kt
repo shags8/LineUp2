@@ -1,5 +1,6 @@
 package com.example.lineup
 import android.Manifest
+import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
@@ -9,13 +10,17 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
+import android.widget.Button
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.lineup.databinding.ActivityBottomBinding
@@ -24,14 +29,12 @@ import gen._base._base_java__assetres.srcjar.R.id.text
 class bottom_activity : AppCompatActivity(){
 
     private lateinit var sharedPreferences: SharedPreferences
-
-
-
-
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private var isCameraPermissionGranted = false
-    private var isLocationPermissionGranted = false
-    val permissionRequest = mutableListOf<String>()
+    private val PERMISSION_CAMERA = Manifest.permission.CAMERA
+ //   private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
+    private val CODE = 101
+//    private var isCameraPermissionGranted = false
+//    private var isLocationPermissionGranted = false
+//    val permissionRequest = mutableListOf<String>()
 
     private lateinit var binding: ActivityBottomBinding
 
@@ -53,6 +56,12 @@ class bottom_activity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
+
+
+
+        val serviceIntent = Intent(this, DirectionService::class.java)
+        startService(serviceIntent)
+
         binding = ActivityBottomBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
@@ -64,15 +73,6 @@ class bottom_activity : AppCompatActivity(){
         Log.e("id16","$retrievedValue")
         replaceFragments(Qr_code())
 
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isCameraPermissionGranted =
-                    permissions[Manifest.permission.CAMERA] ?: isCameraPermissionGranted
-                if (!isCameraPermissionGranted) {
-                    showPermissionDeniedDialog()
-                }
-
-            }
         requestPermission()
 
         val bottomNavBar = binding.bottomNavigationView
@@ -85,57 +85,36 @@ class bottom_activity : AppCompatActivity(){
                 R.id.Scanner -> replaceFragments(scanner())
             }
             true
-
-
         }
-    }
-    private fun updateDirectionUI(direction: String) {
-        // Update your UI elements (e.g., TextView) with the direction information
-        binding.direction.text = direction
-    }
-
-
-
-    private fun showPermissionDeniedDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Permission Required")
-        builder.setMessage("LineUp requires Camera access to function properly.")
-        builder.setPositiveButton("Grant Permission") { dialog, which ->
-            permissionRequest.add(Manifest.permission.CAMERA)
-            permissionLauncher.launch(permissionRequest.toTypedArray())
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Exit") { dialog, which ->
-            dialog.dismiss()
-            finish()
-        }
-        val dialog = builder.create()
-        dialog.show()
-
     }
 
     private fun requestPermission() {
-        isCameraPermissionGranted = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.CAMERA
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!isCameraPermissionGranted) {
-            permissionRequest.add(Manifest.permission.CAMERA)
+            if(ActivityCompat.checkSelfPermission(this,PERMISSION_CAMERA)==PackageManager.PERMISSION_GRANTED){
+                // Toast.makeText(this , "Permission Granted",  Toast.LENGTH_SHORT).show()
+            }else if(ActivityCompat.shouldShowRequestPermissionRationale(this , PERMISSION_CAMERA)){
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Permission Required")
+                builder.setMessage("LineUp requires necessary permissions to function properly.")
+                builder.setCancelable(false)
+                builder.setPositiveButton("Grant Permission") { dialog, which ->
+                    ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_CAMERA), CODE)
+                    dialog.dismiss()
+                }
+                builder.setNegativeButton("Exit") { dialog, which ->
+                    dialog.dismiss()
+                    finish()
+                }
+                val dialog = builder.create()
+                dialog.show()
+            }else{
+                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_CAMERA), CODE)
+            }
         }
 
-        isLocationPermissionGranted = ContextCompat.checkSelfPermission(
-            this,
-            Manifest.permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
 
-        if (!isLocationPermissionGranted) {
-            permissionRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
-        }
-        if (permissionRequest.isNotEmpty()) {
-            permissionLauncher.launch(permissionRequest.toTypedArray())
-        }
-
+    private fun updateDirectionUI(direction: String) {
+        // Update your UI elements (e.g., TextView) with the direction information
+        binding.direction.text = direction
     }
 
     private fun replaceFragments(fragment: Fragment) {
@@ -170,8 +149,6 @@ class bottom_activity : AppCompatActivity(){
 
     override fun onDestroy() {
         super.onDestroy()
-
-
         val serviceIntent = Intent(this, DirectionService::class.java)
         stopService(serviceIntent)
        stopbackground()
@@ -214,4 +191,25 @@ class bottom_activity : AppCompatActivity(){
         stopService(serviceIntent)
     }
 
+
+
+
+    fun clearSharedPreferences(context: Context) {
+        val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        val editor = preferences.edit()
+        editor.clear()
+        editor.apply()
+    }
+
+    fun signOutAndNavigateToMain(context: Context) {
+        clearSharedPreferences(context)
+
+        val intent = Intent(context, WelcomePage::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        context.startActivity(intent)
+
+        if (context is Activity) {
+            context.finish()
+        }
+    }
 }

@@ -29,7 +29,6 @@ class LocationUpdates : Service() {
             sendLocationToBackend(location)
         }
     }
-
     override fun onCreate() {
         super.onCreate()
 

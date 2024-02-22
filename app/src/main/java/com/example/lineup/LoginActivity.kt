@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.lineup.models.Login
@@ -25,7 +24,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var progressBar: ProgressBar
-    private lateinit var overlay: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +38,9 @@ class LoginActivity : AppCompatActivity() {
             val zeal = binding.zeal.text.trim().toString()
             val password = binding.password.text.trim().toString()
             progressBar = binding.progressBar
-            overlay = binding.overlay
 
             if (zeal.isEmpty() || password.isEmpty()) {
-                    showToast("Please enter your ZealId and Password")
+                showToast("Please enter your ZealId and Password")
             } else {
                 showLoading()
                 val userLogin = Login(password, zeal)
@@ -51,17 +48,16 @@ class LoginActivity : AppCompatActivity() {
                 call.enqueue(object : Callback<Login2> {
                     override fun onResponse(call: Call<Login2>, response: Response<Login2>) {
                         if (response.isSuccessful) {
-                            val bodyReponse = response.body()
-                            //    Log.e("id345", "${response.headers()}")
+                            val bodyResponse = response.body()
                             Log.e("id1234", "$response")
-                            if (bodyReponse != null) {
-                                Log.e("id1234", "$bodyReponse")
-                                if (bodyReponse.message == "Login successful") {
+                            if (bodyResponse != null) {
+                                Log.e("id1234", "$bodyResponse")
+                                if (bodyResponse.message == "Login successful") {
+                                    hideLoading()
                                     editor.putString("Token", response.body()!!.token)
                                     editor.apply()
                                     showToast("Login Successfully")
-                                    val intent =
-                                        Intent(this@LoginActivity, bottom_activity::class.java)
+                                    val intent = Intent(this@LoginActivity, bottom_activity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }
@@ -79,20 +75,19 @@ class LoginActivity : AppCompatActivity() {
                 })
             }
         }
-
     }
 
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
-        overlay.visibility = View.VISIBLE
+        binding.relLayout.visibility=View.GONE
     }
 
     private fun hideLoading() {
         progressBar.visibility = View.GONE
-        overlay.visibility = View.GONE
-    }
-    private fun showToast( message: String ) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        binding.relLayout.visibility = View.VISIBLE
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }

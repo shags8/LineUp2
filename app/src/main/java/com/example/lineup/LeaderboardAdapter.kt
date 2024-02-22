@@ -18,7 +18,7 @@ class LeaderboardAdapter(
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val avatar: ImageView = itemView.findViewById(R.id.player_avatar)
         val name: TextView = itemView.findViewById(R.id.leaderboard_name)
-        val memebersFound: TextView = itemView.findViewById(R.id.leaderboard_score)
+        val membersFound: TextView = itemView.findViewById(R.id.leaderboard_score)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -35,6 +35,6 @@ class LeaderboardAdapter(
         val leaderboardList = list[position]
         holder.avatar.setImageResource(leaderboardList.avatar)
         holder.name.text = leaderboardList.name
-        holder.memebersFound.text = leaderboardList.membersFound.toString()
+        holder.membersFound.text = leaderboardList.membersFound.toString()
     }
 }

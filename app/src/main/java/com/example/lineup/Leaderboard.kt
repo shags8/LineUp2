@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,8 +27,9 @@ class Leaderboard : Fragment() {
     private lateinit var leaderboardAdapter: LeaderboardAdapter
     private lateinit var leaderboardList: ArrayList<LeaderboardModel>
     private lateinit var characters: IntArray
-    var fetchSuccess:Boolean = false
-    private lateinit var swipeRefreshLayout:SwipeRefreshLayout
+    private lateinit var progressBar: ProgressBar
+    var fetchSuccess: Boolean = false
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -39,9 +41,12 @@ class Leaderboard : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        progressBar = view.findViewById(R.id.progressBar)
+        progressBar.visibility = View.VISIBLE
+
         swipeRefreshLayout = view.findViewById(R.id.swipeLayout)
 
-        characters= intArrayOf(
+        characters = intArrayOf(
             R.drawable.red_avatar,
             R.drawable.pink_avatar,
             R.drawable.yellow_avatar,
@@ -64,20 +69,23 @@ class Leaderboard : Fragment() {
         refreshLeaderboard()
     }
 
-    private fun refreshLeaderboard(){
+    private fun refreshLeaderboard() {
         swipeRefreshLayout.setOnRefreshListener {
             val fetchSuccess = dataFetch()
-           // Log.e("id123" , "$fetchSuccess")
+            // Log.e("id123" , "$fetchSuccess")
             if (fetchSuccess) {
-                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT).show()
-            }else{
-                Toast.makeText(requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                Toast.makeText(
+                    requireContext(), "Unable to refresh Leaderboard", Toast.LENGTH_SHORT
+                ).show()
             }
             swipeRefreshLayout.isRefreshing = false
         }
     }
 
-    private fun dataFetch():Boolean {
+    private fun dataFetch(): Boolean {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.getPlayers(header)
@@ -85,12 +93,12 @@ class Leaderboard : Fragment() {
             override fun onResponse(
                 call: Call<LeaderboardModel2>, response: Response<LeaderboardModel2>
             ) {
-                if(isAdded)
-                {
+                if (isAdded) {
                     if (response.isSuccessful) {
                         val leaderboard = response.body()
                         Log.e("id123", "$leaderboard")
                         if (leaderboard != null) {
+                            progressBar.visibility = View.GONE
                             fetchSuccess = true
                             leaderboardList = ArrayList()
                             val array = leaderboard.users
@@ -103,7 +111,8 @@ class Leaderboard : Fragment() {
                                 )
                             }
                             //    Log.e("id123" , "$fetchSuccess")
-                            leaderboardAdapter = LeaderboardAdapter(requireContext(), leaderboardList)
+                            leaderboardAdapter =
+                                LeaderboardAdapter(requireContext(), leaderboardList)
                             leaderboardRV.adapter = leaderboardAdapter
                             leaderboardAdapter.notifyDataSetChanged()
 
@@ -117,6 +126,7 @@ class Leaderboard : Fragment() {
             }
 
             override fun onFailure(call: Call<LeaderboardModel2>, t: Throwable) {
+                progressBar.visibility = View.GONE
                 Toast.makeText(requireContext(), "Oops something went wrong!", Toast.LENGTH_SHORT)
                     .show()
                 //callback(false)

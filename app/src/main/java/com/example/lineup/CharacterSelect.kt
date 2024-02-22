@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -134,5 +135,21 @@ class CharacterSelect : AppCompatActivity() {
 
     private fun Int.dpToPx(displayMetrics: DisplayMetrics): Int =
         (this * displayMetrics.density).toInt()
+
+    override fun onBackPressed() {
+        AlertDialog.Builder(this)
+            .setTitle("Exit")
+            .setMessage("Are you sure?")
+            .setPositiveButton("Yes") { dialog, which ->
+                val intent = Intent(Intent.ACTION_MAIN)
+                intent.addCategory(Intent.CATEGORY_HOME)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+            .setNegativeButton("No") { dialog, which ->
+                // Handle "no" button click or remove this block if not needed
+            }
+            .show()
+    }
 
 }
