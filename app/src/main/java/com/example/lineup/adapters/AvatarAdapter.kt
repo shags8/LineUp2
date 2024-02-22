@@ -1,4 +1,4 @@
-package com.example.lineup
+package com.example.lineup.adapters
 
 import android.util.Log
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.example.lineup
+package com.example.lineup.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lineup.R
 import com.example.lineup.models.LeaderboardModel
-import com.google.firebase.database.core.Context
 
 class LeaderboardAdapter(
     val context: android.content.Context,
