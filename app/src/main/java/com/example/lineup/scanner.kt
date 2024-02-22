@@ -51,20 +51,20 @@ class scanner : Fragment() {
 
     fun scanQRCode(qrCode: Code) {
         if (scannedQRSet.contains(qrCode.toString())) {
-           Log.e("id1235","Already scanned")
+            Log.e("id1235", "Already scanned")
         } else {
             scannedQRSet.add(qrCode.toString())
-            Log.e("id1235","Added")
+            Log.e("id1235", "Added")
             scanningEnabled = false
             sendQRtoBackend(qrCode)
         }
     }
-    fun sendQRtoBackend(qrCode: Code)
-    {
+
+    fun sendQRtoBackend(qrCode: Code) {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id1236" , "$retrievedValue")
+        Log.e("id1236", "$retrievedValue")
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.scan(header, qrCode)
         call.enqueue(object : Callback<scanner> {

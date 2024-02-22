@@ -23,7 +23,7 @@ class DirectionService : Service(), SensorEventListener {
 
     override fun onCreate() {
         super.onCreate()
-        Log.e("id1236", "service2")
+        Log.e("id12367", "service2")
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
         magnetometer = sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD)
@@ -67,6 +67,7 @@ class DirectionService : Service(), SensorEventListener {
 
     private fun updateOrientation() {
         val rotationMatrix = FloatArray(9)
+       // Log.e("id12367", "service23")
         if (SensorManager.getRotationMatrix(rotationMatrix, null, accelerometerData, magnetometerData)) {
             val orientationValues = FloatArray(3)
             SensorManager.getOrientation(rotationMatrix, orientationValues)
@@ -77,6 +78,7 @@ class DirectionService : Service(), SensorEventListener {
             // Ensure azimuth is between 0 and 360 degrees
             val azimuth = if (azimuthInDegrees < 0) azimuthInDegrees + 360 else azimuthInDegrees
 
+         //   Log.e("id12367", "service25")
             val direction = when {
                 (azimuth >= 0 && azimuth < 22.5) || (azimuth in 337.5..360.0) -> "North"
                 azimuth >= 22.5 && azimuth < 67.5 -> "Northeast"
@@ -88,9 +90,7 @@ class DirectionService : Service(), SensorEventListener {
                 azimuth >= 292.5 && azimuth < 337.5 -> "Northwest"
                 else -> "Unknown"
             }
-
-
-            Log.e("id1236", "$direction")
+            Log.e("id12367", "$direction")
             val intent = Intent(ACTION_DIRECTION_UPDATE)
             intent.putExtra("DIRECTION", direction)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
