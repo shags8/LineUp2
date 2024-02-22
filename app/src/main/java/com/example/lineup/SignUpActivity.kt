@@ -47,7 +47,7 @@ class SignUpActivity : AppCompatActivity() {
             val zealidtxt = zealid.text.trim().toString()
             val passwordtxt = Password.text.trim().toString()
             progressBar=binding.progressBar
-          //  overlay=binding.overlay
+            //  overlay=binding.overlay
 
             val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
             val call = apiInterface.signup(userSignUp)
@@ -55,10 +55,10 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             } else {
                 showLoading()
-               // Log.e("id123", "hey")
+                // Log.e("id123", "hey")
                 call.enqueue(object : Callback<SignUp2> {
                     override fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
-                    //    showLoadingDialog(this@SignUpActivity,"Loading...")
+                        //    showLoadingDialog(this@SignUpActivity,"Loading...")
                         if (response.isSuccessful) {
                             val responseBody = response.body()
                             if (responseBody != null) {
@@ -71,7 +71,7 @@ class SignUpActivity : AppCompatActivity() {
                                 Log.e("id123", "${responseBody.code}")
                                 if (responseBody.message == "Signup successful") {
                                     hideLoading()
-                                  //  dismissLoadingDialog()
+                                    //  dismissLoadingDialog()
                                     Toast.makeText(
                                         this@SignUpActivity,
                                         "Registered Successfully",
@@ -98,44 +98,6 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 })
             }
-
-//            if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
-//                Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Log.e("error6" , "abcder")
-//                FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailtxt,passwordtxt).addOnCompleteListener{
-//                    if(it.isSuccessful){
-//                        val userid = FirebaseAuth.getInstance().currentUser?.uid.toString()
-//                        databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
-//                            //  @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-//                            override fun onDataChange(dataSnapshot: DataSnapshot) {
-//                                if (dataSnapshot.hasChild(userid)) {
-//                                    Log.e("error2" , "abcder")
-//                                    Toast.makeText(this@SignUpActivity, "Zeal id is already registered..", Toast.LENGTH_SHORT).show()
-//                                } else {
-//                                    Log.e("error3" , "abcder")
-//                                    // Store user data without whitespaces in keys
-//                                    databaseReference.child(userid).child("FullName").setValue(fullnametxt)
-//                                    databaseReference.child(userid).child("Email").setValue(emailtxt)
-//                                    databaseReference.child(userid).child("Password").setValue(passwordtxt)
-//                                    databaseReference.child(userid).child("zealid").setValue(zealidtxt)
-//                                    Toast.makeText(this@SignUpActivity, "User Registered Successfully.", Toast.LENGTH_SHORT).show()
-//                                    val i= Intent(this@SignUpActivity,bottom_activity::class.java)
-//                                    startActivity(i)
-//                                    finish()
-//                                }
-//                            }
-//
-//                            override fun onCancelled(databaseError: DatabaseError) {
-//                                Log.e("error4" , "abcder")
-//                                Toast.makeText(this@SignUpActivity, "Failed to register user...", Toast.LENGTH_SHORT).show()
-//                            }
-//                        })
-//                                }else{
-//                        Toast.makeText(this,"Error! Please choose a strong password",Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
         }
     }
 //    fun showLoadingDialog(context: Context, message: String) {
