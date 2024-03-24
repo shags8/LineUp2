@@ -33,6 +33,7 @@
 
 
         <TextView
+            android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -40,7 +41,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
-            android:text="Hey Users"
+            android:text="Hey "
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -76,8 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
             android:text="@string/show_the_qr_code"
             android:textAlignment="center"

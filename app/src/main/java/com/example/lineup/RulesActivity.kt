@@ -1,11 +1,14 @@
 package com.example.lineup
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.example.lineup.databinding.ActivityRulesBinding
+import com.google.android.play.integrity.internal.al
 
 class RulesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRulesBinding
@@ -19,6 +22,12 @@ class RulesActivity : AppCompatActivity() {
             val intent = Intent(this, bottom_activity::class.java)
             startActivity(intent)
             finish()
+        }
+        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val name = sharedPreferences.getString("Name", "defaultValue")
+        binding.username.text= "Hey $name"
+        if (name != null) {
+            Log.e("id123",name)
         }
     }
     override fun onBackPressed() {
