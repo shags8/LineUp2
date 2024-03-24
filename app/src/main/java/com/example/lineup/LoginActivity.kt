@@ -1,7 +1,4 @@
-// login up
 package com.example.lineup
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWMyNTgzYWIyMTY1MmI0ZWEzMDQ4MzIiLCJpYXQiOjE3MDcyMzU2MTgsImV4cCI6MTcwNzIzOTIxOH0.MxeyMifZTJF4G5BfTDf4VhXXGyxRkEN9pj6Uj5hueLQ
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
