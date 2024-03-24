@@ -24,6 +24,7 @@ import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.example.lineup.databinding.ActivityBottomBinding
+import com.google.firebase.messaging.FirebaseMessaging
 import gen._base._base_java__assetres.srcjar.R.id.text
 
 class bottom_activity : AppCompatActivity(){
@@ -44,7 +45,6 @@ class bottom_activity : AppCompatActivity(){
             intent?.let {
                 if (it.action == DirectionService.ACTION_DIRECTION_UPDATE) {
                     val direction = it.getStringExtra("DIRECTION")
-                    // Update UI with the direction information
                     if (direction != null) {
                         updateDirectionUI(direction)
                     }
@@ -54,9 +54,6 @@ class bottom_activity : AppCompatActivity(){
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
-
 
 
         val serviceIntent = Intent(this, DirectionService::class.java)

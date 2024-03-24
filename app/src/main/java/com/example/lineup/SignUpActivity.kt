@@ -24,7 +24,6 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
     private var databaseReference = FirebaseDatabase.getInstance().getReference("users")
     private lateinit var progressBar: ProgressBar
-    private lateinit var overlay: FrameLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +45,10 @@ class SignUpActivity : AppCompatActivity() {
             val emailtxt = Email.text.toString()
             val zealidtxt = zealid.text.trim().toString()
             val passwordtxt = Password.text.trim().toString()
+
+            editor.putString("Name" , fullnametxt)
+
             progressBar=binding.progressBar
-            //  overlay=binding.overlay
 
             val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
             val call = apiInterface.signup(userSignUp)

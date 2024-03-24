@@ -84,7 +84,6 @@ class Leaderboard : Fragment() {
             swipeRefreshLayout.isRefreshing = false
         }
     }
-
     private fun dataFetch(): Boolean {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         val header = "Bearer $retrievedValue"

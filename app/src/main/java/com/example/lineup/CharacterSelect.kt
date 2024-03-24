@@ -31,7 +31,6 @@ class CharacterSelect : AppCompatActivity() {
     private var pageTranslationX: Float = 0f
     private lateinit var viewPager: ViewPager2
     private var currentVisiblePosition = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
