@@ -1,12 +1,21 @@
 package com.example.lineup
 
+import android.app.Dialog
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.Code
 import com.example.lineup.models.scanner
@@ -43,21 +52,33 @@ class scanner : Fragment() {
             if (token != null) {
                 scanQRCode(token)
             }
-
         }
-
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
 
     fun scanQRCode(qrCode: Code) {
+        val popup = Dialog(requireContext())
+        popup.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        popup.setCancelable(false)
+        popup.setContentView(R.layout.activity_member_found)
+        val message = popup.findViewById<TextView>(R.id.message)
+        val reset = popup.findViewById<Button>(R.id.reset_Button)
+        popup.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
         if (scannedQRSet.contains(qrCode.toString())) {
             Log.e("id1235", "Already scanned")
+            message.text = "Oops! Duplicate Member"
         } else {
             scannedQRSet.add(qrCode.toString())
             Log.e("id1235", "Added")
             scanningEnabled = false
+            message.text = "Member Found!"
             sendQRtoBackend(qrCode)
         }
+        reset.setOnClickListener {
+            popup.dismiss()
+        }
+        popup.show()
     }
 
     fun sendQRtoBackend(qrCode: Code) {
