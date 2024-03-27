@@ -60,7 +60,7 @@ class scanner : Fragment() {
         val popup = Dialog(requireContext())
         popup.requestWindowFeature(Window.FEATURE_NO_TITLE)
         popup.setCancelable(false)
-        popup.setContentView(R.layout.activity_member_found)
+        popup.setContentView(R.layout.member_found)
         val message = popup.findViewById<TextView>(R.id.message)
         val reset = popup.findViewById<Button>(R.id.reset_Button)
         popup.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
