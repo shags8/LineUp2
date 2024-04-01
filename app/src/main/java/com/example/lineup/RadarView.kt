@@ -12,18 +12,19 @@ import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.lineup.models.location
-import com.google.android.play.integrity.internal.t
 import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
 
+
 class RadarView : View {
+    private lateinit var context: Context
     private val radarPaint = Paint().apply {
         color = Color.GREEN
         style = Paint.Style.FILL
@@ -43,20 +44,34 @@ class RadarView : View {
         7 to R.drawable.brown_avatar,
         8 to R.drawable.green_avatar
     )
-
     private var users: List<location> = emptyList()
     private var selfDrawable: Bitmap? = null
 
+//    constructor(context: Context) : super(context){
+//        init()
+//    }
     constructor(context: Context) : super(context){
+        this.context = context
         init()
     }
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
+        this.context = context
         init()
     }
+
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
     {
+        this.context = context
         init()
     }
+//    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
+//        init()
+//    }
+//    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+//    {
+//        init()
+//    }
+
 
     fun setUsers(users: List<location>) {
         this.users = users
@@ -76,7 +91,12 @@ class RadarView : View {
     private fun init() {
         if (radarSize == 0) return
         // Load the drawable for yourself
-        val originalDrawable = BitmapFactory.decodeResource(resources, R.drawable.pink_avatar)
+        val sharedPreferences = context.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val retrievedValue = sharedPreferences.getString("Character Token", "defaultValue")
+        Log.e("id1233",retrievedValue.toString())
+        val originalDrawable = BitmapFactory.decodeResource(resources,
+            drawableMap[retrievedValue?.toInt()]!!
+        )
         val radarSize = min(width, height) // Assuming radar view is square
        // val drawableSize = (radarSize * 0.1).toInt()
         val maxDrawableDimension = (radarSize * 0.09).toInt()

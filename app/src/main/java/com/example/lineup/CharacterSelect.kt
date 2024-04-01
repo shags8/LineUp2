@@ -17,7 +17,6 @@ import com.example.lineup.adapters.AvatarAdapter
 import com.example.lineup.databinding.ActivityCharacterSelectBinding
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2
-import com.gdsc.lineup.login.HorizontalMarginItemDecoration
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +38,7 @@ class CharacterSelect : AppCompatActivity() {
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        val editor = sharedPreferences.edit()
         Log.e("id1234", "$retrievedValue")
         var visibleImage: Int = 0
         val characters: IntArray = intArrayOf(
@@ -88,6 +88,9 @@ class CharacterSelect : AppCompatActivity() {
         val header = "Bearer $retrievedValue"
         binding.characterBtn.setOnClickListener {
             Log.e("imageNumber", "$visibleImage")
+            editor.putString("Character Token" , visibleImage.toString())
+            editor.apply()
+            //Log.e("id12344","$number")
             val call = apiInterface.storeAvatar(header,Avatar(visibleImage))
             call.enqueue(object : Callback<Avatar2> {
 
