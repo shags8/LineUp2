@@ -34,7 +34,7 @@
     <string name="we_need_your_help_">We need your help to find the rest of your team members and if you can\nfind your team as fast as you could\nthen we will have somethin\nspecial waiting for you.</string>
     <string name="finish">Finish</string>
     <string name="show_the_qr_code">Show the QR code to your band members.</string>
-    <string name="we_need_to_find_a_team_of_4_people">We need to find a team of 4 people \n desperately and untill now, we only \n have you!! (: \n</string>
+    <string name="we_need_to_find_a_team_of_4_people">We need to find a team of 4 people \n desperately and until now, we only \n have you!! (: \n</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="hey_users">Hey Users</string>
     <string name="title_activity_responsive">Responsive</string>
@@ -60,5 +60,6 @@
     <string name="image_view_item_transform_content_description">Represents an image view in the
         item
     </string>
+    <string name="hello_world">Hello World\n</string>
 
 </resources>

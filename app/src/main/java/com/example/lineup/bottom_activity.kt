@@ -1,4 +1,5 @@
 package com.example.lineup
+
 import android.Manifest
 import android.app.Activity
 import android.content.BroadcastReceiver
@@ -8,11 +9,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.provider.Settings
 import android.util.Log
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
@@ -27,16 +31,10 @@ import com.example.lineup.databinding.ActivityBottomBinding
 import com.google.firebase.messaging.FirebaseMessaging
 import gen._base._base_java__assetres.srcjar.R.id.text
 
-class bottom_activity : AppCompatActivity(){
+class bottom_activity : AppCompatActivity() {
 
     private lateinit var sharedPreferences: SharedPreferences
-    private val PERMISSION_CAMERA = Manifest.permission.CAMERA
- //   private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private val CODE = 101
-//    private var isCameraPermissionGranted = false
-//    private var isLocationPermissionGranted = false
-//    val permissionRequest = mutableListOf<String>()
-
+    private val CAMERA_PERMISSION_REQUEST_CODE = 100
     private lateinit var binding: ActivityBottomBinding
 
 
@@ -67,10 +65,9 @@ class bottom_activity : AppCompatActivity(){
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
 
-        Log.e("id16","$retrievedValue")
+        Log.e("id16", "$retrievedValue")
         replaceFragments(Qr_code())
 
-        requestPermission()
 
         val bottomNavBar = binding.bottomNavigationView
         bottomNavBar.itemIconTintList = null
@@ -83,30 +80,62 @@ class bottom_activity : AppCompatActivity(){
             }
             true
         }
+        if (checkCameraPermission()) {
+            //
+        } else {
+            requestCameraPermission()
+        }
     }
 
-    private fun requestPermission() {
-            if(ActivityCompat.checkSelfPermission(this,PERMISSION_CAMERA)==PackageManager.PERMISSION_GRANTED){
-                // Toast.makeText(this , "Permission Granted",  Toast.LENGTH_SHORT).show()
-            }else if(ActivityCompat.shouldShowRequestPermissionRationale(this , PERMISSION_CAMERA)){
-                val builder = AlertDialog.Builder(this)
-                builder.setTitle("Permission Required")
-                builder.setMessage("LineUp requires necessary permissions to function properly.")
-                builder.setCancelable(false)
-                builder.setPositiveButton("Grant Permission") { dialog, which ->
-                    ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_CAMERA), CODE)
-                    dialog.dismiss()
+    private fun checkCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.CAMERA),
+            CAMERA_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            CAMERA_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission granted, start location-related task or request notifications
+                    // e.g., startLocationUpdates()
+                    // e.g., createNotificationChannel()
+                } else {
+                    // Permission denied
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        // Show explanation dialog and request permission again
+                        requestCameraPermission()
+                    } else {
+                        // Permission permanently denied
+                        // Show settings to enable permission manually
+                        showSettingsDialog()
+                    }
                 }
-                builder.setNegativeButton("Exit") { dialog, which ->
-                    dialog.dismiss()
-                    finish()
-                }
-                val dialog = builder.create()
-                dialog.show()
-            }else{
-                ActivityCompat.requestPermissions(this, arrayOf(PERMISSION_CAMERA), CODE)
             }
         }
+    }
+
+    private fun showSettingsDialog() {
+        Toast.makeText(this, "Camera permission required!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent) // Start the activity to open settings
+    }
 
 
     private fun updateDirectionUI(direction: String) {
@@ -136,59 +165,61 @@ class bottom_activity : AppCompatActivity(){
             }
             .show()
     }
+
     override fun onPause() {
         super.onPause()
         LocalBroadcastManager.getInstance(this).unregisterReceiver(directionReceiver)
         // Start the LocationUpdates service when activity goes into background
         startbackground()
-    stopforeground()
+        stopforeground()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         val serviceIntent = Intent(this, DirectionService::class.java)
         stopService(serviceIntent)
-       stopbackground()
+        stopbackground()
         stopforeground()
     }
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onResume() {
         super.onResume()
         // Stop the LocationUpdates service when activity comes back to foreground
-        Log.e("abc1","1")
+        Log.e("abc1", "1")
         startforeground()
         LocalBroadcastManager.getInstance(this)
-            .registerReceiver(directionReceiver, IntentFilter(DirectionService.ACTION_DIRECTION_UPDATE))
-        Log.e("abc1","2")
+            .registerReceiver(
+                directionReceiver,
+                IntentFilter(DirectionService.ACTION_DIRECTION_UPDATE)
+            )
+        Log.e("abc1", "2")
         stopbackground()
-        Log.e("abc1","3")
+        Log.e("abc1", "3")
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun startforeground()
-    {
+    private fun startforeground() {
         val serviceIntent2 = Intent(this, ForeGroundLocationUpdates::class.java)
         startService(serviceIntent2)
         val serviceIntent3 = Intent(this, DirectionService::class.java)
         startService(serviceIntent3)
     }
-    private fun stopforeground()
-    {
+
+    private fun stopforeground() {
         val serviceIntent2 = Intent(this, ForeGroundLocationUpdates::class.java)
         stopService(serviceIntent2)
     }
-    private fun startbackground()
-    {
+
+    private fun startbackground() {
         val serviceIntent = Intent(this, LocationUpdates::class.java)
         startService(serviceIntent)
     }
-    private fun stopbackground()
-    {
+
+    private fun stopbackground() {
         val serviceIntent = Intent(this, LocationUpdates::class.java)
         stopService(serviceIntent)
     }
-
-
 
 
     fun clearSharedPreferences(context: Context) {

@@ -50,9 +50,6 @@
             android:resource="@color/purple_700" />
 
         <activity
-            android:name=".TestNotification"
-            android:exported="true"></activity>
-        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait"></activity>
