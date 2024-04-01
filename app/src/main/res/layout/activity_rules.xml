@@ -42,6 +42,7 @@
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
             android:text="Hey "
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />

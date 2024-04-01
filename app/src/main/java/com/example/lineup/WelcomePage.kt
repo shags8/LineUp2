@@ -28,7 +28,6 @@ class WelcomePage : AppCompatActivity() {
     private val LOCATION_PERMISSION_REQUEST_CODE = 1001
     private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1002
 
-   // @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +66,7 @@ class WelcomePage : AppCompatActivity() {
             Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
     }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun requestPermissions() {
         val permissionsToRequest = mutableListOf<String>()
 
@@ -149,7 +149,7 @@ class WelcomePage : AppCompatActivity() {
         )
     }
     private fun showSettingsDialog() {
-        Toast.makeText(this , "Location and Notification permission required!",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this , "Location and Notification permissions required!",Toast.LENGTH_SHORT).show()
         val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
         val uri = Uri.fromParts("package", packageName, null)
         intent.data = uri
