@@ -6,11 +6,13 @@ import android.app.Instrumentation.ActivityResult
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.provider.Settings
 import android.widget.Toast
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -20,40 +22,30 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
 
 class WelcomePage : AppCompatActivity() {
 
-    private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
-    private var isLocationPermissionGranted = false
-    private var isNotificationPermissionGranted = false
-    val permissionRequest = mutableListOf<String>()
+    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    private val NOTIFICATION_PERMISSION_REQUEST_CODE = 1002
 
-
+   // @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome_page)
 
-
-        permissionLauncher =
-            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-                isLocationPermissionGranted =
-                    permissions[permission.ACCESS_FINE_LOCATION] ?: isLocationPermissionGranted
-                isNotificationPermissionGranted = permissions[permission.POST_NOTIFICATIONS] ?: isLocationPermissionGranted
-                if (!isLocationPermissionGranted || !isNotificationPermissionGranted) {
-                    showPermissionDeniedDialog()
-                }
-
-            }
-        requestPermission()
-
+       if (checkLocationPermission() && checkNotificationPermission()) {
+           //
+       } else {
+           requestPermissions()
+       }
 
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
 
         Log.e("id1236", "$retrievedValue")
+        
         if (retrievedValue != "defaultValue") {
             editor.putString("Token", retrievedValue)
             Log.e("id5", "$retrievedValue")
@@ -61,52 +53,109 @@ class WelcomePage : AppCompatActivity() {
             finish()
         }
     }
-
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun showPermissionDeniedDialog() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Permission Required")
-        builder.setMessage("LineUp requires necessary permissions to function properly.")
-        builder.setCancelable(false)
-        builder.setPositiveButton("Grant Permission") { dialog, which ->
-            permissionRequest.add(permission.ACCESS_FINE_LOCATION)
-            permissionRequest.add(permission.POST_NOTIFICATIONS)
-            permissionLauncher.launch(permissionRequest.toTypedArray())
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("Exit") { dialog, which ->
-            dialog.dismiss()
-            finish()
-        }
-        val dialog = builder.create()
-        dialog.show()
-
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    private fun requestPermission() {
-        isLocationPermissionGranted = ContextCompat.checkSelfPermission(
-            this, permission.ACCESS_FINE_LOCATION
-        ) == PackageManager.PERMISSION_GRANTED
-
-        if (!isLocationPermissionGranted) {
-            permissionRequest.add(permission.ACCESS_FINE_LOCATION)
-        }
-
-        isNotificationPermissionGranted = ContextCompat.checkSelfPermission(
+    private fun checkLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
             this,
-            permission.POST_NOTIFICATIONS
+            Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
+    }
 
-        if(!isNotificationPermissionGranted) {
-            permissionRequest.add((permission.POST_NOTIFICATIONS))
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun checkNotificationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            Manifest.permission.POST_NOTIFICATIONS
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+    private fun requestPermissions() {
+        val permissionsToRequest = mutableListOf<String>()
+
+        if (!checkLocationPermission()) {
+            permissionsToRequest.add(Manifest.permission.ACCESS_FINE_LOCATION)
         }
-        if (permissionRequest.isNotEmpty()) {
-            permissionLauncher.launch(permissionRequest.toTypedArray())
+
+        if (!checkNotificationPermission()) {
+            permissionsToRequest.add(Manifest.permission.POST_NOTIFICATIONS)
+        }
+
+        ActivityCompat.requestPermissions(
+            this,
+            permissionsToRequest.toTypedArray(),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+    private fun requestLocationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_PERMISSION_REQUEST_CODE
+        )
+    }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    override  fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Location permission granted, check for notification permission
+                    if (!checkNotificationPermission()) {
+                        requestNotificationPermission()
+                    } else {
+                        // Both permissions granted
+                    }
+                } else {
+                    // Location permission denied
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                        // Show explanation dialog and request permission again
+                        requestLocationPermission()
+                    } else {
+                        // Permission permanently denied
+                        showSettingsDialog()
+                    }
+                }
+            }
+            NOTIFICATION_PERMISSION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Notification permission granted, check for location permission
+                    if (!checkLocationPermission()) {
+                        requestLocationPermission()
+                    } else {
+                        // Both permissions granted
+                    }
+                } else {
+                    // Notification permission denied
+                    if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                        // Show explanation dialog and request permission again
+                        requestLocationPermission()
+                    } else {
+                        // Permission permanently denied
+                        // Show settings to enable permission manually
+                        showSettingsDialog()
+                    }
+                }
+            }
         }
     }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+            NOTIFICATION_PERMISSION_REQUEST_CODE
+        )
+    }
+    private fun showSettingsDialog() {
+        Toast.makeText(this , "Location and Notification permission required!",Toast.LENGTH_SHORT).show()
+        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+        val uri = Uri.fromParts("package", packageName, null)
+        intent.data = uri
+        startActivity(intent)
+    }
+
 
     fun Register(view: View) {
         val intent = Intent(this, SignUpActivity::class.java)
@@ -117,4 +166,5 @@ class WelcomePage : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
     }
+
 }
