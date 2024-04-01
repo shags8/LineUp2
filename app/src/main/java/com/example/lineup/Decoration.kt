@@ -1,5 +1,4 @@
-package com.gdsc.lineup.login
-
+package com.example.lineup
 import android.content.Context
 import android.graphics.Rect
 import android.view.View

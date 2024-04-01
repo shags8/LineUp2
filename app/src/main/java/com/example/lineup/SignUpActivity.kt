@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ProgressBar
@@ -54,7 +55,10 @@ class SignUpActivity : AppCompatActivity() {
             val call = apiInterface.signup(userSignUp)
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
-            } else {
+            }
+            if(!validateEmail(emailtxt)){
+                Toast.makeText(this, "Please enter valid email", Toast.LENGTH_SHORT).show()
+            }else {
                 showLoading()
                 // Log.e("id123", "hey")
                 call.enqueue(object : Callback<SignUp2> {
@@ -131,6 +135,11 @@ class SignUpActivity : AppCompatActivity() {
         progressBar.visibility = View.GONE
         //overlay.visibility = View.GONE
         binding.signUpRel.visibility=View.VISIBLE
-
+    }
+    private fun validateEmail(email:String):Boolean{
+        if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            return true
+        }
+        return false
     }
 }
