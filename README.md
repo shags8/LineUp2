@@ -7,7 +7,8 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 
 ## Screenshots
 ![Splash Screen](/screenshots/splash_screen.png)
-![Home Screen](/screenshots/home_screen.png)
+![Registration Screen](![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/01dd1735-d825-4cf0-8960-340830c6ba4b)
+)
 ![Search between stops](/screenshots/search_between_stops.png)
 ![Active buses](/screenshots/active_buses.png)
 ![Bus Details](/screenshots/bus_details.png)
