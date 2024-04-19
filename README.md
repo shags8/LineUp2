@@ -19,7 +19,7 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 ![Multi-Language (Hindi)](/screenshots/multi_language_hindi.png)
 
 
-## 👻 How to play
+## ❤️ How to play
 - You just have a single QR code
 - You need to scan as many QR codes of other players as possible to get more score
 - Search and scan each other's QR code
