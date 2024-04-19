@@ -18,14 +18,23 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 ![Search by bus number](/screenshots/search_by_bus_number.png)
 ![Multi-Language (Hindi)](/screenshots/multi_language_hindi.png)
 
-## 🧐 Features
+
+## 👻 How to play
+- You just have a single QR code
+- You need to scan as many QR codes of other players as possible to get more score
+- Search and scan each other's QR code
+- An approximate distance between the nearest players is indicated along with the direction they are in with respect to you.
+- Faster you find your teammates, higher you rank on leaderboard
+
+
+## ⭐ Features
 - User login using Email and Zeal-id
 - Choose your own avatar
 - Provides distance of the three nearst team mates along with their direction
 - Scan the QR of the other player to level up on the leaderboard
 - Live leaderboard to check your position
 
-## 💻 Built with
+## 🔧 Built with
 Technologies used in the project:
 - Kotlin
 - Socket.IO
