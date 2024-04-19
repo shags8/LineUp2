@@ -1,4 +1,4 @@
-# LineUp
+# LineUp ⚡ 
 
 Participate in an exciting challenge to ascend the leaderboard by scanning QR codes of nearby players in a thrilling real-life gaming adventure.
 
