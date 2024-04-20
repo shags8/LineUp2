@@ -5,19 +5,6 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 ## 🚀 Demo
 [Download Demo APK]()
 
-## Screenshots
-![Splash Screen](/screenshots/splash_screen.png)
-![Registration Screen](![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/01dd1735-d825-4cf0-8960-340830c6ba4b)
-)
-![Choose your Avatar](![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/dc80dd79-9baf-48ed-8061-e64a722027d0)
-)
-![QR Code](![WhatsApp Image 2024-04-19 at 02 30 12](https://github.com/phoenix-kanak/Lineup/assets/132151345/946fddcb-762a-4bab-9fc5-9bbbc9c44ce3)
-)
-![Bus Details](/screenshots/bus_details.png)
-![Bus Route](/screenshots/bus_route.png)
-![Search by bus number](/screenshots/search_by_bus_number.png)
-![Multi-Language (Hindi)](/screenshots/multi_language_hindi.png)
-
 
 ## ❤️ How to play
 - You just have a single QR code
@@ -38,8 +25,8 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 Technologies used in the project:
 - Kotlin
 - Socket.IO
-- FCM
 - Retrofit
+- FCM
 
 
 
