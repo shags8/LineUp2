@@ -5,8 +5,14 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 ## 🚀 Demo
 [Download Demo APK]()
 
-<img src="![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/b0290c22-48c1-43ed-82ab-92e343790cee)
-" alt="Alt text" width="200"/>
+## 📷 Screenshots
+![Home Screen](![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/c7978997-114b-485d-88ab-2728ec2911ee))
+![Registration Screen](![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/07dd9704-2004-43f2-b1c8-188f79c11c27))
+![Choose Your Avatar](![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/43341d04-78d4-4d29-ad2f-f57ede73fda1))
+![QR Code](![WhatsApp Image 2024-04-19 at 02 30 12](https://github.com/phoenix-kanak/Lineup/assets/132151345/9598f222-b47b-4808-b6d7-3c12b072671e))
+
+
+
 
 
 ## ❤️ How to play
