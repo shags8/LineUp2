@@ -11,6 +11,13 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 ![Choose Your Avatar](![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/43341d04-78d4-4d29-ad2f-f57ede73fda1))
 ![QR Code](![WhatsApp Image 2024-04-19 at 02 30 12](https://github.com/phoenix-kanak/Lineup/assets/132151345/9598f222-b47b-4808-b6d7-3c12b072671e))
 
+<div>
+  <img src="![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/cd05ee7d-2f0b-4072-9ea8-91fe98b8b377)
+" alt="Alt text" width="400"/>
+  <img src="![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/50e569eb-862c-46e0-b432-4d0d9766b568)
+" alt="Alt text" width="400"/>
+</div>
+
 
 
 
