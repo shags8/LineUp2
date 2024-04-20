@@ -6,17 +6,18 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 [Download Demo APK]()
 
 ## 📷 Screenshots
-![Home Screen](![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/c7978997-114b-485d-88ab-2728ec2911ee))
-![Registration Screen](![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/07dd9704-2004-43f2-b1c8-188f79c11c27))
-![Choose Your Avatar](![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/43341d04-78d4-4d29-ad2f-f57ede73fda1))
-![QR Code](![WhatsApp Image 2024-04-19 at 02 30 12](https://github.com/phoenix-kanak/Lineup/assets/132151345/9598f222-b47b-4808-b6d7-3c12b072671e))
+![Screenshot 1](![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/a03abc31-008d-4afd-9bf8-4dfbb3c9d8c9)
+) | ![Screenshot 2](![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/2e0bb903-0dbc-46f3-9e90-fbd7fc98d553)
+) | ![Screenshot 3](![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/d0c5e0e3-33bc-4193-afa8-e40accbf679a)
+)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+Home Screen | Registration Screen | Choose Your Avatar
 
-<div>
-  <img src="![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/cd05ee7d-2f0b-4072-9ea8-91fe98b8b377)
-" alt="Alt text" width="400"/>
-  <img src="![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/50e569eb-862c-46e0-b432-4d0d9766b568)
-" alt="Alt text" width="400"/>
-</div>
+![Screenshot 5](https://github.com/mohitsingh35/NextBus/blob/master/himsafar%20images/Screenshot_2023-12-28-23-35-10-49_d0a15a589648c4bf34ad2f5e52ad3d18.jpg?raw=true) | ![Screenshot 6](https://github.com/mohitsingh35/NextBus/blob/master/himsafar%20images/Screenshot_2023-12-28-23-35-16-13_d0a15a589648c4bf34ad2f5e52ad3d18.jpg?raw=true) | ![Screenshot 7](https://github.com/mohitsingh35/NextBus/blob/master/himsafar%20images/Screenshot_2023-12-28-23-35-33-25_d0a15a589648c4bf34ad2f5e52ad3d18.jpg?raw=true) | ![Screenshot 8](https://github.com/mohitsingh35/NextBus/blob/master/himsafar%20images/Screenshot_2023-12-28-23-35-39-55_d0a15a589648c4bf34ad2f5e52ad3d18.jpg?raw=true)
+:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
+Bus Details | Bus Route | Search by bus number | Multi-Language (Hindi)
+
+
 
 
 
