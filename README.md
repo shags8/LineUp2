@@ -4,21 +4,16 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 
 ## 📷 Screenshots
 <div align="center">
-  ![Screenshot 1](![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/2e304b6e-26f9-4f3f-b055-9917fafdf508)
-)
-  <img src="![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/c800b979-a917-4fef-8192-ca66a6abb8a9)
-" width="100" height="200">
-  <img src="![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/55936236-3363-46e3-9773-73c8e773c714)
-" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/a20fc067-acd8-45ed-b6a4-fc6b119e4d1a" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/c800b979-a917-4fef-8192-ca66a6abb8a9" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/55936236-3363-46e3-9773-73c8e773c714" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/f3c80034-7171-4642-8e72-66ab39ffa430" width="100" height="200">
 </div>
-</br>
+<br>
 <div align="center">
-  <img src="![WhatsApp Image 2024-04-19 at 02 29 50](https://github.com/phoenix-kanak/Lineup/assets/132151345/a20fc067-acd8-45ed-b6a4-fc6b119e4d1a)
-" width="100" height="200"> </img>
-  <img src="![WhatsApp Image 2024-04-19 at 02 29 58](https://github.com/phoenix-kanak/Lineup/assets/132151345/c800b979-a917-4fef-8192-ca66a6abb8a9)
-" width="100" height="200">
-  <img src="![WhatsApp Image 2024-04-19 at 02 30 05](https://github.com/phoenix-kanak/Lineup/assets/132151345/55936236-3363-46e3-9773-73c8e773c714)
-" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/3e082cde-9ad8-4d60-b2da-594e0fdbf55e" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/a7eb4582-6402-45b6-9adc-7efe6a3f192b" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/Lineup/assets/132151345/877bbb7f-a5c2-4b8b-ac9c-e01bc27c9c05" width="100" height="200">
 </div>
 
 ## ❤️ How to play
