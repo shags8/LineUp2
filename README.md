@@ -2,6 +2,12 @@
 
 Participate in an exciting challenge to ascend the leaderboard by scanning QR codes of nearby players in a thrilling real-life gaming adventure.
 
+## 📷 Screenshots
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/57036954/180436472-0b1c6685-459a-486a-9db3-ab53b5ef4ffb.jpg"></img>
+</div>
+</br>
+
 ## ❤️ How to play
 - You just have a single QR code
 - You need to scan as many QR codes of other players as possible to get more score
