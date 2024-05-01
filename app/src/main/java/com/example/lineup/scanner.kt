@@ -35,28 +35,48 @@ class scanner : Fragment() {
     private lateinit var viewfinderView: ViewfinderView
     private var lastText: String? = null
     private lateinit var sharedPreferences: SharedPreferences
-    private val scannedQRSet = HashSet<String>()
+    private var scannedQRSet = HashSet<String>()
     private var scanningEnabled = true
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        scannedQRSet = (sharedPreferences.getStringSet("scannedQRSet", HashSet<String>()) ?: HashSet()) as HashSet<String>
+
+    }
 
     private val callback = object : BarcodeCallback {
+        val sharedPreferences = context?.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        val set = sharedPreferences?.getStringSet("scannedQRSet", HashSet<String>())
+
         override fun barcodeResult(result: BarcodeResult) {
-            if (!scanningEnabled || result.text == null || result.text == lastText) {
-                // Prevent duplicate scans
-                return
-            }
+            barcodeView.pause()
+//            if (!scanningEnabled || result.text == null || result.text == lastText) {
+//                 Prevent duplicate scans
+//
+//                return
+//            }
 
             barcodeView.setStatusText(result.text)
 
             val token = Code(result.text)
             Log.e("id1235", "$token")
             if (token != null) {
+                Log.e("id1238","$set")
                 scanQRCode(token)
             }
         }
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
 
+
     fun scanQRCode(qrCode: Code) {
+
+      //  Log.e("id1238","$set")
+      //  if (!scanningEnabled) return
+
+        val code = qrCode.code // Get the code from the Code object
+        val qrCodeString = code
+        val set = sharedPreferences?.getStringSet("scannedQRSet", HashSet<String>())
         val popup = Dialog(requireContext())
         popup.requestWindowFeature(Window.FEATURE_NO_TITLE)
         popup.setCancelable(false)
@@ -65,17 +85,21 @@ class scanner : Fragment() {
         val reset = popup.findViewById<Button>(R.id.reset_Button)
         popup.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        if (scannedQRSet.contains(qrCode.toString())) {
+
+        if (set!!.contains(qrCodeString)) {
             Log.e("id1235", "Already scanned")
             message.text = "Oops! Duplicate Member"
         } else {
-            scannedQRSet.add(qrCode.toString())
+            set.add(qrCodeString)
             Log.e("id1235", "Added")
-            scanningEnabled = false
+            Log.e("id1238","$set")
+         //   scanningEnabled = false
             message.text = "Member Found!"
             sendQRtoBackend(qrCode)
         }
         reset.setOnClickListener {
+            barcodeView.resume()
+          //  scanningEnabled = true
             popup.dismiss()
         }
         popup.show()
@@ -85,7 +109,7 @@ class scanner : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id1236", "$retrievedValue")
+        Log.e("id1236", retrievedValue)
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.scan(header, qrCode)
         call.enqueue(object : Callback<scanner> {
@@ -95,13 +119,11 @@ class scanner : Fragment() {
                 Log.e("id12356", "$response")
                 scanningEnabled = true
             }
-
             override fun onFailure(call: Call<scanner>, t: Throwable) {
-
                 scanningEnabled = true
             }
-
         })
+        barcodeView.resume()
     }
 
     override fun onCreateView(
@@ -111,7 +133,7 @@ class scanner : Fragment() {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
         barcodeView = view.findViewById(R.id.barcode_scanner)
-
+        //Log.e("id1238","${set.size}")
 
         val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
         barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
