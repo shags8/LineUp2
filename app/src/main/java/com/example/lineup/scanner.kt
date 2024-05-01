@@ -50,11 +50,6 @@ class scanner : Fragment() {
 
         override fun barcodeResult(result: BarcodeResult) {
             barcodeView.pause()
-//            if (!scanningEnabled || result.text == null || result.text == lastText) {
-//                 Prevent duplicate scans
-//
-//                return
-//            }
 
             barcodeView.setStatusText(result.text)
 
