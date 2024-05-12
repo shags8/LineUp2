@@ -1,5 +1,7 @@
 package com.example.lineup
 
+import com.example.lineup.models.AccessAvatar
+import com.example.lineup.models.AccessAvatar2
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2
 import com.example.lineup.models.Code
@@ -38,4 +40,7 @@ interface ApiInterface {
 
     @POST("user/scan-qrcode")
     fun scan(@Header("Authorization") token: String, @Body code: Code): Call<scanner>
+
+    @GET("user/get-avatar")
+    fun accessAvatar(@Header("Authorization") token:String):Call<AccessAvatar2>
 }
