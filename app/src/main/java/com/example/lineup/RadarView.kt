@@ -1,7 +1,9 @@
 package com.example.lineup
 
 // RadarView.kt
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
@@ -14,8 +16,14 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
+import com.example.lineup.models.AccessAvatar2
+import com.example.lineup.models.Route
 import com.example.lineup.models.location
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.Locale
 import kotlin.math.cos
 import kotlin.math.max
@@ -47,7 +55,7 @@ class RadarView : View {
     private var users: List<location> = emptyList()
     private var selfDrawable: Bitmap? = null
 
-//    constructor(context: Context) : super(context){
+    //    constructor(context: Context) : super(context){
 //        init()
 //    }
     constructor(context: Context) : super(context){
@@ -64,13 +72,6 @@ class RadarView : View {
         this.context = context
         init()
     }
-//    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs){
-//        init()
-//    }
-//    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-//    {
-//        init()
-//    }
 
 
     fun setUsers(users: List<location>) {
@@ -92,16 +93,42 @@ class RadarView : View {
         if (radarSize == 0) return
         // Load the drawable for yourself
         val sharedPreferences = context.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue = sharedPreferences.getString("Character Token", "defaultValue")
-        Log.e("id1233",retrievedValue.toString())
-        val originalDrawable = BitmapFactory.decodeResource(resources,
-            drawableMap[retrievedValue?.toInt()]!!
-        )
-        val radarSize = min(width, height) // Assuming radar view is square
-       // val drawableSize = (radarSize * 0.1).toInt()
-        val maxDrawableDimension = (radarSize * 0.09).toInt()
-        val scaleFactor = maxDrawableDimension.toFloat() / max(originalDrawable.width, originalDrawable.height)
-        selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        Log.e("id1233", retrievedValue.toString())
+        val header = "Bearer $retrievedValue"
+        val call = RetrofitApi.apiInterface.accessAvatar(header)
+        call.enqueue(object : Callback<AccessAvatar2> {
+            override fun onResponse(call: Call<AccessAvatar2>, response: Response<AccessAvatar2>) {
+                val responseBody = response.body()
+                responseBody?.let {
+                    val avatarId = it.avatar
+                    Log.e("id1235", header)
+                    Log.e("id12345", "$responseBody")
+                    Log.e("id1235", "$response")
+
+                    // Now that you have the avatarId, perform further actions
+                    val originalDrawable = BitmapFactory.decodeResource(resources, drawableMap[avatarId] ?: return@let)
+                    val radarSize = min(width, height)
+                    val maxDrawableDimension = (radarSize * 0.09).toInt()
+                    val scaleFactor = maxDrawableDimension.toFloat() / max(originalDrawable.width, originalDrawable.height)
+                    selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
+                }
+            }
+
+            override fun onFailure(call: Call<AccessAvatar2>, t: Throwable) {
+                Toast.makeText(context.applicationContext,"Something went wrong!",Toast.LENGTH_SHORT).show()
+                val intent= Intent(context,LoginActivity::class.java)
+                context.startActivity(intent)
+                (context as Activity).finish()
+            }
+        })
+     //   Log.e("idAvatar","$avatarId")
+
+//        val radarSize = min(width, height) // Assuming radar view is square
+//        //val drawableSize = (radarSize * 0.1).toInt()
+//        val maxDrawableDimension = (radarSize * 0.09).toInt()
+//        val scaleFactor = maxDrawableDimension.toFloat() / max(originalDrawable.width, originalDrawable.height)
+//        selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
 
     }
 
@@ -109,17 +136,17 @@ class RadarView : View {
         super.onDraw(canvas)
 
         // Draw radar circle
-        val centerX = width / 2f
+        val centerX = width / 2
         val centerY = height / 2f
         // Calculate maxDistanceInKm dynamically based on the actual distance values of users
-        val maxDistanceInKm = users.maxByOrNull { it.distance }?.distance ?: 1.0 // Default to 100 km if no users are present
+        val maxDistanceInKm = users.maxByOrNull { it.distance } ?.distance ?: 1.0 // Default to 100 km if no users are present
         //  val maxDistanceInKm = 1 // Maximum distance in kilometers (adjust as needed)
         val maxRadarDimension = min(width, height) // Assuming radar view is square
         val maxRadarRadius = maxRadarDimension / 2
         val scalingFactor = maxRadarRadius / maxDistanceInKm
 
 
-       // canvas.drawCircle(centerX, centerY, maxRadarRadius.toFloat(), radarPaint)
+        // canvas.drawCircle(centerX, centerY, maxRadarRadius.toFloat(), radarPaint)
         val drawableWidth = selfDrawable?.width ?: 0
         val drawableHeight = selfDrawable?.height ?: 0
         val x = centerX - drawableWidth / 2f
@@ -251,46 +278,6 @@ class RadarView : View {
 
         return userLayout
     }
-
-    //    private fun createUserLayout(user: location, maxRadarDimension: Int): LinearLayout {
-//        val context = context
-//        val userLayout = LinearLayout(context)
-//        userLayout.orientation = LinearLayout.VERTICAL
-//
-//        val radarSize = min(width, height) // Assuming radar view is square
-//        val maxDrawableDimension = (radarSize * 0.010).toInt()
-//
-//        // Name TextView
-//        val nameTextView = TextView(context)
-//        nameTextView.text = "${user.name}"
-//        nameTextView.textSize = maxDrawableDimension.toFloat()// Change to user's actual name
-//        nameTextView.gravity = Gravity.CENTER_HORIZONTAL
-//        userLayout.addView(nameTextView)
-//
-//        // Get dimensions of selfDrawable
-//        val selfDrawableWidth = selfDrawable?.width ?: 0
-//        val selfDrawableHeight = selfDrawable?.height ?: 0
-//
-//        // Avatar ImageView
-//        val avatarImageView = ImageView(context)
-//        val avatarDrawable = BitmapFactory.decodeResource(resources, drawableMap[user.avatar] ?: R.drawable.red_avatar)
-//        val scaledAvatar = Bitmap.createScaledBitmap(avatarDrawable, selfDrawableWidth, selfDrawableHeight, true)
-//        avatarImageView.setImageBitmap(scaledAvatar)
-//        userLayout.addView(avatarImageView)
-//
-//        // Distance TextView
-//        val distanceTextView = TextView(context)
-//        val formattedDistance = String.format("%.3f", user.distance)
-//        distanceTextView.text = "${formattedDistance}km"
-//        distanceTextView.textSize = maxDrawableDimension.toFloat()
-//        distanceTextView.gravity = Gravity.CENTER_HORIZONTAL
-//        userLayout.addView(distanceTextView)
-//
-//        // Set padding to ensure space between elements
-//        userLayout.setPadding(8, 8, 8, 8)
-//
-//        return userLayout
-//    }
     fun directionToDegrees(direction: String): Double {
         return when (direction.uppercase(Locale.ROOT)) {
             "N" -> 270.0
