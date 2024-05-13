@@ -47,18 +47,18 @@ class SignUpActivity : AppCompatActivity() {
             val zealidtxt = zealid.text.trim().toString()
             val passwordtxt = Password.text.trim().toString()
 
-            editor.putString("Name" , fullnametxt)
+            editor.putString("Name", fullnametxt)
 
-            progressBar=binding.progressBar
+            progressBar = binding.progressBar
 
             val userSignUp = SignUp(emailtxt, passwordtxt, fullnametxt, zealidtxt)
             val call = apiInterface.signup(userSignUp)
             if (fullnametxt.isEmpty() || emailtxt.isEmpty() || zealidtxt.isEmpty() || passwordtxt.isEmpty()) {
                 Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
             }
-            if(!validateEmail(emailtxt)){
+            if (!validateEmail(emailtxt)) {
                 Toast.makeText(this, "Please enter valid email", Toast.LENGTH_SHORT).show()
-            }else {
+            } else {
                 showLoading()
                 // Log.e("id123", "hey")
                 call.enqueue(object : Callback<SignUp2> {
@@ -70,8 +70,9 @@ class SignUpActivity : AppCompatActivity() {
                                 Log.e("id123", "$responseBody")
                                 editor.putString("Token", responseBody.token)
                                 responseBody.scannedCodes.let {
-                               //     editor.putStringSet("scannedQRSet", it)
-                                }                            }
+                                    editor.putStringSet("scannedQRSet", HashSet(it))
+                                }
+                            }
                             editor.apply()
                             if (responseBody != null) {
                                 //  Log.e("id123", "$responseBody")
@@ -110,17 +111,18 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
-        binding.signUpRel.visibility=View.GONE
+        binding.signUpRel.visibility = View.GONE
         //overlay.visibility = View.VISIBLE
     }
 
     private fun hideLoading() {
         progressBar.visibility = View.GONE
         //overlay.visibility = View.GONE
-        binding.signUpRel.visibility=View.VISIBLE
+        binding.signUpRel.visibility = View.VISIBLE
     }
-    private fun validateEmail(email:String):Boolean{
-        if(!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+
+    private fun validateEmail(email: String): Boolean {
+        if (!email.isEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return true
         }
         return false
