@@ -69,7 +69,9 @@ class SignUpActivity : AppCompatActivity() {
                             if (responseBody != null) {
                                 Log.e("id123", "$responseBody")
                                 editor.putString("Token", responseBody.token)
-                            }
+                                responseBody.scannedCodes.let {
+                               //     editor.putStringSet("scannedQRSet", it)
+                                }                            }
                             editor.apply()
                             if (responseBody != null) {
                                 //  Log.e("id123", "$responseBody")
@@ -105,25 +107,6 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
-//    fun showLoadingDialog(context: Context, message: String) {
-//
-//            val builder = AlertDialog.Builder(context)
-//            builder.setMessage(message)
-//            builder.setCancelable(false)
-//            alertDialog = builder.create()
-//            alertDialog?.show()
-//
-//    }
-//
-//    // Function to dismiss the loading dialog
-//    fun dismissLoadingDialog() {
-//        alertDialog?.let {
-//            if (it.isShowing) {
-//                it.dismiss()
-//            }
-//            alertDialog = null // Reset to null after dismissing
-//        }
-//    }
 
     private fun showLoading() {
         progressBar.visibility = View.VISIBLE
