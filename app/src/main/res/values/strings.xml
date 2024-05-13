@@ -14,7 +14,6 @@
     <string name="password">Password</string>
     <string name="log_in_to">Log in to</string>
     <string name="your_account">your account</string>
-
     <string name="scanner_screen_heading">Scan QR Code</string>
     <string name="scanner_screen_info">Scan QR code of your band members.</string>
     <string name="arrow"><![CDATA[>>>]]></string>
@@ -31,7 +30,7 @@
     <string name="next">Next</string>
     <string name="read_the_rules">Read the Rules</string>
     <string name="we_need_your_help">WE NEED YOUR HELP!</string>
-    <string name="we_need_your_help_">We need your help to find the rest of your team members and if you can\nfind your team as fast as you could\nthen we will have somethin\nspecial waiting for you.</string>
+    <string name="we_need_your_help_">We need your help to find the rest of the players and if you can\nfind them as fast as you could\nthen we will have somethin\nspecial waiting for you.</string>
     <string name="finish">Finish</string>
     <string name="show_the_qr_code">Show the QR code to your band members.</string>
     <string name="we_need_to_find_a_team_of_4_people">We need to find a team of 4 people \n desperately and until now, we only \n have you!! (: \n</string>
@@ -44,12 +43,10 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-
     <string name="menu_transform">Transform</string>
     <string name="menu_reflow">Reflow</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="menu_settings">Settings</string>
-
     <string name="lorem_ipsum_title">Lorem Ipsum"</string>
     <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
         typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
@@ -61,9 +58,12 @@
         item
     </string>
     <string name="hello_world">Hello World\n</string>
-    <string name="excited_huh">Excited huh ?</string>
+<!--    <string name="excited_huh">Excited huh ?</string>-->
     <string name="well_the_game_starts_in">well, the game starts in</string>
     <string name="the_game_has_started_click_the_button_to_start">The Game has Started.Click the Button to Start</string>
     <string name="play_now">Play Now</string>
+<!--    <string name="we_re_on_the_lookout_for_other_players_and_so_far_we_re_only_only_hope">We\'re on the lookout for other \n players,and so far,you're \n our only hope</string>-->
+    <string name="keep_you_location_turned_on">Keep you location turned on :)</string>
+    <string name="we_re_on_the_lookout_for_other_n_players_and_so_far_you_re_n_our_only_hope_string"><![CDATA[We\'re on the lookout for other \n players,and so far,you\'re \n our only hope</string]]></string>
 
 </resources>

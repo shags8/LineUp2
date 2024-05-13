@@ -20,7 +20,7 @@ class AvatarAdapter(private val images: IntArray) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageId = images[position]
         Log.d("AvatarAdapter5", "{$imageId}")
-        holder.binding.avatarImg.setImageResource(imageId)  // Assuming your layout has an ImageView with ID "avatarImg"
+        holder.binding.avatarImg.setImageResource(imageId)
     }
 
     override fun getItemCount(): Int = images.size

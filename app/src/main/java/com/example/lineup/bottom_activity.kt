@@ -145,7 +145,6 @@ class bottom_activity : AppCompatActivity() {
 
 
     private fun updateDirectionUI(direction: String) {
-        // Update your UI elements (e.g., TextView) with the direction information
         binding.direction.text = direction
     }
 
@@ -205,24 +204,6 @@ class bottom_activity : AppCompatActivity() {
         stopbackground()
         Log.e("abc1", "3")
     }
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String?>?,
-//        grantResults: IntArray
-//    ) {
-//        if (requestCode == REQUEST_LOCATION_PERMISSION) {
-//            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission granted, check location enable status
-//                if (!isLocationEnabled()) {
-//                    showEnableLocationDialog()
-//                }
-//            } else {
-//                // Permission denied
-//                Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show()
-//                finish() // Finish the activity if location permission is denied
-//            }
-//        }
-//    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun startforeground() {

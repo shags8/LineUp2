@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -24,24 +25,28 @@ class CountDownActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var countDownTimer: CountDownTimer
-    private val COUNTDOWN_TIME: Long = 60000 // 1 minute in milliseconds
+    private val COUNTDOWN_TIME: Long = 60000
     private var timeLeftInMillis: Long = COUNTDOWN_TIME
+    private lateinit var progressBar: ProgressBar
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        progressBar = binding.progressBar
         sharedPreferences =
             this.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         val retrievedValue2 = sharedPreferences.getString("Character Token", "defaultValue") ?: "defaultValue"
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.getTimeLeft(header)
+        showLoading()
         call.enqueue(object : Callback<Timer> {
             override fun onResponse(call: Call<Timer>, response: Response<Timer>) {
                 val responseBody = response.body()
                 if (responseBody != null) {
+                    hideLoading()
                     val timeLeft = responseBody.remainingTimeInMilliseconds.toInt()
                     timeLeftInMillis = timeLeft.toLong()
                     if (timeLeftInMillis <= 0) {
@@ -59,7 +64,8 @@ class CountDownActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Timer>, t: Throwable) {
-                TODO("Not yet implemented")
+                Toast.makeText(this@CountDownActivity,"Something Went Wrong!",Toast.LENGTH_SHORT).show()
+                hideLoading()
             }
 
         })
@@ -108,5 +114,13 @@ class CountDownActivity : AppCompatActivity() {
             binding.countdownTimer.text = timeLeftFormatted
 
     }
+    private fun showLoading() {
+        progressBar.visibility = View.VISIBLE
+        binding.constRel.visibility = View.GONE
+    }
 
+    private fun hideLoading() {
+        progressBar.visibility = View.GONE
+        binding.constRel.visibility = View.VISIBLE
+    }
 }
