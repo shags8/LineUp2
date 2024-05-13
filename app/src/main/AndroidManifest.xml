@@ -53,10 +53,6 @@
             android:resource="@color/purple_700" />
 
         <activity
-            android:name=".SplashScreen"
-            android:exported="true"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".RulesActivity"
             android:exported="true"
             android:screenOrientation="portrait" />

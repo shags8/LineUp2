@@ -54,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                                     editor.putString("Token", response.body()!!.token)
                                     editor.apply()
                                     showToast("Login Successfully")
-                                    val intent = Intent(this@LoginActivity, bottom_activity::class.java)
+                                    val intent = Intent(this@LoginActivity, CountDownActivity::class.java)
                                     startActivity(intent)
                                     finish()
                                 }

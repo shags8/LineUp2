@@ -24,38 +24,27 @@
         app:layout_constraintTop_toBottomOf="@id/lin_lay"
         />
 
-        <TextView
-            android:id="@+id/countdown_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="00:00:00"
-            app:layout_constraintTop_toBottomOf="@id/img1"
-            app:layout_constraintStart_toStartOf="@id/lin_lay"
-            app:layout_constraintEnd_toEndOf="@id/lin_lay"
-            android:layout_marginTop="16dp"
-            android:textSize="24sp"
-            android:fontFamily="@font/neutrifpro_bold"
-            android:textColor="@android:color/black"
-            android:gravity="center"
-            tools:ignore="Hardcoded Text"/>
     <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="The event will begin at 12:00 p.m."
-        app:layout_constraintStart_toStartOf="@id/countdown_timer"
-        app:layout_constraintEnd_toEndOf="@id/countdown_timer"
-        app:layout_constraintTop_toBottomOf="@id/countdown_timer"
+        android:text="@string/excited_huh"
+        android:textStyle="bold"
         android:gravity="center"
         android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/img1"
+        app:layout_constraintStart_toStartOf="@id/lin_lay"
+        app:layout_constraintEnd_toEndOf="@id/lin_lay"
         android:textColor="@color/black"
         android:fontFamily="@font/montserrat_medium"
         android:layout_marginTop="8dp"
         />
     <TextView
+        android:id="@+id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Stay Tuned :))"
+        android:text="@string/well_the_game_starts_in"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/text1"
         app:layout_constraintStart_toStartOf="@id/text1"
         app:layout_constraintEnd_toEndOf="@id/text1"
@@ -64,5 +53,57 @@
         android:textSize="18sp"
         android:fontFamily="@font/montserrat_medium"
         android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="20sp"
+        android:text="@string/the_game_has_started_click_the_button_to_start"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat_medium"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="25dp"
+        app:layout_constraintTop_toBottomOf="@id/img1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/gameStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="70dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:background="@drawable/round_bg"
+        android:backgroundTint="@color/black"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/play_now"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/text3"
+        app:layout_constraintStart_toStartOf="@id/text3"
+        app:layout_constraintEnd_toEndOf="@id/text3"/>
+
+    <TextView
+        android:id="@+id/countdown_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"
+        android:layout_marginTop="16dp"
+        android:textSize="24sp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="@id/text2"
+        app:layout_constraintEnd_toEndOf="@id/text2"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        android:fontFamily="@font/neutrifpro_bold"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        tools:ignore="Hardcoded Text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

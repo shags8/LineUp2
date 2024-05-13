@@ -11,6 +11,7 @@ import com.example.lineup.models.Login2
 import com.example.lineup.models.Route
 import com.example.lineup.models.SignUp
 import com.example.lineup.models.SignUp2
+import com.example.lineup.models.Timer
 import com.example.lineup.models.qrCode
 import com.example.lineup.models.scanner
 import retrofit2.Call
@@ -43,4 +44,7 @@ interface ApiInterface {
 
     @GET("user/get-avatar")
     fun accessAvatar(@Header("Authorization") token:String):Call<AccessAvatar2>
+
+    @GET("user/timer")
+    fun getTimeLeft(@Header("Authorization") token:String):Call<Timer>
 }

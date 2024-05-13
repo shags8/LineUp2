@@ -101,7 +101,7 @@ class CharacterSelect : AppCompatActivity() {
                         if (response.body() != null) {
                             Log.e("id1234", "${response.body()}")
                             if(response.body()!!.message=="Avatar stored successfully") {
-                                val intent = Intent(this@CharacterSelect, RulesActivity::class.java)
+                                val intent = Intent(this@CharacterSelect, CountDownActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }

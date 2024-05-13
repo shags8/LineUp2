@@ -48,7 +48,7 @@ class WelcomePage : AppCompatActivity() {
         if (retrievedValue != "defaultValue") {
             editor.putString("Token", retrievedValue)
             Log.e("id5", "$retrievedValue")
-            startActivity(Intent(this, bottom_activity::class.java))
+            startActivity(Intent(this, CountDownActivity::class.java))
             finish()
         }
     }
