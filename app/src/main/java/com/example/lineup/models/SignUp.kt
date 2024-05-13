@@ -12,7 +12,8 @@ data class SignUp2(
     val code: Int,
     val url: String,
     val message: String,
-    val token: String
+    val token: String,
+    val scannedCodes:ArrayList<String>
 )
 
 
