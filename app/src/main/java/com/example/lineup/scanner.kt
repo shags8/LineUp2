@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,7 +13,6 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.Code
 import com.example.lineup.models.scanner
@@ -36,7 +33,6 @@ class scanner : Fragment() {
     private var lastText: String? = null
     private lateinit var sharedPreferences: SharedPreferences
     private var scannedQRSet = HashSet<String>()
-    private var scanningEnabled = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
@@ -54,11 +50,7 @@ class scanner : Fragment() {
             barcodeView.setStatusText(result.text)
 
             val token = Code(result.text)
-            Log.e("id1235", "$token")
-            if (token != null) {
-                Log.e("id1238","$set")
-                scanQRCode(token)
-            }
+            scanQRCode(token)
         }
         override fun possibleResultPoints(resultPoints: List<ResultPoint>) {}
     }
@@ -66,41 +58,28 @@ class scanner : Fragment() {
 
     fun scanQRCode(qrCode: Code) {
 
-      //  Log.e("id1238","$set")
-      //  if (!scanningEnabled) return
 
         val code = qrCode.code // Get the code from the Code object
         val qrCodeString = code
-        val set = sharedPreferences?.getStringSet("scannedQRSet", HashSet<String>())
-        val popup = Dialog(requireContext())
-        popup.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        popup.setCancelable(false)
-        popup.setContentView(R.layout.member_found)
-        val message = popup.findViewById<TextView>(R.id.message)
-        val reset = popup.findViewById<Button>(R.id.reset_Button)
-        popup.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
+        val set = sharedPreferences.getStringSet("scannedQRSet", HashSet<String>())
 
         if (set!!.contains(qrCodeString)) {
             Log.e("id1235", "Already scanned")
-            message.text = "Oops! Duplicate Member"
+            popup("Oops! Duplicate Member")
         } else {
-            set.add(qrCodeString)
             Log.e("id1235", "Added")
             Log.e("id1238","$set")
          //   scanningEnabled = false
-            message.text = "Member Found!"
-            sendQRtoBackend(qrCode)
+//            message.text = "Member Found!"
+            sendQRtoBackend(qrCode,qrCodeString,set)
         }
-        reset.setOnClickListener {
-            barcodeView.resume()
-          //  scanningEnabled = true
-            popup.dismiss()
-        }
-        popup.show()
     }
 
-    fun sendQRtoBackend(qrCode: Code) {
+    fun sendQRtoBackend(
+        qrCode: Code,
+        qrCodeString: String,
+        set: MutableSet<String>
+    ) {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
@@ -110,16 +89,46 @@ class scanner : Fragment() {
         call.enqueue(object : Callback<scanner> {
             override fun onResponse(call: Call<scanner>, response: Response<scanner>) {
                 val responseBody = response.body()
-                Log.e("id12356", "$responseBody")
+                Log.e("id1238", "$responseBody")
                 Log.e("id12356", "$response")
-                scanningEnabled = true
+                if (responseBody != null) {
+                    if (responseBody.message == "QR Code scanned successfully") {
+                        popup("Member Found!")
+                        val updatedSet = HashSet(set) // Create a copy of the set
+                        updatedSet.add(qrCodeString) // Modify the copy
+                        sharedPreferences.edit().putStringSet("scannedQRSet", updatedSet).apply() // Save the modified set back to SharedPreferences
+                    } else{
+                        popup("This is not a valid QR")
+                    }
+                }
+                else{
+                    popup("Something went wrong")
+                }
             }
             override fun onFailure(call: Call<scanner>, t: Throwable) {
-                scanningEnabled = true
+                popup("Something went wrong")
             }
         })
-        barcodeView.resume()
     }
+
+    fun popup(msg: String){
+        val popup = Dialog(requireContext())
+        popup.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        popup.setCancelable(false)
+        popup.setContentView(R.layout.member_found)
+        val message = popup.findViewById<TextView>(R.id.message)
+        val reset = popup.findViewById<Button>(R.id.reset_Button)
+        popup.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        message.text = msg
+
+        reset.setOnClickListener {
+            barcodeView.resume()
+            //  scanningEnabled = true
+            popup.dismiss()
+        }
+        popup.show()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

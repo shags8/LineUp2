@@ -257,7 +257,6 @@ class bottom_activity : AppCompatActivity() {
 
     fun signOutAndNavigateToMain(context: Context) {
         clearSharedPreferences(context)
-
         val intent = Intent(context, WelcomePage::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         context.startActivity(intent)
