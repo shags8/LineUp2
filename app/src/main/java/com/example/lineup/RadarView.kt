@@ -122,14 +122,6 @@ class RadarView : View {
                 (context as Activity).finish()
             }
         })
-     //   Log.e("idAvatar","$avatarId")
-
-//        val radarSize = min(width, height) // Assuming radar view is square
-//        //val drawableSize = (radarSize * 0.1).toInt()
-//        val maxDrawableDimension = (radarSize * 0.09).toInt()
-//        val scaleFactor = maxDrawableDimension.toFloat() / max(originalDrawable.width, originalDrawable.height)
-//        selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
-
     }
 
     override fun onDraw(canvas: Canvas) {
