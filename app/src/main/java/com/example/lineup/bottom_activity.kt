@@ -195,7 +195,6 @@ class bottom_activity : AppCompatActivity() {
         // Stop the LocationUpdates service when activity comes back to foreground
         Log.e("abc1", "1")
         startforeground()
-
         checkLocationEnabled()
         LocalBroadcastManager.getInstance(this)
             .registerReceiver(

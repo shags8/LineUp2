@@ -42,10 +42,10 @@
             android:layout_marginRight="20dp"
             android:fontFamily="@font/montserrat_medium"
             android:text="Hey "
-            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
@@ -99,7 +99,19 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
+            android:textSize="16sp"
+            android:text="@string/keep_your_location_turned_on"
+            android:fontFamily="@font/montserrat_medium"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            />
     </LinearLayout>
 
 
