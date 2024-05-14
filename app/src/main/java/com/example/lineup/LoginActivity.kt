@@ -52,6 +52,9 @@ class LoginActivity : AppCompatActivity() {
                                 if (bodyResponse.message == "Login successful") {
                                     hideLoading()
                                     editor.putString("Token", response.body()!!.token)
+                                    bodyResponse.scannedCodes.let {
+                                        editor.putStringSet("scannedQRSet", HashSet(it))
+                                    }
                                     editor.apply()
                                     showToast("Login Successfully")
                                     val intent = Intent(this@LoginActivity, CountDownActivity::class.java)
