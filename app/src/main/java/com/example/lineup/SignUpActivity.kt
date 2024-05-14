@@ -69,9 +69,6 @@ class SignUpActivity : AppCompatActivity() {
                             if (responseBody != null) {
                                 Log.e("id123", "$responseBody")
                                 editor.putString("Token", responseBody.token)
-                                responseBody.scannedCodes.let {
-                                    editor.putStringSet("scannedQRSet", HashSet(it))
-                                }
                             }
                             editor.apply()
                             if (responseBody != null) {

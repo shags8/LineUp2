@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "664376567505",
+    "project_id": "lineup-ee2ef",
+    "storage_bucket": "lineup-ee2ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664376567505:android:0cdaa35bfed2ee9ae907f0",
+        "android_client_info": {
+          "package_name": "com.example.lineup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVOpHjETIxAqQqNxKrttEYVlWGUqZEHoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
