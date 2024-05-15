@@ -1,5 +1,6 @@
 package com.example.lineup
 
+import RouteFragment
 import android.Manifest
 import android.app.Activity
 import android.content.BroadcastReceiver
@@ -23,7 +24,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.example.lineup.databinding.ActivityBottomBinding
+import com.gdsc.lineup.R
+import com.gdsc.lineup.databinding.ActivityBottomBinding
 
 
 class bottom_activity : AppCompatActivity() {
@@ -81,7 +83,7 @@ class bottom_activity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.Leaderboard -> replaceFragments(Leaderboard())
                 R.id.QR_code -> replaceFragments(Qr_code())
-                R.id.route -> replaceFragments(route())
+                R.id.route -> replaceFragments(RouteFragment())
                 R.id.Scanner -> replaceFragments(scanner())
             }
             true

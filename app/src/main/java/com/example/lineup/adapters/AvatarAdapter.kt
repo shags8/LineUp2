@@ -4,7 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.lineup.databinding.CharacterLayoutBinding
+import com.gdsc.lineup.databinding.CharacterLayoutBinding
 
 class AvatarAdapter(private val images: IntArray) :
     RecyclerView.Adapter<AvatarAdapter.ViewHolder>() {

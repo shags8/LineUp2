@@ -5,10 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import com.example.lineup.databinding.ActivityRulesBinding
-import com.google.android.play.integrity.internal.al
+import com.gdsc.lineup.databinding.ActivityRulesBinding
 
 class RulesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRulesBinding

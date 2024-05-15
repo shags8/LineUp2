@@ -1,8 +1,6 @@
 package com.example.lineup
 
 import android.Manifest
-import android.Manifest.permission
-import android.app.Instrumentation.ActivityResult
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,14 +12,10 @@ import android.util.Log
 import android.view.View
 import android.provider.Settings
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.gdsc.lineup.R
 
 class WelcomePage : AppCompatActivity() {
 
@@ -44,10 +38,7 @@ class WelcomePage : AppCompatActivity() {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
 
         Log.e("id1236", "$retrievedValue")
-        
-        if (retrievedValue != "defaultValue") {
-            editor.putString("Token", retrievedValue)
-            Log.e("id5", "$retrievedValue")
+        if (retrievedValue != null && retrievedValue != "defaultValue") {
             startActivity(Intent(this, CountDownActivity::class.java))
             finish()
         }

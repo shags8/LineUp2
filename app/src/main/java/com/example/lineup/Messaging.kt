@@ -8,11 +8,10 @@ import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import androidx.core.app.NotificationCompat
-import androidx.core.app.NotificationManagerCompat
+import com.gdsc.lineup.R
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.google.firebase.messaging.remoteMessage
-import kotlin.system.measureNanoTime
+
 const val channelId="notification_channel"
 const val channelName="com.example.lineup"
 class Messaging : FirebaseMessagingService() {
@@ -23,7 +22,7 @@ class Messaging : FirebaseMessagingService() {
         }
     }
     private fun getRemoteView(title: String, description: String): RemoteViews? {
-        val remoteView=RemoteViews("com.example.lineup",R.layout.notification)
+        val remoteView=RemoteViews("com.example.lineup", R.layout.notification)
         remoteView.setTextViewText(R.id.notiTitle,title)
         remoteView.setTextViewText(R.id.notiMessage,description)
         remoteView.setImageViewResource(R.id.notiImg,R.drawable.blue_avatar)

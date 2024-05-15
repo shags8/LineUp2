@@ -10,7 +10,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.lineup.models.Login
 import com.example.lineup.models.Login2
-import com.example.lineup.databinding.ActivityLoginBinding
+import com.gdsc.lineup.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

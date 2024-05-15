@@ -1,4 +1,4 @@
-package com.example.lineup
+package com.gdsc.lineup
 
 import android.content.Context
 import android.content.Intent
@@ -12,11 +12,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.example.lineup.CountDownActivity
+import com.example.lineup.HorizontalMarginItemDecoration
 import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.adapters.AvatarAdapter
-import com.example.lineup.databinding.ActivityCharacterSelectBinding
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2
+import com.gdsc.lineup.databinding.ActivityCharacterSelectBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -91,7 +93,7 @@ class CharacterSelect : AppCompatActivity() {
             editor.putString("Character Token" , visibleImage.toString())
             editor.apply()
             //Log.e("id12344","$number")
-            val call = apiInterface.storeAvatar(header,Avatar(visibleImage))
+            val call = apiInterface.storeAvatar(header, Avatar(visibleImage))
             call.enqueue(object : Callback<Avatar2> {
 
                 override fun onResponse(call: Call<Avatar2>, response: Response<Avatar2>) {
