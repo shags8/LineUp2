@@ -42,7 +42,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".CountDownActivity"
+            android:name="com.example.lineup.CountDownActivity"
             android:exported="false" />
 
         <meta-data
@@ -53,7 +53,7 @@
             android:resource="@color/purple_700" />
 
         <activity
-            android:name=".RulesActivity"
+            android:name="com.example.lineup.RulesActivity"
             android:exported="true"
             android:screenOrientation="portrait">
 
@@ -63,19 +63,19 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignUpActivity"
+            android:name="com.example.lineup.SignUpActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.example.lineup.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".bottom_activity"
+            android:name="com.example.lineup.bottom_activity"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".WelcomePage"
+            android:name="com.example.lineup.WelcomePage"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -86,27 +86,27 @@
 
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.lineup.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".LocationUpdates"
+            android:name="com.example.lineup.LocationUpdates"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
         <service
-            android:name=".ForeGroundLocationUpdates"
+            android:name="com.example.lineup.ForeGroundLocationUpdates"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
         <service
-            android:name=".DirectionService"
+            android:name="com.example.lineup.DirectionService"
             android:enabled="true"
             android:exported="false"
             android:foregroundServiceType="location" />
         <service
-            android:name=".Messaging"
+            android:name="com.example.lineup.Messaging"
             android:exported="false"
             tools:ignore="Instantiatable">
             <intent-filter>

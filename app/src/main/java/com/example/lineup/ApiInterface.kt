@@ -1,6 +1,5 @@
 package com.example.lineup
 
-import com.example.lineup.models.AccessAvatar
 import com.example.lineup.models.AccessAvatar2
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2

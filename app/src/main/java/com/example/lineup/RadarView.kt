@@ -17,10 +17,9 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.lineup.models.AccessAvatar2
-import com.example.lineup.models.Route
 import com.example.lineup.models.location
+import com.gdsc.lineup.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

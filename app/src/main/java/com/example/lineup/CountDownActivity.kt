@@ -8,12 +8,10 @@ import android.os.CountDownTimer
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.lineup.databinding.ActivityCountDownBinding
+import com.gdsc.lineup.databinding.ActivityCountDownBinding
 import com.example.lineup.models.Timer
+import com.gdsc.lineup.CharacterSelect
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,8 +35,8 @@ class CountDownActivity : AppCompatActivity() {
         progressBar = binding.progressBar
         sharedPreferences =
             this.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
-        val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        val retrievedValue2 = sharedPreferences.getString("Character Token", "defaultValue") ?: "defaultValue"
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        val retrievedValue2 = sharedPreferences.getString("Character Token", "defaultValue")
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.getTimeLeft(header)
         showLoading()
@@ -70,7 +68,7 @@ class CountDownActivity : AppCompatActivity() {
 
         })
         binding.gameStart.setOnClickListener {
-            if(retrievedValue2!="defaultValue")
+            if(retrievedValue2 != null &&retrievedValue2!="defaultValue")
             {
                 val intent = Intent(this@CountDownActivity, RulesActivity::class.java)
                 startActivity(intent)

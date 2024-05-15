@@ -14,6 +14,9 @@
     <string name="password">Password</string>
     <string name="log_in_to">Log in to</string>
     <string name="your_account">your account</string>
+    <string name="keep_your_location_turned_on">Keep your location turned on for accurate results</string>
+
+
     <string name="scanner_screen_heading">Scan QR Code</string>
     <string name="scanner_screen_info">Scan QR code of your band members.</string>
     <string name="arrow"><![CDATA[>>>]]></string>
@@ -58,12 +61,13 @@
         item
     </string>
     <string name="hello_world">Hello World\n</string>
-<!--    <string name="excited_huh">Excited huh ?</string>-->
+    <string name="excited_huh">Excited huh ?</string>
     <string name="well_the_game_starts_in">well, the game starts in</string>
     <string name="the_game_has_started_click_the_button_to_start">The Game has Started.Click the Button to Start</string>
     <string name="play_now">Play Now</string>
 <!--    <string name="we_re_on_the_lookout_for_other_players_and_so_far_we_re_only_only_hope">We\'re on the lookout for other \n players,and so far,you're \n our only hope</string>-->
     <string name="keep_you_location_turned_on">Keep you location turned on :)</string>
-    <string name="we_re_on_the_lookout_for_other_n_players_and_so_far_you_re_n_our_only_hope_string"><![CDATA[We\'re on the lookout for other \n players,and so far,you\'re \n our only hope</string]]></string>
+    <string name="we_re_on_the_lookout_for_other_n_players_and_so_far_you_re_n_our_only_hope_string"><![CDATA[We\'re on the lookout for other \n players,and so far,you\'re \n our only hope]]></string>
+    <string name="north">North</string>
 
 </resources>

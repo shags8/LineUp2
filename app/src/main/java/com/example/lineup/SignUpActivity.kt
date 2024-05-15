@@ -6,15 +6,14 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.lineup.RetrofitApi.apiInterface
-import com.example.lineup.databinding.ActivitySignUpBinding
+import com.gdsc.lineup.databinding.ActivitySignUpBinding
 import com.example.lineup.models.SignUp
 import com.example.lineup.models.SignUp2
+import com.gdsc.lineup.CharacterSelect
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback

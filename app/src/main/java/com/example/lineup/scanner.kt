@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.Code
 import com.example.lineup.models.scanner
+import com.gdsc.lineup.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback
@@ -47,7 +48,7 @@ class scanner : Fragment() {
         override fun barcodeResult(result: BarcodeResult) {
             barcodeView.pause()
 
-            barcodeView.setStatusText(result.text)
+//            barcodeView.setStatusText(result.text)
 
             val token = Code(result.text)
             scanQRCode(token)
@@ -68,7 +69,6 @@ class scanner : Fragment() {
             popup("Oops! Duplicate Member")
         } else {
             Log.e("id1235", "Added")
-            Log.e("id1238","$set")
          //   scanningEnabled = false
 //            message.text = "Member Found!"
             sendQRtoBackend(qrCode,qrCodeString,set)
@@ -90,7 +90,6 @@ class scanner : Fragment() {
             override fun onResponse(call: Call<scanner>, response: Response<scanner>) {
                 val responseBody = response.body()
                 Log.e("id1238", "$responseBody")
-                Log.e("id12356", "$response")
                 if (responseBody != null) {
                     if (responseBody.message == "QR Code scanned successfully") {
                         popup("Member Found!")
@@ -98,7 +97,8 @@ class scanner : Fragment() {
                         updatedSet.add(qrCodeString) // Modify the copy
                         sharedPreferences.edit().putStringSet("scannedQRSet", updatedSet).apply() // Save the modified set back to SharedPreferences
                     } else{
-                        popup("This is not a valid QR")
+                        val msg = responseBody.message
+                        popup(msg)
                     }
                 }
                 else{

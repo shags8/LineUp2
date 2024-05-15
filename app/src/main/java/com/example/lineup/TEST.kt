@@ -11,7 +11,6 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.IBinder
 import android.util.Log
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 class DirectionService : Service(), SensorEventListener {
@@ -90,7 +89,6 @@ class DirectionService : Service(), SensorEventListener {
                 azimuth >= 292.5 && azimuth < 337.5 -> "Northwest"
                 else -> "Unknown"
             }
-            Log.e("id12367", "$direction")
             val intent = Intent(ACTION_DIRECTION_UPDATE)
             intent.putExtra("DIRECTION", direction)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent)

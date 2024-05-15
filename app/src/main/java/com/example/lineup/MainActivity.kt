@@ -1,9 +1,8 @@
 package com.example.lineup
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import com.gdsc.lineup.R
 
 
 class MainActivity : AppCompatActivity() {

@@ -53,6 +53,39 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/closest_to_you"
         >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/north"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="South"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"
+            android:textStyle="bold"
+            android:layout_alignParentBottom="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="West"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="East"
+            android:textColor="@color/black"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"/>
+
 
         <com.skyfishjy.library.RippleBackground
             android:id="@+id/ripple_bg"
