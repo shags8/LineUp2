@@ -38,8 +38,8 @@
                     android:id="@+id/const_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="120dp"
-                    android:layout_marginTop="90dp">
+                    android:layout_marginTop="90dp"
+                    android:paddingBottom="120dp">
 
                     <TextView
                         android:id="@+id/register_text"
@@ -79,14 +79,12 @@
                         android:layout_marginTop="32dp"
                         android:layout_marginRight="32dp"
                         android:background="@drawable/info_bg"
-                        android:ellipsize="end"
                         android:fontFamily="@font/montserrat_medium"
                         android:hint="@string/name"
+                        android:scrollHorizontally="true"
                         android:inputType="textFilter"
-                        android:maxLength="10"
                         android:maxLines="1"
                         android:padding="20dp"
-                        android:singleLine="true"
                         android:textColor="@color/black"
                         app:layout_constraintTop_toBottomOf="@id/start_playing_text" />
 
@@ -101,6 +99,7 @@
                         android:background="@drawable/info_bg"
                         android:fontFamily="@font/montserrat_medium"
                         android:hint="@string/email"
+                        android:scrollHorizontally="true"
                         android:inputType="textEmailAddress"
                         android:maxLines="1"
                         android:padding="20dp"
@@ -150,6 +149,7 @@
                             android:hint="@string/password"
                             android:inputType="textPassword"
                             android:maxLines="1"
+                            android:scrollHorizontally="true"
                             android:padding="20dp"
                             android:singleLine="true"
                             android:textColor="@color/black" />
