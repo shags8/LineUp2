@@ -66,11 +66,15 @@
         <activity
             android:name="com.example.lineup.SignUpActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name="com.example.lineup.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name="com.example.lineup.bottom_activity"
             android:exported="true"
