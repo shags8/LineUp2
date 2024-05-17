@@ -60,17 +60,21 @@
 
         </activity>
         <activity
-            android:name=".CharacterSelect"
+            android:name="com.example.lineup.CharacterSelect"
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.example.lineup.SignUpActivity"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name="com.example.lineup.LoginActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="true"
+            android:screenOrientation="portrait" >
+
+        </activity>
         <activity
             android:name="com.example.lineup.bottom_activity"
             android:exported="true"

@@ -13,7 +13,6 @@ import com.example.lineup.RetrofitApi.apiInterface
 import com.gdsc.lineup2024.databinding.ActivitySignUpBinding
 import com.example.lineup.models.SignUp
 import com.example.lineup.models.SignUp2
-import com.gdsc.lineup2024.CharacterSelect
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
