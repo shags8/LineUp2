@@ -45,6 +45,7 @@ class Messaging : FirebaseMessagingService() {
             channelId).setSmallIcon(R.drawable.lineup).setAutoCancel(true).setVibrate(
             longArrayOf(1000,1000,1000,1000)).setOnlyAlertOnce(true).setContentIntent(pendingIntent)
 
+
         builder.setContent(getRemoteView(title, description))
 
         val notificationManager=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

@@ -34,7 +34,6 @@
                 app:layout_constraintStart_toStartOf="@id/lin_lay"
                 app:layout_constraintTop_toBottomOf="@id/lin_lay">
 
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/const_layout"
                     android:layout_width="match_parent"

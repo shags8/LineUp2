@@ -58,7 +58,6 @@
                 app:layout_constraintStart_toStartOf="@id/log_in_text"
                 app:layout_constraintEnd_toEndOf="@id/log_in_text"/>
 
-
             <EditText
                 android:id="@+id/zeal"
                 android:layout_width="match_parent"
