@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
                                 if (bodyResponse.message == "Login successful") {
                                     hideLoading()
                                     editor.putString("Token", response.body()!!.token)
+                                    editor.putString("Name", bodyResponse.name)
                                     bodyResponse.scannedCodes.let {
                                         editor.putStringSet("scannedQRSet", HashSet(it))
                                     }
