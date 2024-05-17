@@ -115,8 +115,8 @@ class LocationUpdates : Service() {
         }
 
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Location Updates Running")
-            .setContentText("Sending location data to server...")
+            .setContentTitle("Lineup is Active")
+            .setContentText("Searching for your friends...")
             .setSmallIcon(R.drawable.lineup)
         // Replace with your icon
 
