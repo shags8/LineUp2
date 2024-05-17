@@ -22,7 +22,7 @@ class Messaging : FirebaseMessagingService() {
         }
     }
     private fun getRemoteView(title: String, description: String): RemoteViews? {
-        val remoteView=RemoteViews("com.gdsc.lineup", R.layout.notification)
+        val remoteView=RemoteViews("com.gdsc.lineup2024", R.layout.notification)
         remoteView.setTextViewText(R.id.notiTitle,title)
         remoteView.setTextViewText(R.id.notiMessage,description)
         remoteView.setImageViewResource(R.id.notiImg,R.drawable.blue_avatar)
