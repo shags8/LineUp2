@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 
 class WelcomePage : AppCompatActivity() {
 

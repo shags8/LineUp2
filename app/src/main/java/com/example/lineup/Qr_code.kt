@@ -13,7 +13,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.qrCode
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.zxing.BarcodeFormat

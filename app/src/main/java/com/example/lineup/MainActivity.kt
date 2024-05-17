@@ -2,7 +2,7 @@ package com.example.lineup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 
 
 class MainActivity : AppCompatActivity() {

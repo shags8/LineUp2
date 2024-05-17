@@ -24,8 +24,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.gdsc.lineup.R
-import com.gdsc.lineup.databinding.ActivityBottomBinding
+import com.gdsc.lineup2024.R
+import com.gdsc.lineup2024.databinding.ActivityBottomBinding
 
 
 class bottom_activity : AppCompatActivity() {

@@ -13,11 +13,11 @@ plugins {
 }
 
 android {
-    namespace 'com.gdsc.lineup'
+    namespace 'com.gdsc.lineup2024'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.gdsc.lineup"
+        applicationId "com.gdsc.lineup2024"
         minSdk 24
         targetSdk 34
         versionCode 1

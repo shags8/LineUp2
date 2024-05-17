@@ -13,7 +13,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import io.socket.client.IO
 import io.socket.client.Socket
 import org.json.JSONException

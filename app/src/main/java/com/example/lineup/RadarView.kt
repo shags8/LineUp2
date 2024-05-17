@@ -19,7 +19,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.lineup.models.AccessAvatar2
 import com.example.lineup.models.location
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
