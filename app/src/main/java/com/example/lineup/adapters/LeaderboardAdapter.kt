@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.gdsc.lineup2024.R
 import com.example.lineup.models.LeaderboardModel
@@ -36,5 +37,8 @@ class LeaderboardAdapter(
         holder.avatar.setImageResource(leaderboardList.avatar)
         holder.name.text = leaderboardList.name
         holder.membersFound.text = leaderboardList.membersFound.toString()
+        holder.itemView.setOnClickListener {
+            Toast.makeText(context, leaderboardList.name,Toast.LENGTH_SHORT).show()
+        }
     }
 }

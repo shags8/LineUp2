@@ -13,6 +13,7 @@ import com.example.lineup.RetrofitApi.apiInterface
 import com.gdsc.lineup2024.databinding.ActivitySignUpBinding
 import com.example.lineup.models.SignUp
 import com.example.lineup.models.SignUp2
+import com.gdsc.lineup2024.CharacterSelect
 import com.google.firebase.database.FirebaseDatabase
 import retrofit2.Call
 import retrofit2.Callback
@@ -72,6 +73,7 @@ class SignUpActivity : AppCompatActivity() {
                             if (responseBody != null) {
                                 //  Log.e("id123", "$responseBody")
                                 Log.e("id123", "${responseBody.code}")
+                                Log.e("id123", responseBody.message)
                                 if (responseBody.message == "Signup successful") {
                                     hideLoading()
                                     //  dismissLoadingDialog()
@@ -88,6 +90,15 @@ class SignUpActivity : AppCompatActivity() {
                             }
 
                         } else {
+                            Toast.makeText(
+                                this@SignUpActivity,
+                                "Zeal Id is already registered",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            val intent =
+                                Intent(this@SignUpActivity, WelcomePage::class.java)
+                            startActivity(intent)
+                            finish()
                             Log.e("id123", "${response.code()} - ${response.message()}")
 
                         }
