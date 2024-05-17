@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,11 +6,19 @@
     android:gravity="center_horizontal"
     tools:context=".SignUpActivity">
 
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/signUpRel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <include
             android:id="@+id/lin_lay"
@@ -22,126 +30,147 @@
         <ScrollView
             android:id="@+id/s_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lin_lay">
+            android:layout_height="match_parent"
+            android:layout_below="@id/lin_lay"
+            app:layout_constraintTop_toBottomOf="@id/lin_lay"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
-            android:id="@+id/L1"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/c_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintEnd_toEndOf="@id/lin_lay"
+            app:layout_constraintStart_toStartOf="@id/lin_lay"
+            app:layout_constraintTop_toBottomOf="@id/lin_lay">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/register_now"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/const_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:text="@string/to_start_playing"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="35sp" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="90dp">
 
-            <EditText
-                android:id="@+id/name"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/info_bg"
-                android:ellipsize="end"
-                android:fontFamily="@font/montserrat_medium"
-                android:hint="@string/name"
-                android:inputType="textFilter"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/register_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/register_now"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    app:layout_constraintBottom_toTopOf="@id/start_playing_text"/>
 
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/info_bg"
-                android:fontFamily="@font/montserrat_medium"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
-
-            <EditText
-                android:id="@+id/zeal"
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="28dp"
-                android:layout_marginRight="32dp"
-                android:background="@drawable/info_bg"
-                android:fontFamily="@font/montserrat_medium"
-                android:hint="@string/zeal_id"
-                android:maxLines="1"
-                android:padding="20dp"
-                android:singleLine="true"
-                android:textColor="@color/black"/>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                app:boxBackgroundMode="none"
-                app:hintAnimationEnabled="false"
-                app:hintEnabled="false"
-                android:layout_marginTop="28dp"
-                tools:ignore="MissingConstraints">
+                <TextView
+                    android:id="@+id/start_playing_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/to_start_playing"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="35sp"
+                    app:layout_constraintTop_toBottomOf="@id/register_text" />
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/info_bg"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="@string/name"
+                    android:inputType="textFilter"
+                    android:maxLength="10"
+                    android:maxLines="1"
+                    android:padding="20dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/start_playing_text" />
+
+                <EditText
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="62dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="32dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginRight="32dp"
-                    android:layout_marginBottom="10dp"
                     android:background="@drawable/info_bg"
                     android:fontFamily="@font/montserrat_medium"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="20dp"
                     android:singleLine="true"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/name" />
 
-            </com.google.android.material.textfield.TextInputLayout>
+                <EditText
+                    android:id="@+id/zeal"
+                    android:layout_width="match_parent"
+                    android:layout_height="62dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="32dp"
+                    android:background="@drawable/info_bg"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="@string/zeal_id"
+                    android:maxLines="1"
+                    android:padding="20dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    app:layout_constraintTop_toBottomOf="@id/email" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    app:boxBackgroundMode="none"
+                    app:hintAnimationEnabled="false"
+                    app:hintEnabled="false"
+                    app:layout_constraintTop_toBottomOf="@id/zeal"
+                    app:passwordToggleEnabled="true"
+                    tools:ignore="MissingConstraints">
+
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="62dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="32dp"
+                        android:layout_marginTop="28dp"
+                        android:layout_marginRight="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/info_bg"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:padding="20dp"
+                        android:singleLine="true"
+                        android:textColor="@color/black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </LinearLayout>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/navBar"
             android:layout_width="match_parent"
@@ -149,7 +178,8 @@
             android:layout_below="@+id/s_view"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="30dp"
-            android:background="@drawable/ellipse">
+            android:background="@drawable/ellipse"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/reg_text"
@@ -175,8 +205,8 @@
                 android:src="@drawable/next_arrow"
                 android:textColor="@color/white" />
         </androidx.appcompat.widget.Toolbar>
-    </RelativeLayout>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -184,6 +214,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:indeterminateTint="?attr/colorOnPrimary"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

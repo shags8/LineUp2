@@ -1,4 +1,4 @@
-package com.gdsc.lineup
+package com.example.lineup
 
 import android.content.Context
 import android.content.Intent
@@ -18,6 +18,7 @@ import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.adapters.AvatarAdapter
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2
+import com.gdsc.lineup.R
 import com.gdsc.lineup.databinding.ActivityCharacterSelectBinding
 import retrofit2.Call
 import retrofit2.Callback

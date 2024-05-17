@@ -22,7 +22,7 @@ class Messaging : FirebaseMessagingService() {
         }
     }
     private fun getRemoteView(title: String, description: String): RemoteViews? {
-        val remoteView=RemoteViews("com.example.lineup", R.layout.notification)
+        val remoteView=RemoteViews("com.gdsc.lineup", R.layout.notification)
         remoteView.setTextViewText(R.id.notiTitle,title)
         remoteView.setTextViewText(R.id.notiMessage,description)
         remoteView.setImageViewResource(R.id.notiImg,R.drawable.blue_avatar)
@@ -42,7 +42,7 @@ class Messaging : FirebaseMessagingService() {
         )
 
         var builder: NotificationCompat.Builder=NotificationCompat.Builder(applicationContext,
-            channelId).setSmallIcon(R.drawable.blue_avatar).setAutoCancel(true).setVibrate(
+            channelId).setSmallIcon(R.drawable.lineup).setAutoCancel(true).setVibrate(
             longArrayOf(1000,1000,1000,1000)).setOnlyAlertOnce(true).setContentIntent(pendingIntent)
 
         builder.setContent(getRemoteView(title, description))
