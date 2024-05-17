@@ -7,7 +7,7 @@ object RetrofitApi {
     private val retrofit by lazy {
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://lineup-backend.onrender.com")
+            .baseUrl("http://ec2-15-206-68-121.ap-south-1.compute.amazonaws.com:8000/")
             .build()
     }
     val apiInterface: ApiInterface by lazy {

@@ -13,6 +13,7 @@ import android.os.IBinder
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.location.LocationManagerCompat.requestLocationUpdates
 import com.gdsc.lineup2024.R
 import io.socket.client.IO
 import io.socket.client.Socket
@@ -25,18 +26,14 @@ class LocationUpdates : Service() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var socket: Socket
     private lateinit var locationManager: LocationManager
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            sendLocationToBackend(location)
-        }
-    }
+    private val locationListener = LocationListener { location -> sendLocationToBackend(location) }
     override fun onCreate() {
         super.onCreate()
 
 
         // Replace with your backend server URL
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.onrender.com"
+        val serverUrl = "http://ec2-15-206-68-121.ap-south-1.compute.amazonaws.com:8000/"
 
         try {
             socket = IO.socket(serverUrl)
@@ -47,13 +44,8 @@ class LocationUpdates : Service() {
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        // Check for location permissions
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.w("LocationUpdateService", "Location permission not granted")
             // Handle permission request if needed
-        } else {
             requestLocationUpdates()
-        }
 
         // Create notification for foreground service
         val notification = createNotification(this)
@@ -150,7 +142,7 @@ class ForeGroundLocationUpdates : Service() {
         // Replace with your backend server URL
         Log.e("id1236", "service3")
         Log.e("id16" , "stop2121")
-        val serverUrl = "https://lineup-backend.onrender.com"
+        val serverUrl = "http://ec2-15-206-68-121.ap-south-1.compute.amazonaws.com:8000/"
 
         try {
             socket = IO.socket(serverUrl)
@@ -161,13 +153,7 @@ class ForeGroundLocationUpdates : Service() {
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-        // Check for location permissions
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.w("LocationUpdateService", "Location permission not granted")
-            // Handle permission request if needed
-        } else {
             requestLocationUpdates()
-        }
 
     }
 
@@ -203,9 +189,8 @@ class ForeGroundLocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, locationListener)
     }
-
     private fun sendLocationToBackend(location: Location) {
         val data = JSONObject()
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)

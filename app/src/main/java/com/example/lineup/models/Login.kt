@@ -6,6 +6,7 @@ data class Login(
 )
 
 data class Login2(
+    val name :String,
     val protocol: String,
     val code: String,
     val token :String,

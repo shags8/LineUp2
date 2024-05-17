@@ -1,4 +1,4 @@
-package com.gdsc.lineup2024
+package com.example.lineup
 
 import android.content.Context
 import android.content.Intent
@@ -12,12 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.lineup.CountDownActivity
-import com.example.lineup.HorizontalMarginItemDecoration
 import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.adapters.AvatarAdapter
 import com.example.lineup.models.Avatar
 import com.example.lineup.models.Avatar2
+import com.gdsc.lineup2024.R
 import com.gdsc.lineup2024.databinding.ActivityCharacterSelectBinding
 import retrofit2.Call
 import retrofit2.Callback
