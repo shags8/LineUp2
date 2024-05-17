@@ -115,7 +115,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Map refreshes automatically every 5 seconds, with manual refresh via button click."
+            android:text="Map refreshes automatically every 5 seconds,  manual refresh can be done via button click."
             android:textColor="@color/black"
             android:fontFamily="@font/montserrat_medium"
             android:textSize="16sp"

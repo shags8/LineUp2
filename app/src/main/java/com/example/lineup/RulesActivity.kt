@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AlertDialog
-import com.gdsc.lineup.databinding.ActivityRulesBinding
+import com.gdsc.lineup2024.databinding.ActivityRulesBinding
 
 class RulesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRulesBinding

@@ -9,7 +9,26 @@
       "client_info": {
         "mobilesdk_app_id": "1:664376567505:android:df906b354e58eb9ee907f0",
         "android_client_info": {
-          "package_name": "com.gdsc.lineup"
+          "package_name": "com.gdsc.lineup2024"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVOpHjETIxAqQqNxKrttEYVlWGUqZEHoA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:664376567505:android:fe9fb95224e203c9e907f0",
+        "android_client_info": {
+          "package_name": "com.gdsc.lineup20242024"
         }
       },
       "oauth_client": [],

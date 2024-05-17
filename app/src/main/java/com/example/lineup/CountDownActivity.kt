@@ -9,9 +9,9 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.gdsc.lineup.databinding.ActivityCountDownBinding
+import com.gdsc.lineup2024.databinding.ActivityCountDownBinding
 import com.example.lineup.models.Timer
-import com.gdsc.lineup.CharacterSelect
+import com.gdsc.lineup2024.CharacterSelect
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

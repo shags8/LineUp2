@@ -12,7 +12,7 @@ import com.example.lineup.RadarView
 import com.example.lineup.RetrofitApi
 import com.example.lineup.models.Route
 import com.example.lineup.models.location
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import com.skyfishjy.library.RippleBackground
 import retrofit2.Call
 import retrofit2.Callback

@@ -16,7 +16,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.example.lineup.models.Code
 import com.example.lineup.models.scanner
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.ResultPoint
 import com.journeyapps.barcodescanner.BarcodeCallback

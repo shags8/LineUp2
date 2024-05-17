@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.gdsc.lineup.R
+import com.gdsc.lineup2024.R
 import com.example.lineup.models.LeaderboardModel
 
 class LeaderboardAdapter(
