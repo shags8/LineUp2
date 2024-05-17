@@ -110,7 +110,15 @@ class RadarView : View {
                     val radarSize = min(width, height)
                     val maxDrawableDimension = (radarSize * 0.09).toInt()
                     val scaleFactor = maxDrawableDimension.toFloat() / max(originalDrawable.width, originalDrawable.height)
-                    selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
+//                    selfDrawable = Bitmap.createScaledBitmap(originalDrawable, (originalDrawable.width * scaleFactor).toInt(), (originalDrawable.height * scaleFactor).toInt(), true)
+                    val newWidth = (originalDrawable.width * scaleFactor).toInt()
+                    val newHeight = (originalDrawable.height * scaleFactor).toInt()
+
+                    if (newWidth > 0 && newHeight > 0) {
+                        selfDrawable = Bitmap.createScaledBitmap(originalDrawable, newWidth, newHeight, true)
+                    } else {
+                        Log.e("RadarView", "Invalid dimensions for bitmap: width=$newWidth, height=$newHeight")
+                    }
                 }
             }
 
@@ -216,17 +224,25 @@ class RadarView : View {
         val selfDrawableWidth = selfDrawable?.width ?: 0
         val selfDrawableHeight = selfDrawable?.height ?: 0
 
+        if (selfDrawableWidth > 0 && selfDrawableHeight > 0) {
         // Avatar ImageView
         val avatarImageView = ImageView(context)
         avatarImageView.id = View.generateViewId() // Set unique id for this view
-        val avatarDrawable = BitmapFactory.decodeResource(resources, drawableMap[user.avatar] ?: R.drawable.red_avatar)
-        val scaledAvatar = Bitmap.createScaledBitmap(avatarDrawable, selfDrawableWidth, selfDrawableHeight, true)
+        val avatarDrawable = BitmapFactory.decodeResource(
+            resources,
+            drawableMap[user.avatar] ?: R.drawable.red_avatar
+        )
+        val scaledAvatar =
+            Bitmap.createScaledBitmap(avatarDrawable, selfDrawableWidth, selfDrawableHeight, true)
         avatarImageView.setImageBitmap(scaledAvatar)
         val avatarLayoutParams = RelativeLayout.LayoutParams(
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             RelativeLayout.LayoutParams.WRAP_CONTENT
         )
-        avatarLayoutParams.addRule(RelativeLayout.BELOW, nameTextView.id) // Position below the name TextView
+        avatarLayoutParams.addRule(
+            RelativeLayout.BELOW,
+            nameTextView.id
+        ) // Position below the name TextView
         avatarLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
         avatarImageView.layoutParams = avatarLayoutParams
         userLayout.addView(avatarImageView)
@@ -253,7 +269,10 @@ class RadarView : View {
             RelativeLayout.LayoutParams.WRAP_CONTENT,
             RelativeLayout.LayoutParams.WRAP_CONTENT
         )
-        distanceLayoutParams.addRule(RelativeLayout.BELOW, avatarImageView.id) // Position below the avatar ImageView
+        distanceLayoutParams.addRule(
+            RelativeLayout.BELOW,
+            avatarImageView.id
+        ) // Position below the avatar ImageView
         distanceLayoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL)
         distanceTextView.layoutParams = distanceLayoutParams
         userLayout.addView(distanceTextView)
@@ -266,7 +285,7 @@ class RadarView : View {
         )
         userLayoutParams.setMargins(margin, margin, margin, margin)
         userLayout.layoutParams = userLayoutParams
-
+    }
         return userLayout
     }
     fun directionToDegrees(direction: String): Double {
