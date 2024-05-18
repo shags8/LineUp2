@@ -25,7 +25,7 @@ class Messaging : FirebaseMessagingService() {
         val remoteView=RemoteViews("com.gdsc.lineup2024", R.layout.notification)
         remoteView.setTextViewText(R.id.notiTitle,title)
         remoteView.setTextViewText(R.id.notiMessage,description)
-        remoteView.setImageViewResource(R.id.notiImg,R.drawable.lineup)
+        remoteView.setImageViewResource(R.id.notiImg,R.drawable.small_avatar)
         return remoteView
 
     }
@@ -42,7 +42,7 @@ class Messaging : FirebaseMessagingService() {
         )
 
         var builder: NotificationCompat.Builder=NotificationCompat.Builder(applicationContext,
-            channelId).setSmallIcon(R.drawable.lineup).setAutoCancel(true).setVibrate(
+            channelId).setSmallIcon(R.drawable.small_avatar).setAutoCancel(true).setVibrate(
             longArrayOf(1000,1000,1000,1000)).setOnlyAlertOnce(true).setContentIntent(pendingIntent)
 
 

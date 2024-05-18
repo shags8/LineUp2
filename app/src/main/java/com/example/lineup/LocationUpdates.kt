@@ -45,7 +45,7 @@ class LocationUpdates : Service() {
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
             // Handle permission request if needed
-            requestLocationUpdates()
+        requestLocationUpdates()
 
         // Create notification for foreground service
         val notification = createNotification(this)
@@ -84,7 +84,20 @@ class LocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2000, 0f, locationListener)
+        // Check if GPS_PROVIDER is available
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
+        } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
+        }
+        else {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
+        }
     }
 
     private fun sendLocationToBackend(location: Location) {
@@ -117,7 +130,7 @@ class LocationUpdates : Service() {
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
             .setContentTitle("Lineup is Active")
             .setContentText("Searching for your friends...")
-            .setSmallIcon(R.drawable.lineup)
+            .setSmallIcon(R.drawable.small_avatar)
         // Replace with your icon
 
         return notificationBuilder.build()
@@ -129,11 +142,7 @@ class ForeGroundLocationUpdates : Service() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var socket: Socket
     private lateinit var locationManager: LocationManager
-    private val locationListener = object : LocationListener {
-        override fun onLocationChanged(location: Location) {
-            sendLocationToBackend(location)
-        }
-    }
+    private val locationListener = LocationListener { location -> sendLocationToBackend(location) }
 
     override fun onCreate() {
         super.onCreate()
@@ -189,7 +198,20 @@ class ForeGroundLocationUpdates : Service() {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 0f, locationListener)
+        // Check if GPS_PROVIDER is available
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
+        } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
+        }
+        else {
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
+        }
     }
     private fun sendLocationToBackend(location: Location) {
         val data = JSONObject()

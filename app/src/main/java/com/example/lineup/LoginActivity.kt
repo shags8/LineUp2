@@ -29,52 +29,54 @@ class LoginActivity : AppCompatActivity() {
 
         val loginbtn = binding.loginBtn
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+
+
+    }
+
+    fun LogIn(view: View){
+        val zeal = binding.zeal.text.trim().toString()
+        val password = binding.password.text.trim().toString()
+        progressBar = binding.progressBar
         val editor = sharedPreferences.edit()
 
-        loginbtn.setOnClickListener {
-            val zeal = binding.zeal.text.trim().toString()
-            val password = binding.password.text.trim().toString()
-            progressBar = binding.progressBar
-
-            if (zeal.isEmpty() || password.isEmpty()) {
-                showToast("Please enter your ZealId and Password")
-            } else {
-                showLoading()
-                val userLogin = Login(password, zeal)
-                val call = RetrofitApi.apiInterface.login(userLogin)
-                call.enqueue(object : Callback<Login2> {
-                    override fun onResponse(call: Call<Login2>, response: Response<Login2>) {
-                        if (response.isSuccessful) {
-                            val bodyResponse = response.body()
-                            Log.e("id1234", "$response")
-                            if (bodyResponse != null) {
-                                Log.e("id1234", "$bodyResponse")
-                                if (bodyResponse.message == "Login successful") {
-                                    hideLoading()
-                                    editor.putString("Token", response.body()!!.token)
-                                    editor.putString("Name", bodyResponse.name)
-                                    bodyResponse.scannedCodes.let {
-                                        editor.putStringSet("scannedQRSet", HashSet(it))
-                                    }
-                                    editor.apply()
-                                    showToast("Login Successfully")
-                                    val intent = Intent(this@LoginActivity, CountDownActivity::class.java)
-                                    startActivity(intent)
-                                    finish()
+        if (zeal.isEmpty() || password.isEmpty()) {
+            showToast("Please enter your ZealId and Password")
+        } else {
+            showLoading()
+            val userLogin = Login(password, zeal)
+            val call = RetrofitApi.apiInterface.login(userLogin)
+            call.enqueue(object : Callback<Login2> {
+                override fun onResponse(call: Call<Login2>, response: Response<Login2>) {
+                    if (response.isSuccessful) {
+                        val bodyResponse = response.body()
+                        Log.e("id1234", "$response")
+                        if (bodyResponse != null) {
+                            Log.e("id1234", "$bodyResponse")
+                            if (bodyResponse.message == "Login successful") {
+                                hideLoading()
+                                editor.putString("Token", response.body()!!.token)
+                                editor.putString("Name", bodyResponse.name)
+                                bodyResponse.scannedCodes.let {
+                                    editor.putStringSet("scannedQRSet", HashSet(it))
                                 }
+                                editor.apply()
+                                showToast("Login Successfully")
+                                val intent = Intent(this@LoginActivity, CountDownActivity::class.java)
+                                startActivity(intent)
+                                finish()
                             }
-                        } else {
-                            hideLoading()
-                            showToast("User Not Found!")
                         }
-                    }
-
-                    override fun onFailure(call: Call<Login2>, t: Throwable) {
+                    } else {
                         hideLoading()
-                        showToast("Login Failed")
+                        showToast("User Not Found!")
                     }
-                })
-            }
+                }
+
+                override fun onFailure(call: Call<Login2>, t: Throwable) {
+                    hideLoading()
+                    showToast("Login Failed")
+                }
+            })
         }
     }
 

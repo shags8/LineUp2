@@ -1,10 +1,12 @@
-package com.gdsc.lineup2024
+package com.example.lineup
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -12,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.example.lineup.CountDownActivity
-import com.example.lineup.HorizontalMarginItemDecoration
 import com.example.lineup.RetrofitApi.apiInterface
 import com.example.lineup.adapters.AvatarAdapter
 import com.example.lineup.models.Avatar
@@ -32,17 +32,17 @@ class CharacterSelect : AppCompatActivity() {
     private var pageTranslationX: Float = 0f
     private lateinit var viewPager: ViewPager2
     private var currentVisiblePosition = 0
+    private lateinit var sharedPreferences: SharedPreferences
+    private var visibleImage : Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCharacterSelectBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
 
-        val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
-        val editor = sharedPreferences.edit()
         Log.e("id1234", "$retrievedValue")
-        var visibleImage: Int = 0
         val characters: IntArray = intArrayOf(
             R.drawable.red_avatar,
             R.drawable.pink_avatar,
@@ -87,40 +87,6 @@ class CharacterSelect : AppCompatActivity() {
         binding.VP.addItemDecoration(itemDecoration)
         binding.VP.offscreenPageLimit = 2
 
-        val header = "Bearer $retrievedValue"
-        binding.characterBtn.setOnClickListener {
-            Log.e("imageNumber", "$visibleImage")
-            editor.putString("Character Token" , visibleImage.toString())
-            editor.apply()
-            //Log.e("id12344","$number")
-            val call = apiInterface.storeAvatar(header, Avatar(visibleImage))
-            call.enqueue(object : Callback<Avatar2> {
-
-                override fun onResponse(call: Call<Avatar2>, response: Response<Avatar2>) {
-                    Log.e("id1234", "${response.body()}")
-
-                    if (response.isSuccessful) {
-                        if (response.body() != null) {
-                            Log.e("id1234", "${response.body()}")
-                            if(response.body()!!.message=="Avatar stored successfully") {
-                                val intent = Intent(this@CharacterSelect, CountDownActivity::class.java)
-                                startActivity(intent)
-                                finish()
-                            }
-
-                        } else {
-                            Toast.makeText(this@CharacterSelect, "error", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-
-                override fun onFailure(call: Call<Avatar2>, t: Throwable) {
-                    Toast.makeText(this@CharacterSelect, "Error!", Toast.LENGTH_SHORT).show()
-                }
-
-            })
-
-        }
         viewPager = binding.VP
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -130,6 +96,42 @@ class CharacterSelect : AppCompatActivity() {
                 // You can now use this position to determine the mapped image number
                 visibleImage = getVisibleMappedImage()
             }
+        })
+    }
+
+    fun characterselect(view: View){
+        val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
+        val header = "Bearer $retrievedValue"
+        val editor = sharedPreferences.edit()
+        Log.e("imageNumber", "$visibleImage")
+        editor.putString("Character Token" , visibleImage.toString())
+        editor.apply()
+        //Log.e("id12344","$number")
+        val call = apiInterface.storeAvatar(header, Avatar(visibleImage))
+        call.enqueue(object : Callback<Avatar2> {
+
+            override fun onResponse(call: Call<Avatar2>, response: Response<Avatar2>) {
+                Log.e("id1234", "${response.body()}")
+
+                if (response.isSuccessful) {
+                    if (response.body() != null) {
+                        Log.e("id1234", "${response.body()}")
+                        if(response.body()!!.message=="Avatar stored successfully") {
+                            val intent = Intent(this@CharacterSelect, CountDownActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+
+                    } else {
+                        Toast.makeText(this@CharacterSelect, "error", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Avatar2>, t: Throwable) {
+                Toast.makeText(this@CharacterSelect, "Error!", Toast.LENGTH_SHORT).show()
+            }
+
         })
     }
 

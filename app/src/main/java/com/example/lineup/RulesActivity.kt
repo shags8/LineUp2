@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.gdsc.lineup2024.databinding.ActivityRulesBinding
 
@@ -15,18 +16,19 @@ class RulesActivity : AppCompatActivity() {
         binding = ActivityRulesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        binding.rulesBtn.setOnClickListener {
-            val intent = Intent(this, bottom_activity::class.java)
-            startActivity(intent)
-            finish()
-        }
         val sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val name = sharedPreferences.getString("Name", "defaultValue")
         binding.username.text= "Hey $name"
         if (name != null) {
             Log.e("id123",name)
         }
+    }
+
+    fun rulesnext(view: View)
+    {
+        val intent = Intent(this, bottom_activity::class.java)
+        startActivity(intent)
+        finish()
     }
     override fun onBackPressed() {
         AlertDialog.Builder(this)

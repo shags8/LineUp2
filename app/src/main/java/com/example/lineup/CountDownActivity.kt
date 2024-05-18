@@ -1,16 +1,21 @@
 package com.example.lineup
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.gdsc.lineup2024.databinding.ActivityCountDownBinding
 import com.example.lineup.models.Timer
+import com.gdsc.lineup2024.R
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +37,8 @@ class CountDownActivity : AppCompatActivity() {
         binding = ActivityCountDownBinding.inflate(layoutInflater)
         setContentView(binding.root)
         progressBar = binding.progressBar
+
+
         sharedPreferences =
             this.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")

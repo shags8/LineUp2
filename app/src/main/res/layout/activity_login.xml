@@ -127,6 +127,7 @@
                 android:layout_marginTop="80dp"
                 android:fontFamily="@font/montserrat_medium"
                 android:text="@string/login"
+                android:onClick="LogIn"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
@@ -136,6 +137,7 @@
                 android:layout_width="46dp"
                 android:layout_height="24dp"
                 android:layout_gravity="end"
+                android:onClick="LogIn"
                 android:layout_marginTop="85dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/button_bg"

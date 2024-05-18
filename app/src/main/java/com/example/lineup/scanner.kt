@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -27,13 +28,18 @@ import com.journeyapps.barcodescanner.ViewfinderView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class scanner : Fragment() {
     private lateinit var barcodeView: DecoratedBarcodeView
     private lateinit var viewfinderView: ViewfinderView
     private var lastText: String? = null
+    private lateinit var countDownTimer: CountDownTimer
     private lateinit var sharedPreferences: SharedPreferences
     private var scannedQRSet = HashSet<String>()
+    private lateinit var textViewTimer: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
@@ -143,8 +149,49 @@ class scanner : Fragment() {
         barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
         barcodeView.initializeFromIntent(requireActivity().intent)
         barcodeView.decodeContinuous(callback)
+        textViewTimer = view.findViewById<TextView>(R.id.timeleft)
+        val targetDate = "2024-05-20"
+        val targetTime = "12:00:00"
+        startCountdownToDateTime(targetDate, targetTime)
 
         return view
+    }
+
+    private fun startCountdownToDateTime(targetDate: String, targetTime: String) {
+
+        // Parse the target date and time
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val targetDateTime = dateFormat.parse("$targetDate $targetTime")
+
+        // Calculate milliseconds until the target date and time
+        val millisecondsUntilTarget = targetDateTime.time - System.currentTimeMillis()
+
+        // Create and start the countdown timer
+        countDownTimer = object : CountDownTimer(millisecondsUntilTarget, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val hours = millisUntilFinished / (1000 * 60 * 60)
+                val minutes = (millisUntilFinished % (1000 * 60 * 60)) / (1000 * 60)
+                val seconds = ((millisUntilFinished % (1000 * 60 * 60)) % (1000 * 60) / 1000)
+                if (hours > 0) {
+                    textViewTimer?.text = String.format("%02d hours %02d minutes", hours, minutes)
+                    Log.e("timer", "${textViewTimer?.text}")
+                } else {
+                    textViewTimer?.text = String.format("%02d minutes %02d seconds", minutes, seconds)
+                }
+            }
+
+            override fun onFinish() {
+                if (textViewTimer != null) {
+                    textViewTimer.text = "00:00:00"
+                }
+                // You may perform any action when the countdown finishes
+            }
+        }.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        countDownTimer.cancel()
     }
 
     override fun onResume() {
