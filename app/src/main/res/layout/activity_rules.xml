@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".RulesActivity">
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,17 +24,17 @@
                 layout="@layout/lineup_symbol"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="0dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/LL"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/label"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/label">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -78,71 +78,154 @@
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="@string/we_re_on_the_lookout_for_other_n_players_and_so_far_you_re_n_our_only_hope_string"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="@string/show_the_qr_code"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="•"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:text="@string/we_need_your_help_"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="20dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="We’re on the lookout for other players, and so far, you’re our only hope."
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:textSize="16sp"
-                    android:text="@string/keep_you_location_turned_on"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textAlignment="center"
-                    android:textColor="@color/black"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="•"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/show_the_qr_code"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Map refreshes automatically every 5 seconds,  manual refresh can be done via button click."
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textSize="16sp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="20dp"
-                    android:textAlignment="center"
-                    />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="•"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/we_need_your_help_"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="•"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/keep_you_location_turned_on"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="•"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Map refreshes automatically every 5 seconds,  manual refresh can be done via button click."
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+
+                </LinearLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -153,10 +236,10 @@
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/ellipse"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@drawable/ellipse">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <TextView
@@ -166,8 +249,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="80dp"
             android:fontFamily="@font/montserrat_medium"
-            android:text="@string/finish"
             android:onClick="rulesnext"
+            android:text="@string/finish"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="15sp" />
@@ -177,10 +260,10 @@
             android:layout_width="46dp"
             android:layout_height="24dp"
             android:layout_gravity="end"
-            android:onClick="rulesnext"
             android:layout_marginTop="85dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/button_bg"
+            android:onClick="rulesnext"
             android:src="@drawable/next_arrow"
             android:textColor="@color/white"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
