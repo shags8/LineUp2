@@ -64,6 +64,10 @@ class SignUpActivity : AppCompatActivity() {
              Toast.makeText(this, "Please fill all the fields", Toast.LENGTH_SHORT).show()
              binding.regtbtn.isEnabled = true
              binding.regText.isEnabled = true
+         }else if (zealidtxt.length < 6) {
+             Toast.makeText(this, "Zeal Id must have 6 characters", Toast.LENGTH_SHORT).show()
+             binding.regtbtn.isEnabled = true
+             binding.regText.isEnabled = true
          }
           else if (!validateEmail(emailtxt)) {
              Toast.makeText(this, "Please enter valid email", Toast.LENGTH_SHORT).show()
@@ -73,10 +77,8 @@ class SignUpActivity : AppCompatActivity() {
              showLoading()
              binding.regtbtn.isEnabled = true
              binding.regText.isEnabled = true
-             // Log.e("id123", "hey")
              call.enqueue(object : Callback<SignUp2> {
                  override fun onResponse(call: Call<SignUp2>, response: Response<SignUp2>) {
-                     //    showLoadingDialog(this@SignUpActivity,"Loading...")
                      if (response.isSuccessful) {
                          val responseBody = response.body()
                          if (responseBody != null) {
