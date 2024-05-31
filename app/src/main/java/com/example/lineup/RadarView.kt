@@ -93,7 +93,6 @@ class RadarView : View {
         // Load the drawable for yourself
         val sharedPreferences = context.getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue")
-        Log.e("id1233", retrievedValue.toString())
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.accessAvatar(header)
         call.enqueue(object : Callback<AccessAvatar2> {
@@ -101,9 +100,6 @@ class RadarView : View {
                 val responseBody = response.body()
                 responseBody?.let {
                     val avatarId = it.avatar
-                    Log.e("id1235", header)
-                    Log.e("id12345", "$responseBody")
-                    Log.e("id1235", "$response")
 
                     // Now that you have the avatarId, perform further actions
                     val originalDrawable = BitmapFactory.decodeResource(resources, drawableMap[avatarId] ?: return@let)

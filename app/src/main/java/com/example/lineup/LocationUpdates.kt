@@ -9,8 +9,10 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.location.LocationManagerCompat.requestLocationUpdates
@@ -27,12 +29,11 @@ class LocationUpdates : Service() {
     private lateinit var socket: Socket
     private lateinit var locationManager: LocationManager
     private val locationListener = LocationListener { location -> sendLocationToBackend(location) }
+    @RequiresApi(Build.VERSION_CODES.ECLAIR)
     override fun onCreate() {
         super.onCreate()
 
 
-        // Replace with your backend server URL
-        Log.e("id16" , "stop2121")
         val serverUrl = "http://ec2-15-206-68-121.ap-south-1.compute.amazonaws.com:8000/"
 
         try {
@@ -75,28 +76,13 @@ class LocationUpdates : Service() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         // Check if GPS_PROVIDER is available
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
-        } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        } else {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
-        }
-        else {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                8000,
-                0f,
-                locationListener
-            )
         }
     }
 
@@ -148,9 +134,6 @@ class ForeGroundLocationUpdates : Service() {
         super.onCreate()
 
 
-        // Replace with your backend server URL
-        Log.e("id1236", "service3")
-        Log.e("id16" , "stop2121")
         val serverUrl = "http://ec2-15-206-68-121.ap-south-1.compute.amazonaws.com:8000/"
 
         try {
@@ -189,28 +172,13 @@ class ForeGroundLocationUpdates : Service() {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return
         }
         // Check if GPS_PROVIDER is available
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
-        } else if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+        } else {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
-        }
-        else {
-            locationManager.requestLocationUpdates(
-                LocationManager.GPS_PROVIDER,
-                8000,
-                0f,
-                locationListener
-            )
         }
     }
     private fun sendLocationToBackend(location: Location) {

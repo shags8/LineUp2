@@ -73,7 +73,6 @@ class Leaderboard : Fragment() {
     private fun refreshLeaderboard() {
         swipeRefreshLayout.setOnRefreshListener {
             val fetchSuccess = dataFetch()
-            // Log.e("id123" , "$fetchSuccess")
             if (fetchSuccess) {
                 Toast.makeText(requireContext(), "LeaderBoard Refreshed!!", Toast.LENGTH_SHORT)
                     .show()

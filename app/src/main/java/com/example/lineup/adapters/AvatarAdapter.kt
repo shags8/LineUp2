@@ -12,14 +12,11 @@ class AvatarAdapter(private val images: IntArray) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             CharacterLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        Log.d("AvatarAdapter4", "Inflating CharacterLayoutBinding")
-        Log.d("AvatarAdapter6", "{$itemCount}")
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val imageId = images[position]
-        Log.d("AvatarAdapter5", "{$imageId}")
         holder.binding.avatarImg.setImageResource(imageId)
     }
 

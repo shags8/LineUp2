@@ -82,14 +82,10 @@ class SignUpActivity : AppCompatActivity() {
                      if (response.isSuccessful) {
                          val responseBody = response.body()
                          if (responseBody != null) {
-                             Log.e("id123", "$responseBody")
                              editor.putString("Token", responseBody.token)
                          }
                          editor.apply()
                          if (responseBody != null) {
-                             //  Log.e("id123", "$responseBody")
-                             Log.e("id123", "${responseBody.code}")
-                             Log.e("id123", responseBody.message)
                              if (responseBody.message == "Signup successful") {
                                  hideLoading()
                                  //  dismissLoadingDialog()
@@ -112,7 +108,6 @@ class SignUpActivity : AppCompatActivity() {
                              "Zeal Id is already registered",
                              Toast.LENGTH_SHORT
                          ).show()
-                         Log.e("id123", "${response.code()} - ${response.message()}")
 
                      }
                  }

@@ -53,9 +53,7 @@ class scanner : Fragment() {
 
         override fun barcodeResult(result: BarcodeResult) {
             barcodeView.pause()
-
-//            barcodeView.setStatusText(result.text)
-
+            
             val token = Code(result.text)
             scanQRCode(token)
         }
@@ -71,12 +69,8 @@ class scanner : Fragment() {
         val set = sharedPreferences.getStringSet("scannedQRSet", HashSet<String>())
 
         if (set!!.contains(qrCodeString)) {
-            Log.e("id1235", "Already scanned")
             popup("Oops! Duplicate Member")
         } else {
-            Log.e("id1235", "Added")
-         //   scanningEnabled = false
-//            message.text = "Member Found!"
             sendQRtoBackend(qrCode,qrCodeString,set)
         }
     }
@@ -89,13 +83,11 @@ class scanner : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id1236", retrievedValue)
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.scan(header, qrCode)
         call.enqueue(object : Callback<scanner> {
             override fun onResponse(call: Call<scanner>, response: Response<scanner>) {
                 val responseBody = response.body()
-                Log.e("id1238", "$responseBody")
                 if (responseBody != null) {
                     if (responseBody.message == "QR Code scanned successfully") {
                         popup("Member Found!")
@@ -143,7 +135,6 @@ class scanner : Fragment() {
         val view = inflater.inflate(R.layout.fragment_scanner, container, false)
 
         barcodeView = view.findViewById(R.id.barcode_scanner)
-        //Log.e("id1238","${set.size}")
 
         val formats = listOf(BarcodeFormat.QR_CODE, BarcodeFormat.CODE_39)
         barcodeView.barcodeView.decoderFactory = DefaultDecoderFactory(formats)
@@ -151,7 +142,7 @@ class scanner : Fragment() {
         barcodeView.decodeContinuous(callback)
         textViewTimer = view.findViewById<TextView>(R.id.timeleft)
         val targetDate = "2024-05-20"
-        val targetTime = "12:00:00"
+        val targetTime = "19:00:00"
         startCountdownToDateTime(targetDate, targetTime)
 
         return view

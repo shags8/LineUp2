@@ -53,10 +53,6 @@ class bottom_activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-//        if(!isLocationEnabled(this)){
-//            Toast.makeText(this,"Please enable location",Toast.LENGTH_SHORT).show()
-//        }
-
         val serviceIntent = Intent(this, DirectionService::class.java)
         startService(serviceIntent)
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -119,9 +115,6 @@ class bottom_activity : AppCompatActivity() {
         when (requestCode) {
             CAMERA_PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // Permission granted, start location-related task or request notifications
-                    // e.g., startLocationUpdates()
-                    // e.g., createNotificationChannel()
                 } else {
                     // Permission denied
                     if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {

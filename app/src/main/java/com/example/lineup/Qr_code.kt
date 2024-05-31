@@ -48,7 +48,6 @@ class Qr_code : Fragment() {
         sharedPreferences =
             requireActivity().getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
-        Log.e("id1236" , "$retrievedValue")
         val header = "Bearer $retrievedValue"
 
         progressbar.visibility=View.VISIBLE
@@ -57,9 +56,6 @@ class Qr_code : Fragment() {
             override fun onResponse(call: Call<qrCode>, response: Response<qrCode>) {
                 val multiFormatWriter = MultiFormatWriter()
                 val responseBody = response.body()
-                Log.e("id1235", header)
-                Log.e("id1235", "$responseBody")
-                Log.e("id1235", "$response")
                 try {
                     val multiFormatWriter = MultiFormatWriter()
                     val bitMatrix: BitMatrix = multiFormatWriter.encode(

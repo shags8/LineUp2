@@ -20,7 +20,6 @@ class RulesActivity : AppCompatActivity() {
         val name = sharedPreferences.getString("Name", "defaultValue")
         binding.username.text= "Hey $name"
         if (name != null) {
-            Log.e("id123",name)
         }
     }
 

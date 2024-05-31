@@ -67,7 +67,6 @@ class RouteFragment : Fragment() {
         val retrievedValue = sharedPreferences.getString("Token", "defaultValue") ?: "defaultValue"
         val header = "Bearer $retrievedValue"
         val call = RetrofitApi.apiInterface.getRoute(header)
-        Log.e("Id123434","ok1")
         call.enqueue(object : Callback<Route> {
             override fun onResponse(call: Call<Route>, response: Response<Route>) {
                 val responseBody = response.body()
@@ -76,7 +75,6 @@ class RouteFragment : Fragment() {
                         location(user.name, user.avatar, user.distance, user.direction)
                     }
                     // Update RadarView with the new route data
-                    Log.e("Id123434","ok2")
                     radarView.setUsers(users)
                 }
             }
