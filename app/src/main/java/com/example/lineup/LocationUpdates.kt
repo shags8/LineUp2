@@ -29,6 +29,7 @@ class LocationUpdates : Service() {
     private lateinit var socket: Socket
     private lateinit var locationManager: LocationManager
     private val locationListener = LocationListener { location -> sendLocationToBackend(location) }
+
     @RequiresApi(Build.VERSION_CODES.ECLAIR)
     override fun onCreate() {
         super.onCreate()
@@ -45,7 +46,7 @@ class LocationUpdates : Service() {
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            // Handle permission request if needed
+        // Handle permission request if needed
         requestLocationUpdates()
 
         // Create notification for foreground service
@@ -80,9 +81,19 @@ class LocationUpdates : Service() {
         }
         // Check if GPS_PROVIDER is available
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
         } else {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
         }
     }
 
@@ -145,7 +156,7 @@ class ForeGroundLocationUpdates : Service() {
 
         locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-            requestLocationUpdates()
+        requestLocationUpdates()
 
     }
 
@@ -176,11 +187,22 @@ class ForeGroundLocationUpdates : Service() {
         }
         // Check if GPS_PROVIDER is available
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 8000, 0f, locationListener)
+            locationManager.requestLocationUpdates(
+                LocationManager.GPS_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
         } else {
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 8000, 0f, locationListener)
+            locationManager.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER,
+                8000,
+                0f,
+                locationListener
+            )
         }
     }
+
     private fun sendLocationToBackend(location: Location) {
         val data = JSONObject()
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
