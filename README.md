@@ -37,7 +37,9 @@ Technologies used in the project:
 - Kotlin
 - Socket.IO
 - Retrofit
+- Location
 - FCM
+- QR Scanner
 
 
 
