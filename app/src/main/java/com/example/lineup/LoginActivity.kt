@@ -30,7 +30,6 @@ class LoginActivity : AppCompatActivity() {
         val loginbtn = binding.loginBtn
         sharedPreferences = getSharedPreferences("LineUpTokens", Context.MODE_PRIVATE)
 
-
     }
 
     fun LogIn(view: View){
