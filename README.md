@@ -36,7 +36,7 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 Technologies used in the project:
 - Kotlin
 - Socket.IO
-- Retrofit
+- Retrofit 2
 - Location
 - FCM
 - QR Scanner
