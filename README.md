@@ -4,17 +4,17 @@ Participate in an exciting challenge to ascend the leaderboard by scanning QR co
 
 ## 📷 Screenshots
 <div align="center">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/1.jpeg?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/2.jpeg?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/3.jpeg?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/4.jpeg?raw=true" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/1.jpeg?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/2.jpeg?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/3.jpeg?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/4.jpeg?raw=true" width="100" height="250">
 </div>
 <br>
 <div align="center">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/5.jpeg?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/6.jpeg?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/7.png?raw=true" width="100" height="200">
-  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/8.png?raw=true" width="100" height="200">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/5.jpeg?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/6.jpeg?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/7.png?raw=true" width="100" height="250">
+  <img src="https://github.com/phoenix-kanak/LineUp/blob/kanak/app/src/main/res/drawable/8.png?raw=true" width="100" height="250">
 </div>
 
 
