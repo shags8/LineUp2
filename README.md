@@ -49,6 +49,7 @@ Technologies used in the project:
     <td align="center"><a href="https://github.com/yyuvraj54"><img alt="" src="https://avatars.githubusercontent.com/yyuvraj54" width="100px;"><br><sub><b>Yuvraj </b></sub></a></td>
     <td align="center"><a href="https://github.com/Vaani-pathariya"><img alt="" src="https://avatars.githubusercontent.com/Vaani-pathariya" width="100px;"><br><sub><b>Vaani </b></sub></a></td>
     <td align="center"><a href="https://github.com/phoenix-kanak"><img alt="" src="https://avatars.githubusercontent.com/phoenix-kanak" width="100px;"><br><sub><b>Kanak </b></sub></a></td>
+    <td align="center"><a href="https://github.com/Agrawal-Ayush-009"><img alt="" src="https://avatars.githubusercontent.com/Agrawal-Ayush-009" width="100px;"><br><sub><b>Ayush </b></sub></a></td>
     <td align="center"><a href="https://github.com/thevedantgoyal"><img alt="" src="https://avatars.githubusercontent.com/thevedantgoyal" width="100px;"><br><sub><b>Vedant </b></sub></a></td>
    
   </tr>
